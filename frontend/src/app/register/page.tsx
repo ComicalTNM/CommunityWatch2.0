@@ -20,7 +20,7 @@ const Register: React.FC = () => {
       router.push('/login');
     } catch (err) {
         console.trace(err);
-      setError('Failed to register. Please try again.');
+       setError(err.response?.data?.message || 'Failed to register. Please try again.');
     }
   };
 
