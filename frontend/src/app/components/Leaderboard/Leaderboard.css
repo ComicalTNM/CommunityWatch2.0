@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Jost, sans-serif;
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
@@ -38,6 +38,7 @@ body {
     padding: 10px 0;
     background: #4A3D2E;
     gap: 10px;
+
   }
   
   .toggle-option {
@@ -45,6 +46,7 @@ body {
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: bold;
+    
   }
   
   .toggle-option:hover {
@@ -58,7 +60,7 @@ body {
     overflow-y: auto;
     max-height: 200px;
     flex-grow: 1;
-    color: black;
+    text-color: black;
   }
   
   .leaderboard-list::-webkit-scrollbar {
@@ -67,35 +69,55 @@ body {
   
   .leaderboard-list::-webkit-scrollbar-thumb {
     background: #342E26;
-    border-radius: 15px;
+    border-radius: 25px;
   }
   
-  .leaderboard-item {
-    color: black;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 15px;
-    border: 3.5px solid #4A3D2E;
-  }
+.leaderboard-item {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 40px 10px 15px;
+  border: 3.5px solid #4A3D2E;
+  position: relative; /
+  overflow: hidden; 
+}
+
+.leaderboard-item::before {
+  color: black;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%; 
+  height: 100%;
+  background: #5C5840;
+  transform-origin: top left;
+  z-index: 0; 
+}
   
+.leaderboard-item::after {
+  color: black;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0.005px;
+  width: 2%; 
+  height: 100%;
+  background: #5C5840;
+  transform-origin: top right;
+  z-index: 0; 
+}
   .leaderboard-item:nth-child(odd) {
     background: #B2AC88;
     
   }
   
   .leaderboard-item:last-child {
-    border-bottom: none;
+    border-bottom: 10px solid #4A3D2E;
   }
   
-  .leaderboard-rank {
+  .leaderboard-rank ,.leaderboard-name ,.leaderboard-score {
     font-weight: bold;
     color: #333;
   }
-  
-  .leaderboard-name {
-    color: #555;
-  }
-  
-  .leaderboard-score {
-    color: #666;
-  }
+
