@@ -1,0 +1,97 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .leaderboard-container {
+    width: 300px;
+    max-height: 400px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .leaderboard-header {
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .leaderboard-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    background: #f9f9f9;
+    gap: 10px;
+  }
+  
+  .toggle-option {
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  
+  .toggle-option:hover {
+    text-decoration: underline;
+  }
+  
+  .leaderboard-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 200px;
+    flex-grow: 1;
+  }
+  
+  .leaderboard-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .leaderboard-list::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 4px;
+  }
+  
+  .leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .leaderboard-item:nth-child(odd) {
+    background: #f9f9f9;
+  }
+  
+  .leaderboard-item:last-child {
+    border-bottom: none;
+  }
+  
+  .leaderboard-rank {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .leaderboard-name {
+    color: #555;
+  }
+  
+  .leaderboard-score {
+    color: #666;
+  }
