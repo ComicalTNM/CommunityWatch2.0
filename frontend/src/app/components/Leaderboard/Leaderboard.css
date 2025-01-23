@@ -10,9 +10,9 @@ body {
   }
   
   .leaderboard-container {
-    width: 300px;
-    max-height: 400px;
-    background: #ffffff;
+    width: 500px;
+    max-height: 200px;
+    background: #B2AC88;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@ body {
   }
   
   .leaderboard-header {
-    background: #4CAF50;
+    background: #4A3D2E;
     color: white;
     text-align: center;
     padding: 10px;
@@ -32,15 +32,16 @@ body {
   
   .leaderboard-toggle {
     display: flex;
+    color: white;
     justify-content: center;
     align-items: center;
     padding: 10px 0;
-    background: #f9f9f9;
+    background: #4A3D2E;
     gap: 10px;
   }
   
   .toggle-option {
-    color: #4CAF50;
+    color: white;
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: bold;
@@ -57,26 +58,29 @@ body {
     overflow-y: auto;
     max-height: 200px;
     flex-grow: 1;
+    color: black;
   }
   
   .leaderboard-list::-webkit-scrollbar {
-    width: 8px;
+    width: 3px;
   }
   
   .leaderboard-list::-webkit-scrollbar-thumb {
-    background: #4CAF50;
-    border-radius: 4px;
+    background: #342E26;
+    border-radius: 15px;
   }
   
   .leaderboard-item {
+    color: black;
     display: flex;
     justify-content: space-between;
     padding: 10px 15px;
-    border-bottom: 1px solid #e0e0e0;
+    border: 3.5px solid #4A3D2E;
   }
   
   .leaderboard-item:nth-child(odd) {
-    background: #f9f9f9;
+    background: #B2AC88;
+    
   }
   
   .leaderboard-item:last-child {
