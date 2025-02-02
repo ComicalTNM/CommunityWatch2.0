@@ -1,37 +1,29 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.IDK{
-  width: 300px;
-  height: 300px;
-  float: left;
+h3{
+    margin-top: -10%;
 }
-
 body {
   font-family: Jost, sans-serif;
-}
-
-.container {
-  width: 80%;
+    width: 80%;
   margin: 0 auto;
-}
-
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
 .card {
   width: 30%;
   background-color: #342E26;
-  padding: 20px;
+  padding: 0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 350px; /* Fixed height for consistency */
+  overflow: hidden;
+  position: relative;
 }
 
 .card:hover {
@@ -39,43 +31,115 @@ body {
 }
 
 .card-header {
+  height: 50%;
+  width: 100%; 
+  background-color: #686553;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 50%;
-  background-color: #686553;
+  justify-content: center;
+  padding: 10px;
   position: relative;
 }
 
-.header-content {
-  text-align: center;
+.card-bottom {
+  margin-top: auto; 
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: flex-end; }
+
+.photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  bottom: -35px; 
+  border: 3px solid #342E26; 
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 90px; 
 }
 
 .progress {
-  width: 100%;
+  width: 75%;
   background-color: #ecf0f1;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 10px;
+  align-self: center;
 }
 
 .progress-bar {
   height: 10px;
-  background-color: #3498db;
+  background-color: green;
+    margin-top: 5%;
 }
 
-.photo {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
-
-.delete-btn {
-  background-color: red;
+.see-more {
+  text-decoration: bold;
   color: white;
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-start; 
+  float: right;
+  align-self: flex-end;
+  letter-spacing: 1.5px;
+}
+
+.see-more:click{
+   transform: translateY(-10px);
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.request-type {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #3F5242;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15%;
+}
+
+.filter-box {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #3F5242;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 5%;
+}
+
+.filter-btn:hover {
+  background-color: #2980b9;
+}
+
+
+
+ /* Expanded View*/
+.delete-btn {
+  color: green;
+  text-decoration: bold;
   border: none;
   cursor: pointer;
   padding: 5px;
@@ -85,26 +149,30 @@ body {
   right: 10px;
 }
 
-.filters {
-    margin-bottom: 20px;
-}
-
-.filter-btn {
-      margin-bottom: 20px;
-    padding: 10px;
-    background-color: #3F5242;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-    border-radius: 5px;
-    float: left;
-}
-
-.filter-btn:hover {
-    background-color: #2980b9;
-}
-
 .delete-btn:hover {
-  background-color: darkred;
+  background-color: #3F5242;
+  color: white;
+  text-decoration: bold;
+}
+
+.title-ex {
+  font-weight: bold;
+}
+
+.organization-ex {
+  margin-top: 5px;
+}
+
+.dates-ex {
+  margin-top: 5px;
+}
+
+.expanded-card{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    transition: opacity 10.0s ease-in-out, visibility 10.0s ease-in-out;
 }
