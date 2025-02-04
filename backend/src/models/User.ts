@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 import { IUser } from '@shared/types';
 import bcrypt from 'bcrypt';
 
+//An interface to insure that any class that extends the IUserModel interface has the comparePassword function present with the exact same syntax.
 interface IUserModel extends IUser {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -17,6 +18,7 @@ const UserSchema: Schema = new Schema<IUserModel>({
   profilePicture: { type: String, required: false }
 }, { timestamps: true });
 
+//When the save function is called on a user object, the password is encrypted 
 UserSchema.pre<IUserModel>('save', async function(next) {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
@@ -24,6 +26,7 @@ UserSchema.pre<IUserModel>('save', async function(next) {
   next();
 });
 
+//Uses the bcrypt compare function to compare the two encrypted passwords to see if they are the same or not.
 UserSchema.methods.comparePassword = function(candidatePassword: string) {
   return bcrypt.compare(candidatePassword, this.password);
 };

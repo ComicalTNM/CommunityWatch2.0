@@ -10,6 +10,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
         // Ensure the email is unique
         const existingUser = await User.findOne({ email });
+        //If the email is already in the database, notify the user that the email is already in use.
         if (existingUser) {
             res.status(400).json({ message: 'Email already in use' });
             return;  // Early return to stop further execution
@@ -33,6 +34,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
         // Check if user exists
         const user = await User.findOne({ email });
+        //If the user's email is not found or the user's password is not the same as the one in the database, prevent them from logging in.
         if (!user || !(await user.comparePassword(password))) {
             res.status(401).json({ message: 'Invalid credentials' });
             return;  // Early return to stop further execution
