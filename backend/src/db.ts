@@ -7,8 +7,7 @@ import config from './config';
 const connectDB = async (): Promise<void> => {
     try {
         await mongoose.connect(process.env.MONGO_URI as string, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
+            //Add any needed connection options here
         });
         console.log('MongoDB connected successfully.');
     } catch (error) {

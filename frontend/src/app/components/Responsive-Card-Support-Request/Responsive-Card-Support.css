@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h3{
+    margin-top: -10%;
+}
+body {
+  font-family: Jost, sans-serif;
+    width: 80%;
+  margin: 0 auto;
+}
+
+.card {
+  width: 30%;
+  background-color: #342E26;
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 350px; /* Fixed height for consistency */
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-header {
+  height: 50%;
+  width: 100%; 
+  background-color: #686553;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+}
+
+.card-bottom {
+  margin-top: auto; 
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: flex-end; }
+
+.photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  position: absolute;
+  left: 10px;
+  bottom: -35px; 
+  border: 3px solid #342E26; 
+}
+
+.card-body {
+  flex-grow: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 90px; 
+}
+
+.progress {
+  width: 75%;
+  background-color: #ecf0f1;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: green;
+    margin-top: 5%;
+}
+
+.see-more {
+  text-decoration: bold;
+  color: white;
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-start; 
+  float: right;
+  align-self: flex-end;
+  letter-spacing: 1.5px;
+}
+
+.see-more:click{
+   transform: translateY(-10px);
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.request-type {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #3F5242;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15%;
+}
+
+.filter-box {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #3F5242;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 5%;
+}
+
+.filter-btn:hover {
+  background-color: #2980b9;
+}
+
+
+
+ /* Expanded View*/
+.delete-btn {
+  color: green;
+  text-decoration: bold;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.delete-btn:hover {
+  background-color: #3F5242;
+  color: white;
+  text-decoration: bold;
+}
+
+.title-ex {
+  font-weight: bold;
+}
+
+.organization-ex {
+  margin-top: 5px;
+}
+
+.dates-ex {
+  margin-top: 5px;
+}
+
+.expanded-card{
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  max-width: 1000px;
+  max-height: 4000px;
+  padding: 10px;
+  background-color: #B2AC88;
+}

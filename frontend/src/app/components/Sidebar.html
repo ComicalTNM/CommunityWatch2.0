@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Admin Page</title>
+        <link rel="Sidebarstylesheet" href="Sidebarstylesheet.css">
+    </head>
+    <body>
+        <h1 class="admin-title">Administration Page</h1>
+        <ul>
+            <li onclick="openSidebar('Roles')">Roles</li>
+            <li onclick="openSidebar('Metrics')">Metrics</li>
+            <li onclick="openSidebar('Calendar')">Calendar</li>
+            <li onclick="openSidebar('Payment')">Payment</li>
+
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar">
+                <span class="close-btn" onclick="closeSidebar()">&times;</span>
+                <h2 id="sidebar-title"></h2>
+                <p id="sidebar-content"></p>
+            </div>
+
+            <script src="Sidebar.js"></script>
+        </ul>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Requests</title>
+<link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css"   href="Responsive-Card-Support.css">
+</head>
+  
+<body>
+<div class="card">
+ <div class="card-header">
+      <h3>Support Request Event Title</h3>
+      <h4>Organization</h4>
+      <h5>Date</h5>
+      <p class="description">This is a description of the support  request.</p>
+      <div class="progress-bar" style="width: 80%;"></div>
+      <img src="photo.jpg" class="photo">
+      </div>
+          
+<div class="card-bottom">
+  <button class="request-type">Request Type</button>
+  <div class="filters">
+    <button class="filter-box">Filter 1</button>
+    <button class="filter-box">Filter 2</button>
+    <button class="filter-box">Filter 3</button>
+  </div>  
+  <p class="see-more" onclick="expandCard(this)">See More ></p>
+        </div>
+</div>
+
+
+  
+<div class="expanded-card" style="display: none;">
+    <p class="delete-btn" onclick="collapseCard(this)">X</p>
+    <img src="photo.jpg" class="photo">
+    <h1 class="title-ex">Title</h1>
+    <h2 class="organization-ex">Organization</h2>
+    <h4 class="date-ex">Date</h4>
+  
+    <div class="progress-ex">
+      <div class="progress-bar" style="width: 50%;"></div>
+    </div>
+  
+    <p class="description">This is a detailed description of the event.</p>
+    <p class="goals">Goals: Achieve XYZ milestones.</p>
+    <p class="location">Location: XYZ Venue</p>
+    <button class="support-btn">Support This Cause</button>
+  </div>
+  
+  </body>
+</html>
