@@ -39,7 +39,7 @@
     
             <label> Enter Password: </label> 
             <br  />
-            <input type="password" id="password" name="pasword" required>
+            <input type="password" id="password" name="password" required>
             
             <br  />
            
@@ -66,6 +66,12 @@
             document.getElementById('registrationForm').addEventListener('submit', async function(event) {
                 event.preventDefault(); //Prevents default form submission
 
+                //Fetch CSFR token first
+                const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token');
+                const csfrData = await csfrResponse.json();
+                console.log(csfrData);
+                const csfrToken = csfrData.csfrToken;
+
                 //Get the data from the form
                 const formData = {
                     username: document.getElementById('fName').value + ' ' + document.getElementById('lName').value,
@@ -75,10 +81,14 @@
                 };
 
                 try {
-                    const response = await fetch('http://localhost:5000/api/register', {
+                    const response = await fetch('http://localhost:5000/api/auth/register', {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(formData)
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-csrf-token': csfrToken
+                        },
+                        body: JSON.stringify(formData),
+                        credentials: 'include' //Ensures cookies are sent along with the request
                     });
 
                     const result = await response.json();
