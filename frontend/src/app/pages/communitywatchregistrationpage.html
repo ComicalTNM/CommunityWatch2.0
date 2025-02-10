@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        <form> 
+        <form id = "registrationForm"> 
             <label> First Name: </label> 
             <br  />
             <input type="text" id= "fName" name="fName" required>
@@ -61,6 +61,43 @@
 
 
         </form>
+
+        <script>
+            document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+                event.preventDefault(); //Prevents default form submission
+
+                //Get the data from the form
+                const formData = {
+                    username: document.getElementById('fName').value + ' ' + document.getElementById('lName').value,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                    organization: document.getElementById('organization').value
+                };
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/register', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                    if(response.ok)
+                    {
+                        alert('Registration Successful!');
+                    }
+                    else
+                    {
+                        alert('Error: ' + result.message);
+                    }
+                }
+                catch(error)
+                {
+                    console.error('Error:', error);
+                    alert('Something went wrong. Please try again.');
+                }            
+            });
+        </script>
 
     </body>
 
