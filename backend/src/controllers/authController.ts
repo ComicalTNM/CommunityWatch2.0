@@ -5,6 +5,9 @@ import { IUser } from '@shared/types'; // Assuming you have an IUser interface
 
 // Register a new user
 export const register = async (req: Request, res: Response): Promise<void> => {
+    console.log('Received CSRF Token:', req.headers['x-csrf-token']);
+    console.log('Received Cookies:', req.cookies);
+    console.log('Received Request Body:', req.body);
     try {
         const { username, email, password } = req.body;
 

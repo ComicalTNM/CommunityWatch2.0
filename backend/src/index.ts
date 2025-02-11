@@ -18,9 +18,15 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cookieParser());
 app.use(cors({
-  origin: process.env.PUBLIC_URL,
+  origin: 'http://localhost:3000',
   credentials: true
 }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, x-csrf-token');
+    next();
+});
 app.use(express.json());
 
 app.use('/api/posts', postRoutes);

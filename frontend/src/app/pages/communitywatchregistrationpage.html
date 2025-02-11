@@ -67,7 +67,9 @@
                 event.preventDefault(); //Prevents default form submission
 
                 //Fetch CSFR token first
-                const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token');
+                const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token', {
+                    credentials: 'include' //Ensures that the cookies are received
+                });
                 const csfrData = await csfrResponse.json();
                 console.log(csfrData);
                 const csfrToken = csfrData.csfrToken;
