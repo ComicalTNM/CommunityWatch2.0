@@ -45,7 +45,7 @@ function getNumber(env: string) {
 
 function init(): Config {
     return {
-        PORT: getNumber('BACKEND_PORT'),
+        PORT: getNumber('PORT'),
         MONGODB_URI: getString('MONGODB_URI'),
         CSRF_SECRET: getString('CSRF_SECRET'),
         JWT_SECRET: getString('JWT_SECRET'),

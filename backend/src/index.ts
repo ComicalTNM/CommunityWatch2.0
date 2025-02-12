@@ -8,16 +8,27 @@ import organizationRoutes from './routes/organizationRoutes';
 import profileRoutes from './routes/profilesRoutes';
 import authRoutes from './routes/authRoutes';
 import seedData from './seedData';
+import dotenv from 'dotenv';
+
+dotenv.config({path: './info.env'});
+console.log('Using MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
-const PORT = process.env.BACKEND_PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cookieParser());
 app.use(cors({
-  origin: process.env.PUBLIC_URL,
-  credentials: true,
+  origin: 'http://localhost:3000',
+  credentials: true
 }));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, x-csrf-token');
+    next();
+});
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/posts', postRoutes);
 app.use('/api/organizations', organizationRoutes)
