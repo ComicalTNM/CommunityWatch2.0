@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Dynamic Form</title>
+    <link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css" href="formcard.css">
+    <script defer src="formcard-admin.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h1 contenteditable="true" id="form-title">Event Form</h1>
+        <p contenteditable="true" id="form-description">Fill out this form to register for the event.</p>
+
+        <div id="form-fields">
+            <div class="form-group" data-type="text">
+                <label contenteditable="true">Text Entry</label>
+                <input type="text" placeholder="Enter text here...">
+            </div>
+
+            <div class="form-group" data-type="multiple-choice">
+                <label contenteditable="true">Multiple Choice</label>
+                <div class="options">
+                    <label><input type="radio" name="choice"> <span contenteditable="true">Option 1</span></label>
+                    <label><input type="radio" name="choice"> <span contenteditable="true">Option 2</span></label>
+                </div>
+                <button class="add-option">+ Add Option</button>
+            </div>
+
+            <div class="form-group" data-type="date">
+                <label contenteditable="true">Date Selection</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group" data-type="checklist">
+                <label contenteditable="true">Checklist Selection</label>
+                <div class="options">
+                    <label><input type="checkbox"> <span contenteditable="true">Item 1</span></label>
+                    <label><input type="checkbox"> <span contenteditable="true">Item 2</span></label>
+                </div>
+                <button class="add-option">+ Add Item</button>
+            </div>
+        </div>
+
+        <button id="add-question">+ Add Question</button>
+        <button id="save-form">Save Form</button>
+    </div>
+
+    <div id="question-popup" class="hidden">
+        <h2>Select Question Type</h2>
+        <button data-type="text">Text Entry</button>
+        <button data-type="multiple-choice">Multiple Choice</button>
+        <button data-type="date">Date Selection</button>
+        <button data-type="checklist">Checklist</button>
+        <button id="close-popup">Close</button>
+    </div>
+</body>
+</html>
