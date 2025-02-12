@@ -9,8 +9,9 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
     getSecret: () => process.env.CSRF_SECRET || crypto.randomBytes(64).toString('hex'),
     getTokenFromRequest: (req) => {
         console.log('Received CSRF Token:', req.headers['x-csrf-token']);
+        console.log('Received CSRF Token from Cookies:', req.cookies['x-csrf-token']);
         console.log('Cookies:', req.cookies); //Checks to see if the cookie is set
-        return req.headers['x-csrf-token'] || req.cookies['x-csrf-token'];
+        return req.cookies['x-csrf-token'] || req.headers['x-csrf-token'];
     },
     cookieName: 'x-csrf-token',
     cookieOptions: {
@@ -19,8 +20,6 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
     }
 });
 
-// For all routes, protect it with double csrf-protection.
-//router.use(doubleCsrfProtection);
 
 // Route to get CSRF token
 router.get('/csrf-token', (req, res) => {
