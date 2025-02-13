@@ -37,7 +37,7 @@
 
         <br/> 
 
-        <input type="button" id="submit" value="Submit" onclick="loginCheck(), passCheck()">
+        <input type="button" id="submit" value="Submit">
 
     </form> 
     </div> 
@@ -50,39 +50,48 @@
 
     <script> 
 
-    function loginCheck() {
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); //Prevents default form submission
 
+        //Fetch the csrf token so the request gets sent through correctly
+        const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token', {
+                    credentials: 'include' //Ensures that the cookies are received
+        });
 
-    var uInput = document.getElementById("email").value;
-    var uRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/; 
-    if (uRegex.test(uInput)){
-        alert("Email Valid");
-    } else{
-        alert("Email NOT valid!");
-    }
-}
+        //Read the csrf token from the cookies
+        const csrfToken = document.cookie.split('; ').find(row=>row.startsWith('x-csrf-token='))?.split('=')[1]; 
+        /*
+            Splits the cookies with a semicolon delimiter, then searches for the row in the cookie list that starts with 'x-csrf-token=', and if it finds that row, spilts the
+            contents of that row with a equal sign delimiter and gets the first index of the newly formed array, which should be the actual csrf token itself.
+        */
+        if(!csrfToken)
+        {
+            alert('CSRF Token is missing!');
+        }
 
-function passCheck(){
-    
-    /* 
-    PASSWORD
-    least 1 uppercase character, 1 lowercase character, 1 number and 
-    1 special character AND longer than 8 characters
-    */
+        //Get the email and password from the form
+        const formData = {
+            email: doucment.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
 
-    var pw1 = document.getElementById("password").value;
-    var pw1Regex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{}|;:',.<>?])[A-Za-z\d!@#$%^&*()_+[\]{}|;:',.<>?]{9,}$/;
+        try{
+            const response = await fetch('http://localhost:5000/api/auth/register', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': csrfToken
+                },
+                credentials: 'include'
+            })
+        }
+        catch(error){
 
-    if(pw1Regex.test(pw1)){
-        alert("Password is good to go!");
+        }
 
-    } else{
-        alert ("Password is NOT valid. Password must have at least 1 uppercase character, 1 lowercase character, 1 number, 1 special character AND longer than 8 characters")
-    }
+    });
 
-}
-
-        </script>
+    </script>
         
 </body>
 </html>
