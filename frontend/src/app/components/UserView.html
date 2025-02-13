@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .role-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .role-button:hover {
+            background-color: #0056b3;
+        }
+        section {
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px); /* Move the section slightly up */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add more shadow on hover */
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .section-content {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .section-photo {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .section-description {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>User View</h1>
+        <p>Welcome, <span id="user-name">User's Name</span></p>
+        <button class="role-button" id="roleButton">Role: User</button>
+    </header>
+
+    <!-- Organization Sections -->
+    <section>
+        <div class="section-title">Organization 1</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the first organization. It provides various services and products to its customers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">Organization 2</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the second organization. It focuses on community development and public welfare.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title">Organization 3</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the third organization. It is involved in tech innovation and research.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
