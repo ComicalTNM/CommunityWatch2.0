@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
+<link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css"   href="SearchPage.css">
+<script defer src="SearchPage.js"></script>
+</head>
+  
+<body>
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search...">
+        <button id="search-button">Search</button>
+    </div>
+    
+    <button id="toggle-filters">Toggle Filters</button>
+    <div class="filters" id="filters">
+        <label><input type="checkbox" name="filter" value="Location"> Location</label>
+        <label><input type="checkbox" name="filter" value="Date"> Date</label>
+        <label><input type="checkbox" name="filter" value="Volunteers"> Volunteers</label>
+        <label><input type="checkbox" name="filter" value="Donations"> Donations</label>
+        <label><input type="checkbox" name="filter" value="Religious"> Religious</label>
+        <label><input type="checkbox" name="filter" value="Academic"> Academic</label>
+        <label><input type="checkbox" name="filter" value="Environmental"> Environmental</label>
+        <label><input type="checkbox" name="filter" value="Wellness"> Wellness</label>
+        <label><input type="checkbox" name="filter" value="Advocacy"> Advocacy</label>
+        <label><input type="checkbox" name="filter" value="Cultural"> Cultural</label>
+        <label><input type="checkbox" name="filter" value="Development"> Development</label>
+        <label><input type="checkbox" name="filter" value="Youth"> Youth</label>
+        <label><input type="checkbox" name="filter" value="Community"> Community</label>
+        <label><input type="checkbox" name="filter" value="Veterans"> Veterans</label>
+        <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
+        <button id="clear-filters">Clear Filters</button>
+    </div>
+    
+  <div class="results-container">
+    <iframe id="resultsFrame" src="frontend\src\app\components\Responsive-Card-Support-Request\Responsive-Card-Support.html" class="results-iframe"></iframe>
+</div>
+
+        </div>
+    </div>
+</body>
+</html>
