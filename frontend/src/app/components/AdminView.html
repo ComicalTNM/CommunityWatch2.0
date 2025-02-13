@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .dropdown {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .dropdown:hover {
+            background-color: #0056b3;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        section {
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .section-content {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .section-photo {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .section-description {
+            flex: 1;
+        }
+        .edit-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Admin View</h1>
+        <p>Welcome, <span id="user-name">Admin's Name</span></p>
+        <div class="dropdown">
+            Role: Admin
+            <div class="dropdown-content">
+                <a href="#">Role: User</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Organization Sections -->
+    <section>
+        <div class="section-title">Organization 1</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the first organization. It provides various services and products to its customers.</p>
+            </div>
+        </div>
+        <button class="edit-button">Edit</button>
+    </section>
+
+    <section>
+        <div class="section-title">Organization 2</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the second organization. It focuses on community development and public welfare.</p>
+            </div>
+        </div>
+        <button class="edit-button">Edit</button>
+    </section>
+
+    <section>
+        <div class="section-title">Organization 3</div>
+        <div class="section-content">
+            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <div class="section-description">
+                <p>This is a description of the third organization. It is involved in tech innovation and research.</p>
+            </div>
+        </div>
+        <button class="edit-button">Edit</button>
+    </section>
+
+</body>
+</html>

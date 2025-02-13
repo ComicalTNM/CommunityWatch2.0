@@ -20,7 +20,6 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
     }
 });
 
-
 // Route to get CSRF token
 router.get('/csrf-token', (req, res) => {
     const csrfToken = generateToken(req, res);
