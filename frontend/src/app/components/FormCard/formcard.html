@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form Component</title>
+    <link rel="stylesheet" href="https://indestructibletype.com/fonts/Jost.css" href="formcard.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1 id="form-title">Event Form</h1>
+        <p id="form-description">Fill out this form to register for the event.</p>
+        
+        <label for="text-entry">Text Entry</label>
+        <input type="text" id="text-entry" placeholder="Enter text here...">
+        
+        <label>Multiple Choice</label>
+        <div class="multiple-choice">
+            <label><input type="radio" name="choice" value="option1"> Option 1</label>
+            <label><input type="radio" name="choice" value="option2"> Option 2</label>
+        </div>
+        
+        <label for="date-selection">Date Selection</label>
+        <input type="date" id="date-selection">
+        
+        <label>Checklist Selection</label>
+        <div class="checklist">
+            <label><input type="checkbox" value="item1"> Item 1</label>
+            <label><input type="checkbox" value="item2"> Item 2</label>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
