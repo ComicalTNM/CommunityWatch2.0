@@ -2,7 +2,6 @@ import { Request, Response } from 'express';  // Importing Request and Response 
 import jwt from 'jsonwebtoken';
 import User from '../models/User';  // Assuming your User model is in this location
 import { IUser } from '@shared/types'; // Assuming you have an IUser interface
-import bcrypt from 'bcrypt';
 
 // Register a new user
 export const register = async (req: Request, res: Response): Promise<void> => {
