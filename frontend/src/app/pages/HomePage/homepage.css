@@ -1,0 +1,74 @@
+ /* Carousel container */
+ .carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Carousel wrapper for scrolling */
+.carousel-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * 5); /* 5 iframes */
+}
+
+/* Individual iframe container */
+.iframe-wrapper {
+    flex: 0 0 33.33%; /* Shows 3 at a time */
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevents scrollbars */
+    display: flex;
+    align-items: center; /* Centers iframe content */
+    justify-content: center;
+}
+
+/* Styling the specific iframe #resultsFrame */
+#resultsFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    overflow: hidden;
+    scrolling: no;
+}
+
+/* Navigation buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+/* Prevent iframe scrollbars */
+.results-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    overflow: hidden;
+    scrolling: no;
+}

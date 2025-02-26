@@ -74,14 +74,12 @@ body {
 }
 
 .results-container {
-    display: flex;
     justify-content: center;
-    margin-top: 20px;
-    display: none; 
+
 }
 
 .carousel {
-    width: 80%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -90,12 +88,3 @@ body {
     transition: transform 0.5s ease;
 }
 
-.result-card {
-    min-width: 30%;
-    margin: 10px;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    text-align: center;
-}
