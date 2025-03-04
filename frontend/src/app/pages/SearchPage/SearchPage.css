@@ -1,4 +1,21 @@
 
+.results-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    gap: 10px; /* Space between iframes */
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.results-iframe {
+    width: 50%; 
+    height: 50%; 
+    border: none;
+}
+
 body {
     margin: 0;
     padding: 20px;
