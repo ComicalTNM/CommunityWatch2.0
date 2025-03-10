@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login } from '../controllers/authController';
+import { register, login, resetPassword } from '../controllers/authController';
 import { doubleCsrf } from 'csrf-csrf';
 import crypto from 'crypto';
 
@@ -20,7 +20,6 @@ const { generateToken, doubleCsrfProtection } = doubleCsrf({
     }
 });
 
-
 // Route to get CSRF token
 router.get('/csrf-token', (req, res) => {
     const csrfToken = generateToken(req, res);
@@ -36,5 +35,6 @@ router.get('/csrf-token', (req, res) => {
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/reset-password', resetPassword);
 
 export default router;

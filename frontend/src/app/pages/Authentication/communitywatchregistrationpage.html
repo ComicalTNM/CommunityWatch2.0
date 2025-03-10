@@ -63,8 +63,45 @@
         </form>
 
         <script>
+            function loginCheck() {
+                var uInput = document.getElementById("email").value;
+                var uRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/; 
+                if (uRegex.test(uInput)){
+                    alert("Email Valid");
+                    return true;
+                } 
+                else{
+                    alert("Email NOT valid!");
+                    return false;
+                }
+            }
+            function passCheck(){
+    
+                /* 
+                PASSWORD
+                least 1 uppercase character, 1 lowercase character, 1 number and 
+                1 special character AND longer than 8 characters
+                */
+
+                var pw1 = document.getElementById("password").value;
+                var pw1Regex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{}|;:',.<>?])[A-Za-z\d!@#$%^&*()_+[\]{}|;:',.<>?]{9,}$/;
+                if(pw1Regex.test(pw1)){
+                    alert("Password is good to go!");
+                    return true;
+                }
+                else{
+                    alert ("Password is NOT valid. Password must have at least 1 uppercase character, 1 lowercase character, 1 number, 1 special character AND longer than 8 characters")
+                    return false;
+                }
+            }
             document.getElementById('registrationForm').addEventListener('submit', async function(event) {
                 event.preventDefault(); //Prevents default form submission
+
+                //Run validations and stop if either fails
+                if(!loginCheck() || !passCheck())
+                {
+                    return; //Exit the function early if validation fails.
+                }
 
                 //Fetch CSFR token first
                 const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token', {
@@ -80,6 +117,7 @@
                if(!csrfToken)
                {
                  alert('CSRF Token is missing!');
+                 return;
                }
 
                 //Get the data from the form

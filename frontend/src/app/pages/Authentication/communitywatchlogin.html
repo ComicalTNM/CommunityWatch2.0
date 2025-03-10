@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title> Community Watch Log In</title>
+
+    <style>
+        body{
+            background-color:#B2AC88;
+        }
+
+        .search{
+            text-align: center;
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    
+    <div>
+    <form id = "loginForm">
+        <h2> Community Watch Log In for Users </h2>
+
+
+        <label> Enter Email: </label> 
+        <input type="text" id= "email" size="20" required>
+
+        <br/>
+
+        <label> Enter Password: </label> 
+        <input type="password" id="password" size="20" required>
+
+        <br/> 
+
+        <button type="submit"> Log in </button>
+
+    </form> 
+    </div> 
+    <a href="/pages/communitywatchrecoverypage.html">Forgot Password?</a>
+    
+    <br/>
+
+
+    <!--JAVASCRIPT -->
+
+    <script> 
+
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); //Prevents default form submission
+        try{
+            //Fetch the csrf token so the request gets sent through correctly
+            const csfrResponse = await fetch('http://localhost:5000/api/auth/csrf-token', {
+                credentials: 'include' //Ensures that the cookies are received
+            });
+
+            //Read the csrf token from the cookies
+            const csrfToken = document.cookie.split('; ').find(row=>row.startsWith('x-csrf-token='))?.split('=')[1]; 
+            /*
+                Splits the cookies with a semicolon delimiter, then searches for the row in the cookie list that starts with 'x-csrf-token=', and if it finds that row, spilts the
+                contents of that row with a equal sign delimiter and gets the first index of the newly formed array, which should be the actual csrf token itself.
+            */
+            if(!csrfToken)
+            {
+                alert('CSRF Token is missing!');
+                return; //Stop execution is CSRF Token is missing
+            }
+
+            //Get the email and password from the form
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+        
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-csrf-token': csrfToken
+                },
+                body: JSON.stringify(formData), // Send form data in the request body
+                credentials: 'include' //Insures cookies are sent/received.
+            })
+
+            const result = await response.json();
+
+            if(response.ok)
+            {
+                alert('Login Successful!');
+                console.log('User:', result.user);
+
+                //Store JWT in localStorage or sessionStorage (if needed)
+                localStorage.setItem('token', result.token);
+
+                //Redirect to another page (dashboard, home, etc.)
+                window.location.href = "/pages/communtiywatchhomepage.html";
+            }
+            else {
+                alert('Error: ' + result.message);
+            }
+        }
+        catch(error){
+            console.error('Login failed:', error);
+            alert('Something went wrong. Please try again.')
+        }
+
+    });
+
+    </script>
+        
+</body>
+</html>

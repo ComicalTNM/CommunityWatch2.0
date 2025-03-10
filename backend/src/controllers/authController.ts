@@ -61,3 +61,28 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         res.status(500).json({ message: "Login failed", error: error instanceof Error ? error.message : 'Unknown error' });
     }
 };
+
+// Reset password functionality
+export const resetPassword =  async(req: Request, res: Response): Promise<void> => {
+    try{
+        const {email, newPassword} = req.body;
+        
+        //Find user by email
+        const user = await User.findOne({email});
+        if(!user)
+        {
+            res.status(404).json({message: "User not found."});
+            return;
+        }
+
+        //Update the password, the password should be hashed when the save function is called.
+        user.password = newPassword;
+        await user.save();
+
+        res.status(200).json({message: "Password successfully reset."})
+    }
+    catch (error){
+        console.error("Reset Password Error:", error);
+        res.status(500).json({message: "Internal server error."});
+    }
+}
