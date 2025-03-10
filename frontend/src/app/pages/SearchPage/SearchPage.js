@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsContainer = document.querySelector(".results-container");
     const filterLabels = document.querySelectorAll(".filters label");
 
-    
+    const clearFiltersButton = document.getElementById("clear-filters");
+clearFiltersButton.addEventListener("click", function () {
+    document.querySelectorAll(".filters input[type='checkbox']").forEach(checkbox => {
+        checkbox.checked = false;
+    });
+});
+
     
     document.addEventListener("DOMContentLoaded", function () {
         const iframe = document.getElementById("resultsFrame");

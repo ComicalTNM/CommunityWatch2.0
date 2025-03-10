@@ -1,107 +1,49 @@
-
-.results-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 columns */
-    grid-template-rows: repeat(3, 1fr); /* 3 rows */
-    gap: 10px; /* Space between iframes */
-    width: 100vw;
-    height: 100vh;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.results-iframe {
-    width: 50%; 
-    height: 50%; 
-    border: none;
-}
-
 body {
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-}
-
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#search-bar {
-    width: 400px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    font-family: 'Jost', sans-serif;
+    background-color: #B2AC88;
+    color: #B2AC88;
     text-align: center;
 }
-
-#search-button {
-    padding: 10px;
-    margin-left: 10px;
-    background-color: #007BFF;
-    color: white;
+.search-bar {
+    margin: 20px;
+    background: none;
     border: none;
-    border-radius: 5px;
+    background-color: #B2AC88;
     cursor: pointer;
+    text-decoration: none;
+}
+#toggle-filters
+{
+    background: none;
+    border: none;
+    color: #342E26;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-#toggle-filters {
-    display: block;
-    margin: 0 auto 10px;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
+#clear-filters {
+    background: none;
     border: none;
-    border-radius: 5px;
+    color: #B2AC88;
     cursor: pointer;
+    text-decoration: none;
 }
-
+#toggle-filters:hover, #clear-filters:hover {
+    text-decoration: underline;
+}
 .filters {
     display: none;
-    flex-wrap: wrap;
-    justify-content: center;
+    background-color: #342E26;
     padding: 10px;
-    background-color: white;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
 }
-
-.filters label {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px;
-    background-color: #98A886;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    user-select: none;
-}
-
-.filters label input {
-    display: none;
-}
-
-.filters label.selected {
-    background-color: #6B8E23;
-}
-
 .results-container {
-    justify-content: center;
-
+    display: none;
+    margin-top: 20px;
 }
-
-.carousel {
-    width: 100%;
-    overflow: hidden;
+.results-iframe {
+    width: 30%;
+    height: 200px;
+    margin: 10px;
+    border: none;
 }
-
-.carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
