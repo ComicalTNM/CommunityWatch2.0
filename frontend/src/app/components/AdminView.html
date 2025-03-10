@@ -84,7 +84,8 @@
             flex: 1;
         }
         .edit-button {
-            padding: 5px 10px;
+            padding: 10px 20px;
+            width: 20% ;
             background-color: #28a745;
             color: white;
             border: none;
@@ -94,6 +95,97 @@
         .edit-button:hover {
             background-color: #218838;
         }
+
+        /* Styling for buttons to make them appear vertically */
+        section button {
+            display: block; /* Makes buttons appear vertically */
+            width: 20%;    /* Makes buttons take full width */
+            padding: 10px;
+            margin: 5px 0;  /* Adds space between the buttons */
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Optional: Add some background color and borders to buttons */
+        button {
+            background-color: #969b9b; /* Green background */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Change button color on hover */
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .remove-member:hover {
+            background-color: #f44336;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar-content {
+            margin-top: 30px;
+        }
+
+        /* Container for label and input fields */
+        .sidebar .form-row {
+            display: flex; /* Use flexbox to arrange label and input horizontally */
+            align-items: center; /* Vertically center the label and input */
+            margin-bottom: 15px; /* Adds space between each row */
+        }
+
+        /* Styling the labels */
+        .sidebar label {
+            width: 120px; /* Fixed width for the label */
+            margin-right: 10px; /* Space between the label and input field */
+            font-size: 16px;
+        }
+
+        /* Styling the input fields and text areas */
+        .sidebar input, .sidebar textarea {
+            flex: 1; /* The input fields will take the remaining space */
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Style for buttons */
+        .sidebar button {
+            display: block;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #b2bbb2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #2ea33c;
+        }
+
+        /* Close button styling */
+        .close-btn:hover {
+            background-color: #f44336 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -119,9 +211,61 @@
                 <p>This is the description of our organization. It provides various services and products to its customers.</p>
             </div>
         </div>
-        <button class="edit-button">Edit</button>
+        <button class="edit-button" onclick="openOrganizationSidebar()">Edit</button>
     </section>
 
+    <!-- Sidebar for editing (Initially Hidden) -->
+    <div id="organization-sidebar" class="sidebar" style="display: none;">
+        <div class="sidebar-content">
+            <h2>Edit Organization</h2>
+            
+            <!-- Wrap each label/input pair in a form-row -->
+            <div class="form-row">
+                <label for="new-title">Change Title:</label>
+                <input type="text" id="new-title" placeholder="Enter new title">
+            </div>
 
+            <div class="form-row">
+                <label for="new-photo">Change Photo URL:</label>
+                <input type="text" id="new-photo" placeholder="Enter photo URL">
+            </div>
+
+            <div class="form-row">
+                <label for="new-description">Change Description:</label>
+                <textarea id="new-description" placeholder="Enter new description"></textarea>
+            </div>
+
+            <button onclick="submitChanges()">Submit Changes</button>
+            <button onclick="closeOrganizationSidebar()" class="close-btn">Close</button>
+        </div>
+    </div>
+    <!--Metrics-->
+    <section>
+        <div class="section-title">Organization Metrics</div>
+        <br>
+        <button class="view-particpation"> View Community Particpation</button>
+        <button class="particpation-timeline"> Event Particpation Timeline</button>
+        <button class="event-graphs"> Event Completion Graphs</button>
+    </section>
+
+    <!--Members-->
+    <section>
+        <div class="section-title">Members</div>
+        <br>
+        <button class="remove-member"> Remove Members</button>
+        <button class="add-member" href=""> Add Member</button>
+        <button class="alter-role"> Alter Member Role</button>
+        <button class="edit-member" href=""> View & Edit Member</button>
+    </section>
+    <!--Event-->
+    <section>
+        <div class="section-title">Event Request</div>
+        <br>
+        <button class="add-event"> Add Event</button>
+        <button class="remove-event"> Remove Event</button>
+        <button class="edit-event" href=""> Edit Event</button>
+    </section>
+
+    <script src="AdminView.js"></script> <!-- Loads script -->
 </body>
 </html>

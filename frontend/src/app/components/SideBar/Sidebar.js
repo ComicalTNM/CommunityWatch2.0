@@ -10,10 +10,8 @@ function openSidebar(section) {
     var title = document.getElementById("sidebar-title");
     var content = document.getElementById("sidebar-content");
     var calendar = document.getElementById("calendar-container");
-    var donations = document.getElementById("donations-container"); // Add this line to define `donations` container
+    var donations = document.getElementById("donations-container");
 
-    //Print statement
-    console.log(document.getElementById("donateButton"));
     // Set the title and content dynamically
     title.textContent = section;
     content.textContent = "Content for " + section;
@@ -24,7 +22,7 @@ function openSidebar(section) {
     // Hide calendar by default
     calendar.style.display = "none";
     if (donations) {
-        donations.style.display = "none"; // Ensure donations section is hidden
+        donations.style.display = "none";
     }
 
     // Add the appropriate class based on the section
@@ -32,23 +30,30 @@ function openSidebar(section) {
         sidebar.classList.add("roles");
     } else if (section === "Metrics") {
         sidebar.classList.add("metrics");
-    } else if (section === "donations") {
+    } else if (section === "Donations") {
         sidebar.classList.add("donations");
         if (donations) {
             donations.style.display = "block"; // Show donations UI
-            content.innerHTML =
-             `  <br>
-                <p>Click below to proceed with donations.</p>
+            content.innerHTML = `
+                <br>
+                <p>Click below to view all donations.</p>
+                <br>
                 <button id="donateButton">View Donations</button>
             `;
+            // Attach event listener after button is added
+            const donateButton = document.getElementById("donateButton");
+            if (donateButton) {
+                donateButton.addEventListener("click", function() {
+                    console.log("Donate button clicked!");
+                });
+            }
         }
     } else if (section === "Calendar") {
         sidebar.classList.add("calendar");
-        calendar.style.display = "block"; // Show the calendar when "Calendar" is clicked
-        generateCalendar(); // ✅ Ensure calendar is refreshed properly
+        calendar.style.display = "block";
+        generateCalendar();
     }
 
-    // Show the sidebar
     sidebar.classList.add("active");
 }
 
@@ -56,24 +61,7 @@ function closeSidebar() {
     document.getElementById("sidebar").classList.remove("active");
 }
 
-//Added code
-document.addEventListener("DOMContentLoaded", function() {
-    const donateButton = document.getElementById("donateButton");
 
-    if (donateButton) {
-        donateButton.addEventListener("click", function() {
-            // Your event handler code here
-        });
-    } else {
-        console.warn("donateButton element not found");
-    }
-});
-
-document.getElementById("sidebar").addEventListener("click", function(event) {
-    if (event.target && event.target.id === "donateButton") {
-        // Handle the click event for the donate button
-    }
-});
 
 
 // ✅ Attach Calendar Event Listeners Once
