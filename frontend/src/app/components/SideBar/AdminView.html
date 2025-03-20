@@ -21,42 +21,61 @@
         header h1 {
             margin: 0;
         }
-        .dropdown {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .dropdown:hover {
-            background-color: #0056b3;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 20px;
-            background-color: #f9f9f9;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
+        /*Dropdown Styling*/
+                /* Dropdown container */
+                .dropdown {
+    position: absolute;
+    top: 10px;
+    right: 40px; /* Aligns to the top-right corner */
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropdown button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.dropdown button:hover {
+    background-color: #0056b3;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 150px;
+    border-radius: 5px;
+}
+
+/* Dropdown content links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+        /*Section Styling*/
         section {
             padding: 20px;
             margin: 10px;
@@ -194,15 +213,15 @@
     <header>
         <h1>Admin View</h1>
         <p>Welcome, <span id="user-name">Admin's Name</span></p>
+
         <div class="dropdown">
-            Role: Admin
+            <button>Roles</button>
             <div class="dropdown-content">
-                <a href="#">Role: User</a>
+                <a href="#">Role: Admin</a>
+                <a href="UserView.html">Role: User</a>
             </div>
         </div>
-        <a href="Sidebar.html" class="goback-btn">
-            <button>Go Back</button>
-        </a>
+            <button onclick= "location.href='Sidebar.html'" class="goback-btn">Go Back</button>
     </header>
 
     <!-- Organization Sections -->
