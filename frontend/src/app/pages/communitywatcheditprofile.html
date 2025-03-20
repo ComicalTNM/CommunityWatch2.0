@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Community Watch Profile Settings </title>
+        <h1> Settings - Edit Profile </h1>
+
+    </head>
+
+    <body>
+
+        <form action="upload.php">
+            <label for="profile-pic">Profile Picture:</label>
+            <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
+            <br  />
+            <button type="submit">Upload</button>
+        </form>
+
+        <form>
+            <br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <br>
+
+            <label for="Role">Role:</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+
+                        
+            <table>
+                <tr>
+                <th> Organizations </th>    
+                <th> Description </th>  
+                </tr>
+
+                <tr>
+                <td> Habitat for Humanity </td>
+                <td> Habitat Greensboro works toward our vision of a world where everyone has a safe and affordable place to live. Habitat homeowners help build their own homes alongside volunteers and pay an affordable mortgage </td>
+                </tr>
+
+            </table>
+
+                        
+            <button type="submit">Save Changes</button>
+        </form>
+    </body>
+
+</html>
