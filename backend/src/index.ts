@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import postRoutes from './routes/postRoutes';
-import organizationRoutes from './routes/organizationRoutes';
+import organizationRoutes from './routes/organizations';
 import profileRoutes from './routes/profilesRoutes';
 import authRoutes from './routes/authRoutes';
 import seedData from './seedData';

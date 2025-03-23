@@ -70,7 +70,7 @@ const seedData = async () => {
           instagram: "https://instagram.com/greenearth",
           linkedin: "https://linkedin.com/company/greenearth"
         },
-        causes: ["Environment", "Sustainability", "Conservation"],
+        causes: ["Environmental", "Advocacy", "Development"],
         foundedYear: 2010
       },
       {
@@ -91,7 +91,7 @@ const seedData = async () => {
           instagram: "https://instagram.com/helpinghands",
           linkedin: "https://linkedin.com/company/helpinghands"
         },
-        causes: ["Homelessness", "Poverty", "Community Support"],
+        causes: ["Wellness", "Development", "Community"],
         foundedYear: 2005
       }
     ];
