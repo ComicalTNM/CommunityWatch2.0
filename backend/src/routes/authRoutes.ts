@@ -38,3 +38,4 @@ router.post('/login', login);
 router.post('/reset-password', resetPassword);
 
 export default router;
+console.log("Authentication Routes File Loaded");

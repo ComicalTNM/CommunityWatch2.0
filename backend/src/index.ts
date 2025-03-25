@@ -30,10 +30,31 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 
+console.log("Checking Organization Router: ", organizationRoutes.stack.map((layer) => layer.route?.path));
 app.use('/api/posts', postRoutes);
-app.use('/api/organizations', organizationRoutes)
-app.use('/api/profiles/public', profileRoutes)
+app.use('/api/organizations', organizationRoutes);
+app.use('/api/profiles/public', profileRoutes);
 app.use('/api/auth', authRoutes);
+
+console.log("Registered Routes in Express:");
+app._router.stack.forEach((middleware: any) => {
+  if(middleware.route)
+  {
+    //Directly registered route
+    console.log(`${Object.keys(middleware.route.methods).join(',').toUpperCase()} - ${middleware.route.path}`);
+  }
+  else if(middleware.name === "router" && middleware.handle.stack)
+  {
+      //Mounted Routers (e.g. /api/organizations)
+      const basePath = middleware.regxp ? middleware.regxp.source.replace("^\\", "").replace("\\/?(?=\\/|$)", "") : ""; //Extracts the base path
+      middleware.handle.stack.forEach((layer: any) => {
+      if(layer.route)
+      {
+        console.log(`${Object.keys(layer.route.methods).join(',').toUpperCase()} - ${basePath}${layer.route.path}`);
+      }
+    });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('Hello, TypeScript Express!');
@@ -66,5 +87,12 @@ mongoose.connect(process.env.MONGODB_URI as string)
     console.error('Error connecting to MongoDB:', error);
   });
 
+  //Test to see if the organizations route is present
+  app._router.stack.forEach((r:any) => {
+    if(r.route && r.route.path)
+    {
+      console.log(r.route.path);
+    }
+  });
 
 export default app;

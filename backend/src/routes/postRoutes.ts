@@ -12,3 +12,4 @@ router.get('/organization/:organizationID', getPostsByOrganizationId);
 // router.delete('/:id', deletePost);
 
 export default router;
+console.log("Post Routes File Loaded");

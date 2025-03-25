@@ -8,3 +8,4 @@ router.get('/:id', getOrganizationProfile);
 // router.delete('/:id', deletePost);
 
 export default router;
+console.log("Profile Routes File Loaded");

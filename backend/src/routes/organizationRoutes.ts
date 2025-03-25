@@ -29,3 +29,4 @@ router.delete('/:id', deleteOrganization);
 router.get('/', getOrganizations);
 
 export default router;
+console.log("organizationRoutes File Loaded");

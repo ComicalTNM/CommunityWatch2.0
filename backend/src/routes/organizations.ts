@@ -36,4 +36,12 @@ router.get("/search", async (req: Request<{}, {}, {}, SearchQuery>, res: Respons
     }
 });
 
+router.stack.forEach((layer: any) => {
+    if(layer.route)
+    {
+        console.log(`Organization Route: ${Object.keys(layer.route.methods).join(',').toUpperCase()} - ${layer.route.path}`);
+    }
+})
+
 export default router;
+console.log("Organization Routes File Loaded");
