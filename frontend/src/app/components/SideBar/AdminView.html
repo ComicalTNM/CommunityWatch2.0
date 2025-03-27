@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin View</title>
     <style>
+        *{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            width:100%;
+            height: 100%;
         }
         header {
             background-color: #333;
@@ -22,58 +29,58 @@
             margin: 0;
         }
         /*Dropdown Styling*/
-                /* Dropdown container */
-                .dropdown {
-    position: absolute;
-    top: 10px;
-    right: 40px; /* Aligns to the top-right corner */
-    display: inline-block;
-}
+        /* Dropdown container */
+        .Roledropdown {
+            position: absolute;
+            top: 10px;
+            right: 40px; /* Aligns to the top-right corner */
+            display: inline-block;
+        }
 
-/* Dropdown button */
-.dropdown button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
+        /* Dropdown button */
+        .Roledropdown button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
 
-.dropdown button:hover {
-    background-color: #0056b3;
-}
+        .Roledropdown button:hover {
+            background-color: #0056b3;
+        }
 
-/* Dropdown content (hidden by default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: #f9f9f9;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    min-width: 150px;
-    border-radius: 5px;
-}
+        /* Dropdown content (hidden by default) */
+        .Roledropdown-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 150px;
+            border-radius: 5px;
+        }
 
-/* Dropdown content links */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
+        /* Dropdown content links */
+        .Roledropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
 
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
+        .Roledropdown-content a:hover {
+            background-color: #ddd;
+        }
 
-/* Show dropdown on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+        /* Show dropdown on hover */
+        .Roledropdown:hover .Roledropdown-content {
+            display: block;
+        }
 
         /*Section Styling*/
         section {
@@ -205,18 +212,179 @@
             background-color: #f44336 !important;
         }
 
+        /*Updated code */
+    /*Styling for website navigation bar and footer */
+
+        .topnav {
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Ensures items are spaced properly */
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            gap: 15px; /* Adds spacing between items */
+        }
+
+        .logo {
+                height: 50px;
+                width: auto;
+                margin-right: 15px;
+        }
+
+        .topnav a {
+                color: white;
+                text-decoration: none;
+                font-size: 17px;
+                padding: 14px 16px;
+        }
+
+        .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+        }
+
+        .dropdown {
+                display: flex;
+                align-items: center;
+                position:relative;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /*Styling for website footer */
+        /* Apply full height to the html and body */
+        html, body {
+            height: 100%; /* Full height of the viewport */
+            margin: 0; /* Remove default margin */
+        }
+
+        body {
+            display: flex; /* Use flexbox to create a flexible layout */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: space-between; /* Space out content and footer */
+        }
+
+        /* Styling for the footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            box-sizing: border-box;
+        }
+
+        /* The footer container */
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            box-sizing: border-box;
+        }
+
+        footer a:hover {
+            color: #00bcd4;
+        }
+
+        .social-icons {
+            margin: 10px 0;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+
+
+
     </style>
 </head>
 <body>
+    <section>
+        <!--Navigation Bar-->
+    <nav class="topnav">
+        <img src="../NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../pages/HomePage/homepage.html">Home</a>
+        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Organization</button>
+            <div class="dropdown-content">
+                <a href="#NewOrg">New Org</a>
+                <a href="../../SideBar/UserView.html">My Orgs</a>
+            </div>
+        </div>
+        <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+    </nav>
+    </section>
 
     <!-- Header Section -->
     <header>
         <h1>Admin View</h1>
         <p>Welcome, <span id="user-name">Admin's Name</span></p>
 
-        <div class="dropdown">
+        <div class="Roledropdown">
             <button>Roles</button>
-            <div class="dropdown-content">
+            <div class="Roledropdown-content">
                 <a href="#">Role: Admin</a>
                 <a href="UserView.html">Role: User</a>
             </div>
@@ -229,6 +397,7 @@
         <div class="section-title">Organization Name</div>
         <div class="section-content">
             <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
+            <!--Add category dropdown checkbox-->
             <div class="section-description">
                 <p>This is the description of our organization. It provides various services and products to its customers.</p>
             </div>
@@ -288,6 +457,20 @@
         <button class="edit-event" href=""> Edit Event</button>
     </section>
 
+    <footer>
+        <div class="container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
     <script src="AdminView.js"></script> <!-- Loads script -->
 </body>
 </html>

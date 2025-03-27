@@ -2,8 +2,167 @@
     <head>
         <title>Admin Page</title>
         <link rel="stylesheet" href="Sidebarstylesheet.css">
+        <style>
+            .topnav {
+                background-color: #333;
+                overflow: hidden;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                box-sizing: border-box;
+
+                display:flex;
+                padding: 10px 20px;
+            }
+            .logo {
+                height: 50px;
+                width: auto;
+                margin-right: 15px;
+            }
+
+            .topnav a {
+                float: left;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                box-sizing: border-box;
+            }
+
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .dropdown {
+                float: left;
+                overflow: hidden;
+            }
+
+            .dropdown .dropbtn {
+                font-size: 16px;
+                border: none;
+                outline: none;
+                color: white;
+                padding: 14px 16px;
+                background-color: inherit;
+                font-family: inherit;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+                background-color: #ddd;
+                color: black;
+            }
+
+        /*Styling for website footer */
+        /* Apply full height to the html and body */
+            html, body {
+                height: 100%; /* Full height of the viewport */
+                margin: 0; /* Remove default margin */
+            }
+
+            body {
+                display: flex ; /* Use flexbox to create a flexible layout */
+                flex-direction: column; /* Stack elements vertically */
+                justify-content: space-between; /* Space out content and footer */
+            }
+
+            /* Styling for the footer */
+            footer {
+                background-color: #333;
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+                width: 100%;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                box-sizing: border-box;
+            }
+
+            /* The footer container */
+            footer .container {
+                max-width: 1200px;
+                margin: 0 auto; /* Center horizontally */
+            }
+
+            footer p {
+                margin: 5px 0;
+            }
+
+            footer a {
+                color: white;
+                text-decoration: none;
+                margin: 0 10px;
+                font-size: 18px;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                box-sizing: border-box;
+            }
+
+            footer a:hover {
+                color: #00bcd4;
+            }
+
+            .social-icons {
+                margin: 10px 0;
+            }
+
+            .social-icons a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+
+            .social-icons img {
+                width: 30px;
+                height: 30px;
+            }
+        </style>
     </head>
     <body>
+        <!--Code for website header-->
+        <nav class="topnav">
+            <img src="../NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+            <a href="../../pages/HomePage/homepage.html">Home</a>
+            <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+            <div class="dropdown">
+                <button class="dropbtn">Organization</button>
+                <div class="dropdown-content">
+                    <a href="#NewOrg">New Org</a>
+                    <a href="../../SideBar/UserView.html">My Orgs</a>
+                </div>
+            </div>
+            <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+        </nav>
         <h1 class="admin-title">Administration Page</h1>
         <ul class="list">
             <li onclick="openSidebar('Roles')">Roles</li>
@@ -42,6 +201,20 @@
                 <div class="dates" id="dates"></div>
             </div>
         </div>
+        <footer>
+            <div class="container">
+                <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+                <p>&copy; 2025 Community Watch. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </footer>
                 
         <script src="https://js.stripe.com/v3/"></script> <!-- Load Stripe API separately -->
         <script src="Sidebar.js"></script> <!-- Load your script correctly -->
