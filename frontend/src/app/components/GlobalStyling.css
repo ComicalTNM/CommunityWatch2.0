@@ -1,0 +1,18 @@
+body {
+    background-color: #d2d0b4;
+    font: jost-regular;
+    font-size: 24px;
+}
+h1 {
+    font-size: 96px;
+}
+h2{
+    font-size: 40px;
+}
+h3,h4,h5{
+    font-size: 12px;
+}
+
+button {
+    
+}
