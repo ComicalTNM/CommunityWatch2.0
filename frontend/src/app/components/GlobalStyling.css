@@ -1,5 +1,5 @@
 body {
-    background-color: #D8D5C2;
+    background-color: #d2d0b4;
     font: jost-regular;
     font-size: 24px;
 }
@@ -10,5 +10,9 @@ h2{
     font-size: 40px;
 }
 h3,h4,h5{
- font-size: 12px;
+    font-size: 12px;
+}
+
+button {
+    
 }
