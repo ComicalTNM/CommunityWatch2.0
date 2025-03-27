@@ -1,0 +1,67 @@
+/*Universal Page Standard*/
+@font-face {
+    font-family: 'Jost';
+    src: url('path-to-font/Jost-400-Book.woff2') format('woff2'),
+         url('path-to-font/Jost-400-Book.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+:root {
+    --color-dark: #342E26;
+    --color-light: #B2AC88;
+    --color-BG: #D8D5C2;
+    --color-accent: #5C5840;
+    --color-muted: #686553;
+    --color-blue: #434563;
+}
+
+body {
+    background-color: var(--color-BG);
+    font-family: 'Jost', sans-serif;
+    font-size: 24px;
+}
+h1 {
+    font-size: 60px;
+}
+h2{
+    font-size: 30px;
+}
+
+h3,h4,h5{
+    font-size: 20px;
+   }
+   
+p{
+    font-size: 16px;
+}
+
+
+
+/* Carousel Code : Home Page*/
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: #B2AC88;
+    font-size: 2em;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Carousel headers */
+.carousel-header {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+    color: #686553;
+}
