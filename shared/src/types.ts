@@ -51,6 +51,8 @@ export interface IPost extends Document {
   createdAt: Date;
   updatedAt: Date;
   theme?: IPostTheme;
+  registeredUsers: Types.ObjectId[];
+  completedUsers: Types.ObjectId[];
 }
 
 export interface IPostTheme {
@@ -81,6 +83,7 @@ export interface IUser extends Document {
   organizationId?: Types.ObjectId;
   donorProfileId?: Types.ObjectId;
   profilePicture?: string;
+  registeredEvents: Types.ObjectId[];
 }
 
 export interface IDonorProfile extends Document {

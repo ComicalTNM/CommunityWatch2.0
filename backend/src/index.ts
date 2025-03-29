@@ -28,7 +28,6 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
-app.use(cookieParser());
 
 console.log("Checking Organization Router: ", organizationRoutes.stack.map((layer) => layer.route?.path));
 app.use('/api/posts', postRoutes);
