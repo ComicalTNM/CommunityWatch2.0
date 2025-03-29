@@ -7,6 +7,7 @@ import postRoutes from './routes/postRoutes';
 import organizationRoutes from './routes/organizations';
 import profileRoutes from './routes/profilesRoutes';
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 import seedData from './seedData';
 import dotenv from 'dotenv';
 
@@ -34,6 +35,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/organizations', organizationRoutes);
 app.use('/api/profiles/public', profileRoutes);
 app.use('/api/auth', authRoutes);
+app.use('api/users', userRoutes);
 
 console.log("Registered Routes in Express:");
 app._router.stack.forEach((middleware: any) => {
