@@ -14,5 +14,11 @@ h3,h4,h5{
 }
 
 button {
-    
+    background-color: #333; /* Dark gray */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
 }

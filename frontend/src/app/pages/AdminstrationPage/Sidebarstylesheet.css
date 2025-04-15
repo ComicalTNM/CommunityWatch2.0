@@ -1,7 +1,9 @@
+
 .admin-title {
     text-align: center;
     font-size: 30px; /* Adjust as needed */
     font-weight: bold;
+    margin-top:20px;
     margin-bottom: 20px;
 }
 body {
@@ -37,7 +39,19 @@ ul li::before {
     font-family: Arial, sans-serif;
 }
 
+.list button {
+    background-color: #333; /* Dark gray */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
 
+.list button:hover {
+    background-color: #555; /* Slightly lighter gray on hover */
+}
 
 /* Styling the sidebar */
 .sidebar {

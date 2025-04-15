@@ -166,6 +166,7 @@
 
         .sidebar-content {
             margin-top: 30px;
+            overflow: visible;
         }
 
         /* Container for label and input fields */
@@ -227,7 +228,7 @@
         }
 
         .logo {
-                height: 50px;
+                height: 80px;
                 width: auto;
                 margin-right: 15px;
         }
@@ -355,6 +356,31 @@
             height: 30px;
         }
 
+        /*Styling for checkbox menu*/
+        .multiselect {
+            width: 200px;
+        }
+        .selectBox {
+            position: relative;
+        }
+        .selectBox select {
+            width:100%;
+            font-weight: bold;
+        }
+        .overSelect {
+            position: absolute;
+            left:0; right:0; top:0; bottom:0;
+        }
+        #checkboxes {
+            display:none;
+            border:1px #dadada solid;
+        }
+        #checkboxes label {
+            display:block;
+        }
+        #checkboxes label:hover{
+            background-color: #1e90ff;
+        }
 
 
     </style>
@@ -363,7 +389,7 @@
     <section>
         <!--Navigation Bar-->
     <nav class="topnav">
-        <img src="../NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <img src="../../components/NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
         <a href="../../pages/HomePage/homepage.html">Home</a>
         <a href="../../pages/SearchPage/SearchPage.html">Search</a>
         <div class="dropdown">
@@ -397,10 +423,18 @@
         <div class="section-title">Organization Name</div>
         <div class="section-content">
             <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
-            <!--Add category dropdown checkbox-->
+            <!--Organization Description div-->
             <div class="section-description">
-                <p>This is the description of our organization. It provides various services and products to its customers.</p>
+                <label for="org-description"><strong>Description:</strong></label>
+                <p id="org-description">
+                    This is the description of our organization. It provides various services and products to its customers.
+                </p>
             </div>
+        </div>
+
+        <!--Add category dropdown checkbox div-->
+        <div class="category-checkbox">
+            <label id="checkbox-display"><strong>Category:</strong></label>
         </div>
         <button class="edit-button" onclick="openOrganizationSidebar()">Edit</button>
     </section>
@@ -424,6 +458,21 @@
             <div class="form-row">
                 <label for="new-description">Change Description:</label>
                 <textarea id="new-description" placeholder="Enter new description"></textarea>
+            </div>
+            <!--Add category dropdown checkbox-->
+            <br>
+            <div class ="form-row">
+                <div class="multiselect">
+                    <div class="selectBox" onclick="showCheckboxes()">
+                        <span>Select Category:</span>
+                        <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                        <label><input type="checkbox" value="option1" /> Option 1</label>
+                        <label><input type="checkbox" value="option2" /> Option 2</label>
+                        <label><input type="checkbox" value="option3" /> Option 3</label>
+                    </div>
+                </div>
             </div>
 
             <button onclick="submitChanges()">Submit Changes</button>

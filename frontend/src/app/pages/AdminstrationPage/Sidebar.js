@@ -38,7 +38,7 @@ function openSidebar(section) {
                 <br>
                 <p>Click below to view all donations.</p>
                 <br>
-                <button id="donateButton">View Donations</button>
+                <button id="donateButton" style="background-color: #333333;">View Donations</button>
             `;
             // Attach event listener after button is added
             const donateButton = document.getElementById("donateButton");
