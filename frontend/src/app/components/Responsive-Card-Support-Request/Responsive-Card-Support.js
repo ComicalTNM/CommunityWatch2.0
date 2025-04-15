@@ -48,3 +48,38 @@ progressBars.forEach(bar => {
         bar.style.width = progress + '%';
     }, 100);
 });
+
+const params = new URLSearchParams(window.location.search);
+const eventId = params.get("eventId");
+
+async function fetchEventDetails(){
+    try{
+        const response = await fetch(`/api/posts/${eventId}`);
+        const event = await response.json();
+        updateEventCard(event); //Update the card with event details
+    }
+    catch(error){
+        console.error("Failed to fetch event details:", error)
+    }
+}
+
+function updateEventCard(event){
+    //Use the event data to update the event card's content
+    document.querySelector(".card-header h3").innerText = event.title || "No Title Provided";
+    document.querySelector(".card-header h4").innerText = event.organization || "No Organization Provided";
+    document.querySelector(".card-header h5").innerText = new Date(event.date).toLocaleDateString() || "No Date Provided";
+    document.querySelector(".description").innerText = event.description || "No Description Provided";
+
+    const progress = event.progress || 0;
+    document.querySelector(".progress-bar").style.width = `${progress}%`;
+
+    document.querySelector(".title-ex").innerText = event.title || "No Title Provided";
+    document.querySelector(".organization-ex").innerText = event.organization || "No Organization Provided";
+    document.querySelector(".date-ex").innerText = new DataTransfer(event.data).toLocaleDateString() || "No Date Provided";
+    document.querySelector(".goals").innerText = `Goals: ${event.goals || "No Goals Provided"}`;
+    document.querySelector(".location").innerText = `Location: ${event.location || "No Location Provided"}`;
+
+}
+
+//Fetch event details when the page loads
+fetchEventDetails();

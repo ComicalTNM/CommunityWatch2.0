@@ -6,6 +6,9 @@ import bcrypt from 'bcrypt';
 //An interface to insure that any class that extends the IUserModel interface has the comparePassword function present with the exact same syntax.
 interface IUserModel extends IUser {
   comparePassword(candidatePassword: string): Promise<boolean>;
+  registeredEvents: mongoose.Types.ObjectId[];
+  completedEvents: mongoose.Types.ObjectId[];
+  interests: String[];
 }
 
 const UserSchema: Schema = new Schema<IUserModel>({
@@ -15,7 +18,12 @@ const UserSchema: Schema = new Schema<IUserModel>({
   role: { type: String, enum: ['donor', 'member', 'admin', 'owner'], default: 'donor' },
   organizationId: { type: Schema.Types.ObjectId, ref: 'Organization' },
   donorProfileId: { type: Schema.Types.ObjectId, ref: 'DonorProfile' },
-  profilePicture: { type: String, required: false }
+  profilePicture: { type: String, required: false },
+
+  //Fields for event tracking and recommendations
+  registeredEvents: [{type: Schema.Types.ObjectId, ref: 'Post'}], //Stores the event IDs for the events the user registered for
+  completedEvents: [{type: Schema.Types.ObjectId, ref:'Post'}], //Stores event IDs of the events the user completed
+  interests: [{type: String}] //Stores the event catergories (tags) that the user is interested in 
 }, { timestamps: true });
 
 //When the save function is called on a user object, the password is encrypted 

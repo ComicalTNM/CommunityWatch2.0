@@ -17,28 +17,40 @@ const seedData = async () => {
         email: 'john@example.com',
         password: await bcrypt.hash('password123', 10),
         role: 'owner',
-        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`
+        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`,
+        registeredEvents: [], 
+        completedEvents: [], 
+        interests: []
       },
       {
         username: 'janedoe',
         email: 'jane@example.com',
         password: await bcrypt.hash('password123', 10),
         role: 'admin',
-        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`
+        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`,
+        registeredEvents: [], 
+        completedEvents: [], 
+        interests: []
       },
       {
         username: 'bobsmith',
         email: 'bob@example.com',
         password: await bcrypt.hash('password123', 10),
         role: 'member',
-        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("BS")}`
+        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("BS")}`,
+        registeredEvents: [], 
+        completedEvents: [], 
+        interests: []
       },
       {
         username: 'alicedonor',
         email: 'alice@example.com',
         password: await bcrypt.hash('password123', 10),
         role: 'donor',
-        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("AD")}`
+        profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("AD")}`,
+        registeredEvents: [], 
+        completedEvents: [], 
+        interests: []
       }
     ];
 
@@ -125,7 +137,9 @@ const seedData = async () => {
           { item: "Trash bags", quantity: 100 }
         ],
         volunteersNeeded: 30,
-        eventDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+        eventDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        registeredUsers:[],
+        completedUsers: []
       },
       {
         title: "Recycle Day Drive",
@@ -138,7 +152,9 @@ const seedData = async () => {
           { item: "Trash bags", quantity: 100 }
         ],
         volunteersNeeded: 30,
-        eventDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+        eventDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        registeredUsers:[],
+        completedUsers: []
       },
       {
         title: "Food Drive for the Homeless",
@@ -151,7 +167,9 @@ const seedData = async () => {
           { item: "Rice", quantity: 50 }
         ],
         volunteersNeeded: 15,
-        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
+        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+        registeredUsers:[],
+        completedUsers: []
       },
       {
         title: "NC A&T Foodshelter",
@@ -164,7 +182,9 @@ const seedData = async () => {
           { item: "Rice", quantity: 50 }
         ],
         volunteersNeeded: 15,
-        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
+        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+        registeredUsers:[],
+        completedUsers: []
       },
       {
         title: "Jugars vs Rockets - Little League",
@@ -177,7 +197,9 @@ const seedData = async () => {
           { item: "Rice", quantity: 50 }
         ],
         volunteersNeeded: 35,
-        eventDate: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000) // 14 days from now
+        eventDate: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000), // 14 days from now
+        registeredUsers:[],
+        completedUsers: []
       },
       {
         title: "Daily Bread Sundays",
@@ -190,7 +212,9 @@ const seedData = async () => {
           { item: "Rice", quantity: 50 }
         ],
         volunteersNeeded: 35,
-        eventDate: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000) // 14 days from now
+        eventDate: new Date(Date.now() + 6 * 24 * 60 * 60 * 1000), // 14 days from now
+        registeredUsers:[],
+        completedUsers: []
       }
     ];
 

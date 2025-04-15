@@ -1,26 +1,13 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title> Community Watch Log In</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
 
-    <style>
-        body{
-            background-color:#B2AC88;
-        }
-
-        .search{
-            text-align: center;
-        }
-
-
-
-    </style>
-
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
-
+  
 <body>
-
     
     <div>
     <form id = "loginForm">
@@ -98,7 +85,7 @@
                 localStorage.setItem('token', result.token);
 
                 //Redirect to another page (dashboard, home, etc.)
-                window.location.href = "../../pages/HomePage/homepage.html";
+                window.location.href = "../../pages/HomePage/HomePagev2.html";
             }
             else {
                 alert('Error: ' + result.message);
@@ -112,6 +99,21 @@
     });
 
     </script>
+        <footer>
+            <div class="container">
+                <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+                <p>&copy; 2025 Community Watch. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </footer>
         
-</body>
+            </body>
+
 </html>

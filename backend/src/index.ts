@@ -7,6 +7,7 @@ import postRoutes from './routes/postRoutes';
 import organizationRoutes from './routes/organizations';
 import profileRoutes from './routes/profilesRoutes';
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 import seedData from './seedData';
 import dotenv from 'dotenv';
 
@@ -28,13 +29,13 @@ app.use((req, res, next) => {
     next();
 });
 app.use(express.json());
-app.use(cookieParser());
 
 console.log("Checking Organization Router: ", organizationRoutes.stack.map((layer) => layer.route?.path));
 app.use('/api/posts', postRoutes);
 app.use('/api/organizations', organizationRoutes);
 app.use('/api/profiles/public', profileRoutes);
 app.use('/api/auth', authRoutes);
+app.use('api/users', userRoutes);
 
 console.log("Registered Routes in Express:");
 app._router.stack.forEach((middleware: any) => {
