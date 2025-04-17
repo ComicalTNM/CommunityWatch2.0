@@ -35,7 +35,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/organizations', organizationRoutes);
 app.use('/api/profiles/public', profileRoutes);
 app.use('/api/auth', authRoutes);
-app.use('api/users', userRoutes);
+app.use('/api/users', userRoutes);
 
 console.log("Registered Routes in Express:");
 app._router.stack.forEach((middleware: any) => {
