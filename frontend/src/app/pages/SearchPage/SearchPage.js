@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const carouselInner = document.getElementById("carousel-inner");
     const resultsContainer = document.querySelector(".results-container");
     const filterLabels = document.querySelectorAll(".filters label");
+    const backendURL = "http://localhost:5000";
+    
 
      // Toggle filters display
      filterToggle.addEventListener("click", function () {
@@ -33,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     .map(checkbox => checkbox.value);
 
         try {
-            const response = await fetch(`/api/organizations/search?query=${encodeURIComponent(searchText)}&filters=${selectedFilters.join(",")}`);
+            const response = await fetch(`${backendURL}/api/organizations/search?query=${encodeURIComponent(searchText)}&filters=${selectedFilters.join(",")}`);
             const organizations = await response.json();
             displayResults(organizations);
         } catch (error) {

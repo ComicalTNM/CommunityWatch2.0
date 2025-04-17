@@ -183,7 +183,6 @@ p{
   
   /* Results container styling */
   .results-container {
-    display: none;
     margin: 30px auto;
     width: 90%;
     max-width: 900px;
