@@ -1,4 +1,5 @@
-let index = 0;
+        const backendUrl = 'http://localhost:5000';
+        let index = 0;
         const totalIframes = 5;
         const visibleIframes = 3;
         const carousel = document.getElementById('carousel');
@@ -19,7 +20,10 @@ let index = 0;
 
         function updateCarousel() {
             const shift = -(index * (100 / visibleIframes));
-            carousel.style.transform = `translateX(${shift}%)`;
+            const carousels = document.querySelectorAll('.carousel-wrapper');
+            carousels.forEach(carousel => {
+                carousel.style.transform = `translateX(${shift}%)`;
+            });
         }
 
         //Assumes user data is stored in sessionStorage
@@ -27,16 +31,16 @@ let index = 0;
 
         //Fetch user data
         async function fetchUserData() {
-            const response = await fetch(`/api/users/${userId}`);
+            const response = await fetch(`${backendUrl}/api/users/${userId}`);
             const userData = await response.json();
             return userData; //This should include registeredEvents, completedEvents, and interests
         }
 
         //Fetch all events
         async function fetchEvents() {
-            const response = await fetch ('/api/posts/');
-            const events = await response.json();
-            return events; //This should be an array of all events (posts)
+            const response = await fetch (`${backendUrl}/api/posts/`);
+            const {posts} = await response.json();
+            return posts; //This should be an array of all events (posts)
         }
 
         async function displayEvents() {
@@ -44,9 +48,9 @@ let index = 0;
             const allEvents = await fetchEvents(); //Get all events
 
             //Filter events based on user data
-            const upcomingEvents = allEvents.filter(event => userData.registeredEvents.includes(event._id) && new Date(event.eventDate) > new Date());
+            const upcomingEvents = allEvents.filter(event => userData.registeredEvents.includes(event._id.toString()) && new Date(event.eventDate) > new Date());
 
-            const completedEvents = allEvents.filter(event => userData.completedEvents.includes(event._id) && new DataTransfer(event.eventDate) < new Date());
+            const completedEvents = allEvents.filter(event => userData.completedEvents.includes(event._id.toString()) && new Date(event.eventDate) < new Date());
 
             const recommendedEvents = allEvents.filter(event => event.tags.some(tag => userData.interests.includes(tag)) && new Date(event.eventDate) > new Date());
 
@@ -58,15 +62,17 @@ let index = 0;
 
         //Update event section with the filtered events
         function updateEventSection(sectionId, events){
-            const section = document.querySelector(`.${sectionID} .corousel-wrapper`);
+            const section = document.querySelector(`.${sectionId} .carousel-wrapper`);
             section.innerHTML = ''; //Clear existing events
 
             events.forEach(event => {
+                console.log(`${sectionId} event:`, event._id, typeof event._id);
                 const iframe = document.createElement('iframe');
                 iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html?eventId=${event._id}`;
                 iframe.classList.add('results-iframe');
                 section.appendChild(iframe);
             });
+            console.log(`Added ${events.length} events to section ${sectionId}`);
         }
 
         //Call the display function to update the homepage

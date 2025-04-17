@@ -81,11 +81,14 @@
                 alert('Login Successful!');
                 console.log('User:', result.user);
 
+                //Store the userID in sessionStorage so other pages can use it
+                sessionStorage.setItem('userId', result.user._id);
+
                 //Store JWT in localStorage or sessionStorage (if needed)
                 localStorage.setItem('token', result.token);
 
                 //Redirect to another page (dashboard, home, etc.)
-                window.location.href = "../../pages/HomePage/HomePagev2.html";
+                window.location.href = "../../pages/HomePage/homepage.html";
             }
             else {
                 alert('Error: ' + result.message);
