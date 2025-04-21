@@ -329,3 +329,298 @@ footer a:hover {
     width: 30px;
     height: 30px;
 }
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background-color: var(--color-BG);
+    font-family: 'Jost', sans-serif;
+    min-height: 100vh;
+  }
+  
+  .profile-card {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 40px;
+    max-width: 1100px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+
+  .profile-picture {
+    flex-shrink: 0;
+    text-align: center;
+  }
+  
+  .profile-picture img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--color-blue);
+  }
+  
+
+  .profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .profile-info p {
+    margin: 6px 0;
+    font-size: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .profile-info strong {
+    color: var(--color-accent);
+  }
+  
+  .reveal-btn {
+    background-color: var(--color-blue);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 10px;
+  }
+  
+  .reveal-btn:hover {
+    background-color: var(--color-muted);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fefefe;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  table th, table td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-BG);
+    color: var(--color-dark);
+  }
+  
+  table th {
+    background-color: var(--color-light);
+    font-size: 1rem;
+    color: var(--color-accent);
+  }
+  
+  .edit-btn {
+    background-color: var(--color-blue);
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 30px;
+    align-self: flex-start;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn:hover {
+    background-color: var(--color-muted);
+  }
+
+  form#loginForm {
+  background-color: var(--color-BG)
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 2px solid var(--color-blue);
+}
+
+form#loginForm h2 {
+  text-align: center;
+  color: var(--color-blue);
+  margin-bottom: 10px;
+}
+
+label {
+  color: var(--color-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid var(--color-muted);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--color-BG);
+  color: var(--color-dark);
+  transition: border 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  background-color: var(--color-BG);
+}
+
+button[type="submit"] {
+  background-color: var(--color-blue);
+  color:  var(--color-BG);
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--color-muted);
+}
+
+ul,p{
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+  color: var(--color-dark);
+    text-align: left;
+}
+
+a {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*Login*/
+
+/* Login Banner Wrapper */
+.login-banner {
+    width: 100%;
+    background-color: var(--color-light);
+    padding: 50px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Centered content inside the banner */
+  .login-content {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Keep existing form#loginForm styles */
+  
+
+  /* Full-width banner container */
+  .login-container {
+    width: 100%;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Login form centered inside banner */
+  form#loginForm {
+    background: none;
+    box-shadow: none;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  /* Title centered in banner */
+  form#loginForm h2,h3,h4 {
+    text-align: center;
+    color: var(--color-blue);
+    margin-bottom: 10px;
+  }
+  
+  /* Labels + Inputs */
+  label {
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    padding: 10px;
+    border: 1px solid var(--color-muted);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--color-BG);
+    color: var(--color-dark);
+    transition: border 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: var(--color-blue);
+    background-color: #fff;
+  }
+  
+  /* Submit Button */
+  button[type="submit"] {
+    background-color: var(--color-blue);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: var(--color-muted);
+  }
+  
+  /* Forgot Password Link */
+  a {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

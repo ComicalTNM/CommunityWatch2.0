@@ -2,35 +2,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Page</title>
+<title>Log In Page</title>
 
 <link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
   
 <body>
+    <div class="login-container">
+        <form id="loginForm">
+            <h2>Welcome to CommunityWatch</h2>
+            <h3>Log In</h3>
+          <label for="email">Enter Email:</label>
+          <input type="text" id="email" required />
     
-    <div>
-    <form id = "loginForm">
-        <h2> Community Watch Log In for Users </h2>
-
-
-        <label> Enter Email: </label> 
-        <input type="text" id= "email" size="20" required>
-
-        <br/>
-
-        <label> Enter Password: </label> 
-        <input type="password" id="password" size="20" required>
-
-        <br/> 
-
-        <button type="submit"> Log in </button>
-
-    </form> 
-    </div> 
-    <a href="..\..\pages\Authentication\communitywatchrecoverypage.html">Forgot Password?</a>
+          <label for="password">Enter Password:</label>
+          <input type="password" id="password" required />
     
-    <br/>
+          <button type="submit">Log In</button>
+          <a href="../../pages/Authentication/Register.html">New User?</a>
+          <a href="../../pages/Authentication/recovery.html">Forgot Password?</a>
+        </form>
+      </div>
 
 
     <!--JAVASCRIPT -->
@@ -102,20 +94,7 @@
     });
 
     </script>
-        <footer>
-            <div class="container">
-                <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
-                <p>&copy; 2025 Community Watch. All rights reserved.</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com" target="_blank" title="Facebook">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-                    </a>
-                    <a href="https://www.instagram.com" target="_blank" title="Instagram">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-                    </a>
-                </div>
-            </div>
-        </footer>
+
         
             </body>
 

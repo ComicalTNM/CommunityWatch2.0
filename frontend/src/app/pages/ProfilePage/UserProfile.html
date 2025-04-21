@@ -2,12 +2,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Page</title>
+<title>Profile Page</title>
 
 <link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
   
 <body>
+
     <nav class="topnav">
         <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
         <a href="../../pages/HomePage/homepage.html">Home</a>
@@ -21,50 +22,55 @@
         </div>
         <a href="../../pages/communitywatcheditprofile.html">Profile</a>
     </nav> 
-
-        <form action="upload.php">
-            <label for="profile-pic">Profile Picture:</label>
-            <input type="file" id="profile-pic" name="profile-pic" accept="image/*">
-            <br  />
-            <button type="submit">Upload</button>
-        </form>
-
-        <form>
-            <br>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <br>
-
-            <label for="Role">Role:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-
-                        
-            <table>
-                <tr>
-                <th> Organizations </th>    
-                <th> Description </th>  
-                </tr>
-
-                <tr>
-                <td> Habitat for Humanity </td>
-                <td> Habitat Greensboro works toward our vision of a world where everyone has a safe and affordable place to live. Habitat homeowners help build their own homes alongside volunteers and pay an affordable mortgage </td>
-                </tr>
-
-            </table>
-
-                        
-            <button type="submit">Save Changes</button>
-        </form>
+    <div class="profile-page">
+        <div class="profile-card">
+          <!-- Profile Picture -->
+          <div class="profile-picture">
+            <img src="path/to/saved/profile.jpg" alt="User Profile Picture" />
+          </div>
+      
+          <!-- User Info Display -->
+          <div class="profile-info">
+            <p><strong>Name:</strong> Jane Doe</p>
+            <p><strong>Email:</strong> jane.doe@example.com</p>
+            <p>
+              <strong>Password:</strong>
+              <span id="password-mask">••••••••••</span>
+              <button class="reveal-btn" onclick="togglePassword()">Show</button>
+            </p>
+            <p><strong>Role:</strong> Community Organizer</p>
+          </div>
+      
+          <!-- Organizations Table -->
+          <table>
+            <tr>
+              <th>Organizations</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>Habitat for Humanity</td>
+              <td>
+                Habitat Greensboro works toward our vision of a world where everyone has a safe and affordable place to live. Habitat homeowners help build their own homes alongside volunteers and pay an affordable mortgage.
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      
+      <script>
+        function togglePassword() {
+          const pw = document.getElementById("password-mask");
+          const btn = document.querySelector(".reveal-btn");
+          if (pw.innerText.includes("•")) {
+            pw.innerText = "MySuperSecret123"; // Replace with actual password value from backend
+            btn.innerText = "Hide";
+          } else {
+            pw.innerText = "••••••••••";
+            btn.innerText = "Show";
+          }
+        }
+      </script>
+      
         <footer>
             <div class="container">
                 <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
