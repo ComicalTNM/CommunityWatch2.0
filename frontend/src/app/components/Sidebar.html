@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Admin Page</title>
+        <link rel="stylesheet" href="Sidebarstylesheet.css">
+    </head>
+    <body>
+        <h1 class="admin-title">Administration Page</h1>
+        <ul class="list">
+            <li onclick="openSidebar('Roles')">Roles</li>
+            <li onclick="openSidebar('Metrics')">Metrics</li>
+            <li onclick="openSidebar('Calendar')">Calendar</li>
+            <li onclick="openSidebar('Payment')">Payment</li>
+        </ul>
+
+                <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <span class="close-btn" onclick="closeSidebar()">&times;</span>
+            <h2 id="sidebar-title"></h2>
+            <p id="sidebar-content"></p>
+
+            <!-- Payment Section -->
+            <div id="payment-container" class="payment-section" style="display: none;">
+            </div>  
+
+            <!-- Dynamic Calendar (Initially Hidden) -->
+            <div id="calendar-container" class="calendar" style="display: none;">
+                <div class="header">
+                    <button id="prevBtn">&lt;</button>
+                    <div class="monthYear" id="monthYear"></div>
+                    <button id="nextBtn">&gt;</button>
+                </div>
+                <div class="days">
+                    <div class="day">Sun</div>
+                    <div class="day">Mon</div>
+                    <div class="day">Tue</div>
+                    <div class="day">Wed</div>
+                    <div class="day">Thu</div>
+                    <div class="day">Fri</div>
+                    <div class="day">Sat</div>
+                </div>
+                <div class="dates" id="dates"></div>
+            </div>
+        </div>
+                
+        <script src="https://js.stripe.com/v3/"></script> <!-- Load Stripe API separately -->
+        <script src="Sidebar.js"></script> <!-- Load your script correctly -->
+    
+    </body>
+</html>
+<!-- https://cdnjs.cloudfare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css--> 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="Main_Admin_Dashboard_Stylesheet.css">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="topnav">
+        <img src="../../components/NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../pages/HomePage/homepage.html">Home</a>
+        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Organization</button>
+            <div class="dropdown-content">
+                <a href="#NewOrg">New Org</a>
+                <a href="../../SideBar/UserView.html">My Orgs</a>
+            </div>
+        </div>
+        <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+    </nav>
+
+    <!-- Admin Page Title and Buttons -->
+    <div class="admin-container">
+        <h1 class="admin-title">Administration Page</h1>
+        <ul class="admin-button-list">
+            <li><button onclick="openSidebar('Roles')">Roles</button></li>
+            <li><button onclick="openSidebar('Metrics')">Metrics</button></li>
+            <li><button onclick="openSidebar('Calendar')">Calendar</button></li>
+            <li><button onclick="openSidebar('Donations')">Donations</button></li>
+            <li><button onclick="location.href='AdminView.html'">Admin View</button></li>
+        </ul>
+    </div>
+
+    <!-- Sidebar (Hidden by Default) -->
+    <div id="sidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">&times;</span>
+        <h2 id="sidebar-title"></h2>
+        <p id="sidebar-content"></p>
+
+        <!-- Donations Section -->
+        <div id="donations-container" class="donations-section" style="display: none;"></div>
+
+        <!-- Calendar Section -->
+        <div id="calendar-container" class="calendar" style="display: none;">
+            <div class="header">
+                <button id="prevBtn">&lt;</button>
+                <div class="monthYear" id="monthYear"></div>
+                <button id="nextBtn">&gt;</button>
+            </div>
+            <div class="days">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+            </div>
+            <div class="dates" id="dates"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="Main_Admin_Dashboard.js"></script>
+</body>
+</html>

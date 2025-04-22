@@ -1,5 +1,5 @@
 body {
-    background-color: #d2d0b4;
+    background-color: #B2AC88;
     font: jost-regular;
     font-size: 24px;
 }
@@ -21,4 +21,14 @@ button {
     cursor: pointer;
     font-size: 16px;
     border-radius: 5px;
+}
+
+.sidebar button {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #b2bbb2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
