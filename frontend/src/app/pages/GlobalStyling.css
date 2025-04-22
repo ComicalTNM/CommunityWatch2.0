@@ -330,6 +330,8 @@ footer a:hover {
     height: 30px;
 }
 
+/*Profile Styling */
+
 .profile-page {
     display: flex;
     justify-content: center;
@@ -421,6 +423,8 @@ footer a:hover {
     color: var(--color-accent);
   }
   
+/*Edit Profile Styling*/
+
   .edit-btn {
     background-color: var(--color-blue);
     color: white;
@@ -439,18 +443,22 @@ footer a:hover {
     background-color: var(--color-muted);
   }
 
+
+  /*Log In Styling  */
+
   form#loginForm {
-  background-color: var(--color-BG)
-  border-radius: 16px;
-  padding: 40px;
-  max-width: 400px;
-  width: 100%;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  border: 2px solid var(--color-blue);
-}
+    background-color: var(--color-BG);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 2px solid var(--color-blue);
+  }
+  
 
 form#loginForm h2 {
   text-align: center;
@@ -539,8 +547,6 @@ a:hover {
     justify-content: center;
   }
   
-  /* Keep existing form#loginForm styles */
-  
 
   /* Full-width banner container */
   .login-container {
@@ -548,10 +554,6 @@ a:hover {
     padding: 40px 0;
     display: flex;
     justify-content: center;
-  }
-  
-  /* Login form centered inside banner */
-  form#loginForm {
     background: none;
     box-shadow: none;
     width: 90%;
@@ -560,13 +562,7 @@ a:hover {
     gap: 18px;
   }
   
-  /* Title centered in banner */
-  form#loginForm h2,h3,h4 {
-    text-align: center;
-    color: var(--color-blue);
-    margin-bottom: 10px;
-  }
-  
+ 
   /* Labels + Inputs */
   label {
     color: var(--color-blue);
@@ -624,3 +620,58 @@ a:hover {
     text-decoration: underline;
   }
   
+  /*Form Styling */
+  .form-container {
+    max-width: 600px;
+    width: 100%;
+    color: var(--color-dark);
+    padding: 30px;
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+
+.form-container .multiple-choice,
+.form-container .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/*More Generalized Styling*/
+
+button {
+    padding: 10px 16px;
+    background-color: var(--color-accent);
+    color: var(--color-BG);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--color-muted);
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid var(--color-accent);
+    border-radius: 6px;
+    font-size: 1rem;
+    color: var(--color-dark);
+    background-color: var(--color-BG);
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}

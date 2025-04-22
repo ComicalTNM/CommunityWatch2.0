@@ -24,5 +24,17 @@ public class FormHandler extends HttpServlet {
         } else {
             response.getWriter().println("<p>Checklist Selection: None</p>");
         }
+
+        function toggleVisibility(id) {
+            const checkbox = document.getElementById(id + '-checkbox');
+            const section = document.getElementById(id);
+            
+            // Toggle the visibility of the section based on the checkbox state
+            if (checkbox.checked) {
+                section.style.display = 'block'; // Show the section
+            } else {
+                section.style.display = 'none'; // Hide the section
+            }
+        }
     }
 }

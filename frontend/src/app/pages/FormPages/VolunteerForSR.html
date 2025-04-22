@@ -1,12 +1,11 @@
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Page</title>
-
-<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer for SR</title>
+    <link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css">
 </head>
-  
+
 <body>
     <nav class="topnav">
         <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
@@ -22,20 +21,89 @@
         <a href="../../pages/communitywatcheditprofile.html">Profile</a>
     </nav> 
     
-<footer>
-    <div class="container">
-        <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
-        <p>&copy; 2025 Community Watch. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://www.facebook.com" target="_blank" title="Facebook">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-            </a>
-            <a href="https://www.instagram.com" target="_blank" title="Instagram">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-            </a>
-        </div>
-    </div>
-</footer>
+    <div class="form-container">
+        <h1>Join in Today</h1>
+        
+        <br><br>
+        <label for="name-entry">Name</label>
+        <input type="text" id="name-entry" placeholder="Enter your name here...">
+        <br><br>
 
-    </body>
+        <label for="email-entry">Email</label>
+        <input type="text" id="email-entry" placeholder="Enter your email here...">
+        <br><br>
+
+        <label>Providing</label>
+        <div class="checklist">
+            <label><input type="checkbox" id="volunteering-checkbox" value="item1" onchange="toggleVisibility('volunteers')">Volunteering</label>
+            <div id="volunteers" style="display: none;">
+                <label for="signup-end-date">Which Dates</label>
+                <input type="date" id="Volunteer-Date">
+                <br><br>
+            </div>
+            <br><br>
+            
+            <label><input type="checkbox" id="resources-checkbox" value="item2" onchange="toggleVisibility('resources')">Resources</label>
+            <div id="resources" style="display: none;">
+                <p>Mark how much of each resource you'll bring</p>
+                <br><br>
+                <label for="resource1-goal">How Many "Blank Item"</label>
+                <input type="number" id="resource1-goal" placeholder="Donating...">
+                <br><br>
+                <label for="resource2-goal">How Many "Blank Item"</label>
+                <input type="number" id="resource2-goal" placeholder="Donating...">
+                <br><br>
+                <label for="resource3-goal">How Many "Blank Item"</label>
+                <input type="number" id="resource3-goal" placeholder="Donating...">
+                <br><br>
+            </div>
+            <br><br>
+
+            <label><input type="checkbox" id="donations-checkbox" value="item3" onchange="toggleVisibility('donations')">Donations</label>
+            <div id="donations" style="display: none;">
+                <label for="donations-goal">Enter Email for Stripe Link</label>
+                <br><br>
+                <input type="text" id="email" placeholder="Enter Email for Stripe Code">
+                <br><br>
+            </div>
+        </div>
+        <br><br>
+
+        <label>Join the Mailing List? Be alerted to future events</label>
+        <div class="multiple-choice">
+            <label><input type="radio" name="choice" value="option2">Yes</label>
+            <label><input type="radio" name="choice" value="option2">No</label>
+        </div>
+
+        <button class="dropbtn">Volunteer!</button>
+    </div>
+
+    <script>
+        function toggleVisibility(id) {
+            const section = document.getElementById(id);
+            const checkbox = document.getElementById(id + '-checkbox');
+            
+            if (checkbox.checked) {
+                section.style.display = 'block'; // Show the section
+            } else {
+                section.style.display = 'none'; // Hide the section
+            }
+        }
+    </script>
+
+    <footer>
+        <div class="form-container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
