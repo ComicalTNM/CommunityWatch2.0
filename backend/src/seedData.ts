@@ -50,7 +50,7 @@ const seedData = async () => {
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("AD")}`,
         registeredEvents: [], 
         completedEvents: [], 
-        interests: []
+        interests: ["Environment", "Food Drive", "Recreational"]
       }
     ];
 

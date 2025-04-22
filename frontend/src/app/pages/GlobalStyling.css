@@ -447,7 +447,7 @@ footer a:hover {
   /*Log In Styling  */
 
   form#loginForm {
-    background-color: var(--color-BG)
+    background-color: var(--color-BG);
     border-radius: 16px;
     padding: 40px;
     max-width: 400px;

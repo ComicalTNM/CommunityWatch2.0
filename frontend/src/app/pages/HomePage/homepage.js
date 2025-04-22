@@ -39,7 +39,7 @@
         //Fetch all events
         async function fetchEvents() {
             const response = await fetch (`${backendUrl}/api/posts/`);
-            const {posts} = await response.json();
+            const posts = await response.json();
             return posts; //This should be an array of all events (posts)
         }
 
@@ -47,6 +47,8 @@
             const userData = await fetchUserData(); //Get user data
             const allEvents = await fetchEvents(); //Get all events
 
+            console.log("Current User's Data:\n", userData);
+            console.log("All Posts/Events in the database\n", allEvents);
             //Filter events based on user data
             const upcomingEvents = allEvents.filter(event => userData.registeredEvents.includes(event._id.toString()) && new Date(event.eventDate) > new Date());
 
@@ -68,7 +70,7 @@
             events.forEach(event => {
                 console.log(`${sectionId} event:`, event._id, typeof event._id);
                 const iframe = document.createElement('iframe');
-                iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html?eventId=${event._id}`;
+                iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support?eventId=${event._id}`;
                 iframe.classList.add('results-iframe');
                 section.appendChild(iframe);
             });
