@@ -63,7 +63,7 @@ async function fetchEventDetails(id){
         const response = await fetch(`${BACKEND_URL}/api/posts/${id}`, {
             credentials: 'include'
         });
-        const {post} = await response.json();
+        const post = await response.json();
         updateEventCard(post); //Update the card with event details
     }
     catch(error){
@@ -88,6 +88,3 @@ function updateEventCard(event){
     document.querySelector(".location").innerText = `Location: ${event.location || "No Location Provided"}`;
 
 }
-
-//Fetch event details when the page loads
-fetchEventDetails();
