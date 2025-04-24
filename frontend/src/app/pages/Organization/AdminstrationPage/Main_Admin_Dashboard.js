@@ -28,8 +28,61 @@ function openSidebar(section) {
     // Add the appropriate class based on the section
     if (section === "Roles") {
         sidebar.classList.add("roles");
+        content.innerHTML = `
+        <p>Manage member access and permissions here.</p>
+        <form id="roles-form">
+            <input 
+                type="text" 
+                placeholder="Enter Member's full name" 
+                name="fullName"
+                required
+                style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc;"
+            />
+            <select 
+                name="accessLevel"
+                style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                <option value="admin">Admin Access</option>
+                <option value="member">Member Access</option>
+            </select>
+        </form>
+    `;
     } else if (section === "Metrics") {
         sidebar.classList.add("metrics");
+        content.innerHTML = `
+        <p>View engagement metrics for your organization below.</p>
+        <form id="metrics-form" style="display: flex; flex-direction: column; gap: 15px;">
+            <label>
+                Number page visits:
+                <input type="text" name="visitedPage" style="margin-left: 10px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            </label>
+            <label>
+                Number of people signed up for past events:
+                <input type="text" name="pastEvents" style="margin-left: 10px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            </label>
+            <label>
+                Number of people signed up for upcoming events:
+                <input type="text" name="upcomingEvents" style="margin-left: 10px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            </label>
+            <label>
+                Total events created:
+                <input type="text" name="totalEvents" style="margin-left: 10px; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            </label>
+
+            <label>
+                Demographics (Race):
+                <div id="demographics-chart" style="width: 100%; height: 200px; background: #e0e0e0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666;">
+                    Chart goes here
+                </div>
+            </label>
+
+            <label>
+                Age Groups:
+                <div id="age-groups-chart" style="width: 100%; height: 200px; background: #e0e0e0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666;">
+                    Chart goes here
+                </div>
+            </label>
+        </form>
+    `;
     } else if (section === "Donations") {
         sidebar.classList.add("donations");
         if (donations) {
