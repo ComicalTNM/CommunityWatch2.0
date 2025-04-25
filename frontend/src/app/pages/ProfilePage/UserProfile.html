@@ -33,30 +33,33 @@
           </div>
           <!-- User Info Display -->
           <div class="profile-info">
-            <p><strong>Name:</strong> Jane Doe</p>
-            <p><strong>Email:</strong> jane.doe@example.com</p>
+            <p><strong>Username:</strong> <span id="user-name">Jane Doe</span></p>
+            <p><strong>Email:</strong> <span id="user-email">jane.doe@example.com</span></p>
             <p>
               <strong>Password:</strong>
               <span id="password-mask">••••••••••</span>
               <button class="reveal-btn" onclick="togglePassword()">Show</button>
             </p>
-            <p><strong>Total Points:</strong> 20 pts</p>
+            <p><strong>Total Points:</strong> <span id="user-points">20 pts</span></p>
             <button href="Printpdf.html" class="PrintButton">Print Details</button>
           </div>
           </div>
 
                               <!-- Organizations Table -->
                               <table>
-                                <tr>
-                                  <th>Organizations</th>
-                                  <th>Role</th>
-                                </tr>
-                                <tr>
-                                  <td><a href="MemberView.html">Habitat for Humanity</a></td>
-                                  <td>
-                                    Member
-                                  </td>
-                                </tr>
+                                <thead>
+                                  <tr>
+                                      <th>Organizations</th>
+                                      <th>Role</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="organizations-table-body">  <tr>
+                                      <td><a href="MemberView.html">Habitat for Humanity</a></td>
+                                      <td>
+                                          Member
+                                      </td>
+                                  </tr>
+                                </tbody>
                               </table>
       
                               <div class="Edit-Profile">
@@ -72,12 +75,102 @@
       </div>
       
       <script>
+        const backendUrl = 'http://localhost:5000';
+        //Assumes user data is stored in sessionStorage
+        const userId = sessionStorage.getItem("userId") //Verify if this is the correct way to get the userId
+
+        async function fetchUserData()
+        {
+          try{
+            const response = await fetch(`${backendUrl}/api/users/${userId}`);
+            if(!response.ok)
+            {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const userData = await response.json();
+            return userData;
+          }
+          catch(error)
+          {
+            console.error("Error fetching user data:", error);
+            return null;
+          }
+        }
+
+        function displayUserData(user)
+        {
+          if(!user) return;
+           
+          document.getElementById("user-name").textContent = user.username;
+          document.getElementById("user-email").textContent = user.email;
+          document.getElementById("user-points").textContent = user.totalPoints || 0;
+        }
+        
+        async function displayOrganizations(user){
+          if(!user || (!user.registeredEvents && !user.completedEvents)) return;
+
+          const organizationsTableBody = document.getElementById("organizations-table-body");
+          organizationsTableBody.innerHTML = ""; //Clear existing rows
+
+          const eventIds = [...(user.registeredEvents || []), ...(user.completedEvents || [])];
+          if(eventIds.length === 0) return; //No events to fetch
+
+          try{
+            const response = await fetch(`${backendUrl}/api/organizations/by-events-ids`, {
+              method: POST,
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({eventIds: eventIds})
+            });
+
+            if(!response.ok)
+            {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const organizations = await response.json();
+
+            organizations.forEach(orgName => {
+              const row = document.createElement("tr");
+              const orgCell = document.createElement("td");
+              orgCell.textContent = orgName;
+              const roleCell = document.createElement("td");
+              roleCell.textContent = user.role;
+              row.appendChild(orgCell);
+              row.appendChild(roleCell);
+              organizationsTableBody.appendChild(row);
+            });
+          }
+          catch(error)
+          {
+            console.error("Error fetching organizations:", error);
+          }
+        }
+
+        //Main functionto run when the page loads
+        async function initializeProfilePage()
+        {
+          const user = await fetchUserData();
+
+          if(user)
+          {
+            displayUserData(user);
+            await displayOrganizations(user);
+          }
+          else{
+            alert("Could not load user data. Please try again.")
+          }
+        }
+        
+        initializeProfilePage();
+
         function togglePassword() {
           const pw = document.getElementById("password-mask");
           const btn = document.querySelector(".reveal-btn");
           //const userPassword =
           if (pw.innerText.includes("•")) {
-            pw.innerText = "MySuperSecret123"; // Replace with actual password value from backend
+            pw.innerText = "MySuperSecret123"; // A placeholder password for security reasons, the frontend should never display the actual password, plus the password cannot be dehashed
             btn.innerText = "Hide";
           } else {
             pw.innerText = "••••••••••";

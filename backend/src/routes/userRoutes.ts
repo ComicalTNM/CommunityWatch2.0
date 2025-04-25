@@ -23,6 +23,9 @@ router.get('/:id', async( req: Request, res: Response) => {
         //Create an object with relevant user data
         const userData = {
             id: user._id,
+            username: user.username,
+            email: user.email,
+            password: user.password,
             registeredEvents: user.registeredEvents, // Array of event IDs the user is registered for
             completedEvents: user.completedEvents, //Array of event ID the user has completed
             interests: user.interests //Array of the user's interests (tags)
