@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
+</head>
+  
+<body>
+
+    <nav class="topnav">
+        <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../pages/HomePage/homepage.html">Home</a>
+        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Organization</button>
+            <div class="dropdown-content">
+                <a href="#NewOrg">New Org</a>
+                <a href="../../pages/UserPage/UserView.html">My Orgs</a>
+            </div>
+        </div>
+        <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
+    </nav> 
+    <div class="profile-page">
+        <div class="profile-card">
+
+          <div class="profile-top-section">            
+          <!-- Profile Picture -->
+          <div class="profile-picture">
+            <img src="path/to/saved/profile.jpg" alt="User Profile Picture" />
+            <br>
+          </div>
+          <!-- User Info Display -->
+          <div class="profile-info">
+            <p><strong>Name:</strong> Jane Doe</p>
+            <p><strong>Email:</strong> jane.doe@example.com</p>
+            <p>
+              <strong>Password:</strong>
+              <span id="password-mask">••••••••••</span>
+              <button class="reveal-btn" onclick="togglePassword()">Show</button>
+            </p>
+            <p><strong>Total Points:</strong> 20 pts</p>
+            <button href="Printpdf.html" class="PrintButton">Print Details</button>
+          </div>
+          </div>
+
+                              <!-- Organizations Table -->
+                              <table>
+                                <tr>
+                                  <th>Organizations</th>
+                                  <th>Role</th>
+                                </tr>
+                                <tr>
+                                  <td><a href="MemberView.html">Habitat for Humanity</a></td>
+                                  <td>
+                                    Member
+                                  </td>
+                                </tr>
+                              </table>
+      
+                              <div class="Edit-Profile">
+                                <button href="EditProfile.html">Edit Profile</button>
+                              </div>
+
+
+
+
+
+
+        </div>
+      </div>
+      
+      <script>
+        function togglePassword() {
+          const pw = document.getElementById("password-mask");
+          const btn = document.querySelector(".reveal-btn");
+          //const userPassword =
+          if (pw.innerText.includes("•")) {
+            pw.innerText = "MySuperSecret123"; // Replace with actual password value from backend
+            btn.innerText = "Hide";
+          } else {
+            pw.innerText = "••••••••••";
+            btn.innerText = "Show";
+          }
+        }
+      </script>
+      
+        <footer>
+            <div class="container">
+                <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+                <p>&copy; 2025 Community Watch. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                    </a>
+                </div>
+            </div>
+        </footer>
+        
+            </body>
+
+</html>

@@ -1,0 +1,196 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit SR</title>
+
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
+</head>
+
+            <!--This should have a script call where it finds the event clicked on and basically prefills out the form then allows for changes -->
+  
+<body>
+    <nav class="topnav">
+        <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../pages/HomePage/homepage.html">Home</a>
+        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Organization</button>
+            <div class="dropdown-content">
+                <a href="#NewOrg">New Org</a>
+                <a href="../../SideBar/UserView.html">My Orgs</a>
+            </div>
+        </div>
+        <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+    </nav> 
+    
+    <div class="form-container">
+        <h1">Create your Request!</h1>
+        
+        <br><br>
+        <label for="text-entry">Request Name</label>
+        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <br><br>
+
+        <label for="text-entry">Request Description</label>
+        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <br><br>
+
+                    <!--I want these next to each other -->
+        <label for="start-date">Request Start Date</label>
+        <input type="date" id="start-date">
+        <br><br>
+        
+        <label for="end-date">Request End Date</label>
+        <input type="date" id="end-date">
+        <br><br>
+        
+                    <!--These Two as well -->
+        <label for="signup-start-date">Sign Up Window Start Date</label>
+        <input type="date" id="signup-start-date">
+        <br><br>
+        
+        <label for="signup-end-date">Sign Up Window End Date</label>
+        <input type="date" id="signup-end-date">
+        <br><br>
+        
+
+        <label>Urgency</label>
+        <div class="multiple-choice">
+            <label><input type="radio" name="choice" value="option2">Yes</label>
+            <label><input type="radio" name="choice" value="option2">No</label>
+        </div>
+        <br><br>
+
+        <label>What's Being Requested</label>
+        <div class="checklist">
+            <!-- Checkbox for Volunteers -->
+            <label><input type="checkbox" id="volunteers-checkbox" onclick="toggleVisibility('volunteers')">Volunteers</label>
+            <div id="volunteers" style="display: none;">
+                <!-- How Many Is the Goal -->
+                <label for="volunteers-goal">How Many Is the Goal?</label>
+                <input type="number" id="volunteers-goal" placeholder="Enter number of volunteers">
+            </div>
+            <br><br>
+        
+            <!-- Checkbox for Resources -->
+            <label><input type="checkbox" id="resources-checkbox" onclick="toggleVisibility('resources')">Resources</label>
+            <div id="resources" style="display: none;">
+                <!-- Resource Goal -->
+                <label for="resources-goal">How Many Resources Are Needed?</label>
+                <br><br>
+                <!-- Button to add new resource -->
+                <button type="button" onclick="addResource()">Add New Resource</button>
+                
+                <!-- New resources will appear here -->
+                <div id="new-resources"></div>
+            </div>
+            <br><br>
+        
+            <!-- Checkbox for Donations -->
+            <label><input type="checkbox" id="donations-checkbox" onclick="toggleVisibility('donations')">Donations</label>
+            <div id="donations" style="display: none;">
+                <!-- Donation Goal -->
+                <label for="donations-goal">Donation Goal</label>
+                <br><br>
+                <input type="number" id="donations-goal" placeholder="Enter donation goal amount">
+                <br><br>
+        
+                <!-- Stripe Link for Donations -->
+                <label for="stripe-link">Stripe Donation Link</label>
+                    <br><br>
+                <input type="url" id="stripe-link" placeholder="Enter Stripe donation link">
+            </div>
+        </div>
+        <br><br>
+
+        <label>Request Filters</label>
+        <div class="checklist">
+            <label><input type="checkbox" value="item1">Academic</label>
+            <label><input type="checkbox" value="item2">Enviromental</label>
+            <label><input type="checkbox" value="item1">Wellness</label>
+            <label><input type="checkbox" value="item2">Advocacy</label>
+            <label><input type="checkbox" value="item1">Cultural</label>
+            <label><input type="checkbox" value="item2">Developmental</label>
+            <label><input type="checkbox" value="item1">Youth</label>
+            <label><input type="checkbox" value="item2">Community</label>
+            <label><input type="checkbox" value="item1">Veterns</label>
+            <label><input type="checkbox" value="item2">Women/Children</label>
+        </div>
+        <br><br>
+
+        <button class="dropbtn">Publish Request</button>
+
+    </div>
+    <script>
+ function toggleVisibility(id) {
+        const checkbox = document.getElementById(id + '-checkbox');
+        const section = document.getElementById(id);
+        
+        // Toggle the visibility of the section based on the checkbox state
+        if (checkbox.checked) {
+            section.style.display = 'block'; // Show the section
+        } else {
+            section.style.display = 'none'; // Hide the section
+        }
+    }
+
+    function addResource() {
+        // Create new resource fields for name and goal amount
+        const resourceDiv = document.createElement("div");
+        resourceDiv.classList.add("resource-entry");
+
+        // Create the resource name input
+        const resourceNameLabel = document.createElement("label");
+        resourceNameLabel.innerText = "Resource Name";
+        const resourceNameInput = document.createElement("input");
+        resourceNameInput.type = "text";
+        resourceNameInput.placeholder = "Enter resource name";
+
+        // Create the goal amount input
+        const goalLabel = document.createElement("label");
+        goalLabel.innerText = "Goal Amount";
+        const goalInput = document.createElement("input");
+        goalInput.type = "number";
+        goalInput.placeholder = "Enter goal amount";
+
+        // Append the new fields to the div
+        resourceDiv.appendChild(resourceNameLabel);
+        resourceDiv.appendChild(resourceNameInput);
+        resourceDiv.appendChild(goalLabel);
+        resourceDiv.appendChild(goalInput);
+
+        // Append the new resource div to the 'new-resources' container
+        document.getElementById("new-resources").appendChild(resourceDiv);
+    }
+
+    function toggleVisibility(id) {
+        const checkbox = document.getElementById(id + '-checkbox');
+        const section = document.getElementById(id);
+        
+        // Toggle the visibility of the section based on the checkbox state
+        if (checkbox.checked) {
+            section.style.display = 'block'; // Show the section
+        } else {
+            section.style.display = 'none'; // Hide the section
+        }
+    }
+    </script>
+
+<footer>
+    <div class="container">
+        <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+        <p>&copy; 2025 Community Watch. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            </a>
+        </div>
+    </div>
+</footer>
+
+    </body>
+</html>

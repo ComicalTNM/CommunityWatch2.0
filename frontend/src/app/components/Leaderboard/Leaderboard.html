@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeaderBoard Component</title>
+  <link rel="stylesheet"  href="Leaderboard.css" href="https://indestructibletype.com/fonts/Jost.css" > 
+</head>
+<body>
+  <div class="leaderboard-container">
+    <div class="leaderboard-header">Top Community Members</div>
+    <div class="leaderboard-toggle">
+      <span class="toggle-option" onclick="showLeaderboard('weekly')">Weekly</span>
+      <span>-</span>
+      <span class="toggle-option" onclick="showLeaderboard('monthly')">Monthly</span>
+      <span>-</span>
+      <span class="toggle-option" onclick="showLeaderboard('overall')">Overall</span>
+    </div>
+    <ul class="leaderboard-list" id="leaderboardList"></ul>
+  </div>
+  <script src="Leaderboard.js"></script>
+</body>
+</html>

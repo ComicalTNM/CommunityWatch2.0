@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Page</title>
+<script type="module" src="SearchPage.js"></script>
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
+
+</head>
+  
+<body>
+    <nav class="topnav">
+        <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../pages/HomePage/homepage.html">Home</a>
+        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+        <div class="dropdown">
+            <button class="dropbtn">Organization</button>
+            <div class="dropdown-content">
+                <a href="#NewOrg">New Org</a>
+                <a href="../../pages//UserPage/UserView.html">My Orgs</a>
+            </div>
+        </div>
+        <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
+    </nav> 
+    
+
+        <input type="text" id="search-bar" placeholder="Search...">
+        <button id="search-button">Search</button>
+
+    
+    <button id="toggle-filters">View Filters</button>
+    
+    <div class="filters" id="filters">
+    
+        <label><input type="checkbox" name="filter" value="Location"> Location</label>
+        <label><input type="checkbox" name="filter" value="Date"> Date</label>
+        <label><input type="checkbox" name="filter" value="Volunteers"> Volunteers</label>
+        <label><input type="checkbox" name="filter" value="Donations"> Donations</label>
+        <label><input type="checkbox" name="filter" value="Religious"> Religious</label>
+        <label><input type="checkbox" name="filter" value="Academic"> Academic</label>
+        <label><input type="checkbox" name="filter" value="Environmental"> Environmental</label>
+        <label><input type="checkbox" name="filter" value="Wellness"> Wellness</label>
+        <label><input type="checkbox" name="filter" value="Advocacy"> Advocacy</label>
+        <label><input type="checkbox" name="filter" value="Cultural"> Cultural</label>
+        <label><input type="checkbox" name="filter" value="Development"> Development</label>
+        <label><input type="checkbox" name="filter" value="Youth"> Youth</label>
+        <label><input type="checkbox" name="filter" value="Community"> Community</label>
+        <label><input type="checkbox" name="filter" value="Veterans"> Veterans</label>
+        <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
+        <button id="clear-filters">Clear Filters</button>
+    </div>
+    
+    
+    <div class="results-container" id="results-container">
+
+    </div>
+
+
+    <footer>
+        <div class="container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+/* Base styling */
+body {
+    font-family: 'Jost', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #342E26;
+    color: #B2AC88;
+}
+
+.HeroSection {
+    position: relative;
+    text-align: center;
+    padding: 50px 0;
+    background: linear-gradient(to bottom, rgba(52, 46, 38, 0.75), #ffffff);
+    /* Transition from the current background color (rgba(52, 46, 38, 0.75)) to white */
+}
+
+.HeroSection img {
+    width: 80%;
+    max-width: 200px;
+}
+
+.HeroSection p {
+    font-size: 24px;
+    color: #B2AC88;
+    margin-top: 10px;
+}
+
+/* Remove the gap between the hero section and Navbar */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Leaderboard Styling - Positioned just above the carousels with no background */
+#Leaderboard {
+    margin-top: 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+#Leaderboard h4 {
+    font-size: 1.2rem;
+    color: #B2AC88;
+    margin: 10px 0;
+}
+
+/* Carousel styling */
+.carousel-wrapper {
+    display: flex;
+    overflow: hidden;
+    margin: 0 auto;
+    transition: transform 0.5s ease-in-out;
+}
+
+.iframe-wrapper {
+    flex: 0 0 33.33%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#resultsFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Carousel buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: #B2AC88;
+    font-size: 2em;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+/* Carousel headers */
+.carousel-header {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+    color: #686553;
+}
+
+/* Additional carousel section styling */
+.UpcomingEvents, .Recommended, .Completed {
+    position: relative;
+    margin-top: 30px;
+}
+
+.carousel-btn {
+    top: 50%;
+    margin-top: -10px;
+}
+
+iframe {
+    border: none;
+}
+
+/* Banner Image */
+.HeroSection img:nth-of-type(2) {
+    opacity: 0.35;
+}
+
+/* Colors */
+:root {
+    --color-dark: #342E26;
+    --color-light: #B2AC88;
+    --color-accent: #5C5840;
+    --color-muted: #686553;
+    --color-blue: #434563;
+}
+
+/* Banner */
+.HeroSection {
+    background-image: url('https://via.placeholder.com/1200x400'); /* stand-in banner image */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Styling for transparency of banner */
+.HeroSection img {
+    opacity: 0.35;
+}
+
+/* Slogan */
+.HeroSection p {
+    font-size: 30px;
+    color: #5C5840;
+}
+
+/* Adjust layout for smaller screens */
+@media (max-width: 768px) {
+    .iframe-wrapper {
+        flex: 0 0 100%;
+    }
+}
