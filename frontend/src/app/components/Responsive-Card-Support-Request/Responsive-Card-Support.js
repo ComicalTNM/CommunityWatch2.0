@@ -77,14 +77,20 @@ function updateEventCard(event){
     document.querySelector(".card-header h4").innerText = event.organization?.name || "No Organization Provided";
     document.querySelector(".card-header h5").innerText = event.eventDate ? new Date(event.date).toLocaleDateString() : "No Date Provided";
     document.querySelector(".description").innerText = event.description || "No Description Provided";
+    document.querySelector(".filter-box1").innerText = event.tags[0] || "No Filter";
+    document.querySelector(".filter-box2").innerText = event.tags[1] || "No Filter";
+    document.querySelector(".filter-box3").innerText = event.tags[2] || "No Filter";
+
+
 
     const progress = event.progress || 0;
     document.querySelector(".progress-bar").style.width = `${progress}%`;
 
     document.querySelector(".title-ex").innerText = event.title || "No Title Provided";
     document.querySelector(".organization-ex").innerText = event.organization?.name || "No Organization Provided";
+    document.querySelector(".description-ex").innerText = event.description || "No Description Provided";
     document.querySelector(".date-ex").innerText = event.eventDate ? new Date(event.date).toLocaleDateString() : "No Date Provided";
-    document.querySelector(".goals").innerText = `Goals: ${event.goals || "No Goals Provided"}`;
+    document.querySelector(".goals").innerText = `Goals: ${ event.goals || "No Goals Provided"}`;
     document.querySelector(".location").innerText = `Location: ${event.location || "No Location Provided"}`;
 
 }
