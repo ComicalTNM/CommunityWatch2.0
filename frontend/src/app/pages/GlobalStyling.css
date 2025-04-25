@@ -42,6 +42,9 @@
     padding-left: 1.5em;
     font-size: 12px;
   }
+  header {
+    text-align: center;
+  }
   
   /*── LINKS & BUTTONS ───────────────────────────────────────────────────────*/
   a {
@@ -222,22 +225,20 @@
   #clear-filters:hover { text-decoration: underline; color: var(--color-blue); }
   
   .filters {
-    display: none; /* toggled via JS */
     flex-direction: column;
-    padding: 15px;
-    margin-top: 15px;
+    padding: 0px;
     max-width: 700px;
     width: 90%;
-    background: var(--color-dark);
     color: var(--color-light);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(52,46,38,0.3);
     transition: all 0.5s ease;
+    text:var(--color-BG);
   }
   
   .filters-grid {
     display: grid;
     grid-template-columns: repeat(4,1fr);
+    grid-template-rows: auto;
     gap: 10px;
   }
   
@@ -262,14 +263,20 @@
   
   .profile-card {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column; /* changed from row-reverse */
     gap: 40px;
-    max-width: 1100px;
+    max-width: 1500px;
     width: 100%;
     background: #fff;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .profile-top-section {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
   }
   
   .profile-picture img {
@@ -277,7 +284,7 @@
     height: 140px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--color-blue);
+    border: 2px solid var(--color-blue);
   }
   
   .profile-info {
@@ -294,41 +301,28 @@
     color: var(--color-accent);
   }
   
-  .reveal-btn,
-  .edit-btn {
-    background-color: var(--color-blue);
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-  }
-  .reveal-btn { margin-left: 10px; }
-  .edit-btn { margin-top: 30px; align-self: flex-start; padding: 10px 18px; font-size: 1rem; font-weight: 600; }
-  .reveal-btn:hover,
-  .edit-btn:hover {
-    background-color: var(--color-muted);
-  }
-  
   table {
-    width: 100%;
-    margin-top: 20px;
+    width: 40%;
+    margin-top: 5px;
     border-collapse: collapse;
-    border-radius: 10px;
+    border-radius: 1px;
     overflow: hidden;
-    background: #fefefe;
+    background: var(--color-light);
+    border: 3px,#000;
   }
   table th, table td {
     padding: 14px 16px;
     text-align: left;
-    border-bottom: 1px solid var(--color-BG);
+    border-bottom: 1px solid var(--color-dark);
   }
   table th {
-    background: var(--color-light);
-    color: var(--color-accent);
+    background: var(--color-muted);
+    color: var(--color-BG);
     font-size: 1rem;
+  }
+
+  .PrintButton{ 
+width:100px;
   }
   
   /*── FOOTER ──────────────────────────────────────────────────────────────*/
@@ -363,10 +357,23 @@
     background: var(--color-light);
     padding: 50px 0;
     display: flex;
+    text-align: center;
+    align-items: center;
     justify-content: center;
   }
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-BG);
+    padding: 30px 40px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
   .login-content,
-  .login-container,
   form#loginForm,
   .form-container {
     max-width: 600px;
@@ -378,14 +385,80 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
   }
   form#loginForm {
     border: 2px solid var(--color-blue);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
   form#loginForm h2 {
     text-align: center;
     color: var(--color-blue);
     margin-bottom: 10px;
   }
-  
-  
+  /*── Section Styling ───────────────────────────────────────────────*/
+  section {
+    padding: 20px;
+    margin: 10px;
+    width: 95%;
+    background-color: var(--color-light);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .section-title {
+    font-size: 1.5em;
+    color: #333;
+  }
+
+  .category {
+    font-size: 1em;
+    color:var(--color-blue);
+    margin-top: 4px;
+  }
+
+  .section-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .section-photo {
+    width: 150px;
+    height: 150px;
+    background-color: #ddd;
+    border-radius: 8px;
+    margin-right: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .section-description {
+    flex: 1;
+  }
+/*── Organization View ───────────────────────────────────────────────*/
+      section button {
+        display: block; /* Makes buttons appear vertically */
+        width: 20%;    /* Makes buttons take full width */
+        padding: 10px;
+        margin: 5px 0;  /* Adds space between the buttons */
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .remove-member:hover {
+        background-color: #f44336;
+    }
