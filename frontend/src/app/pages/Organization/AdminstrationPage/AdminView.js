@@ -1,8 +1,3 @@
-// Function to open the sidebar
-function openOrganizationSidebar() {
-    document.getElementById("organization-sidebar").style.display = "block";
-}
-
 // Function to close the sidebar
 function closeOrganizationSidebar() {
     document.getElementById("organization-sidebar").style.display = "none";
