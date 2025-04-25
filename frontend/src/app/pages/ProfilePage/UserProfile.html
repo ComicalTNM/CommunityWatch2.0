@@ -24,11 +24,13 @@
     </nav> 
     <div class="profile-page">
         <div class="profile-card">
+
+          <div class="profile-top-section">            
           <!-- Profile Picture -->
           <div class="profile-picture">
             <img src="path/to/saved/profile.jpg" alt="User Profile Picture" />
+            <br>
           </div>
-      
           <!-- User Info Display -->
           <div class="profile-info">
             <p><strong>Name:</strong> Jane Doe</p>
@@ -38,22 +40,34 @@
               <span id="password-mask">••••••••••</span>
               <button class="reveal-btn" onclick="togglePassword()">Show</button>
             </p>
-            <p><strong>Role:</strong> Community Organizer</p>
+            <p><strong>Total Points:</strong> 20 pts</p>
+            <button href="Printpdf.html" class="PrintButton">Print Details</button>
           </div>
+          </div>
+
+                              <!-- Organizations Table -->
+                              <table>
+                                <tr>
+                                  <th>Organizations</th>
+                                  <th>Role</th>
+                                </tr>
+                                <tr>
+                                  <td><a href="MemberView.html">Habitat for Humanity</a></td>
+                                  <td>
+                                    Member
+                                  </td>
+                                </tr>
+                              </table>
       
-          <!-- Organizations Table -->
-          <table>
-            <tr>
-              <th>Organizations</th>
-              <th>Description</th>
-            </tr>
-            <tr>
-              <td>Habitat for Humanity</td>
-              <td>
-                Habitat Greensboro works toward our vision of a world where everyone has a safe and affordable place to live. Habitat homeowners help build their own homes alongside volunteers and pay an affordable mortgage.
-              </td>
-            </tr>
-          </table>
+                              <div class="Edit-Profile">
+                                <button href="EditProfile.html">Edit Profile</button>
+                              </div>
+
+
+
+
+
+
         </div>
       </div>
       

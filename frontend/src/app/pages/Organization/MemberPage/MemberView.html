@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin View</title>
+<title>Member View</title>
 
 <link rel="stylesheet" href="../../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
@@ -27,7 +27,6 @@
     <!-- Header Section -->
     <header>
         <h1 id="Organization-title">Organization Title</h1>
-            <button onclick= "location.href='Main_Admin_Dashboard.html'" class="goback-btn">View Dashboard</button>
     </header>
 
     <!-- Organization Sections -->
@@ -43,50 +42,12 @@
                 </p>
             </div>
         </div>
-
-        <!--Add category dropdown checkbox div-->
-        <br><br>
-        <div id="edit-organization" style="display: view;">
-            <!-- How Many Is the Goal -->
-            <label for="new-title">New Title</label>
-            <input type="text" id="new-title" placeholder="Enter new title">
-            <br><br>
-            <label for="description">Change Description</label>
-            <input type="text" id="change-description" placeholder="Enter new description">
-            <br><br>
-            <label for="logo">New Logo</label>
-            <input type="file" id="org-logo" placeholder="Upload new logo" accept="image/*">
-            <br><br>
-            <label id="checkbox-display"><strong>Category:</strong></label>
-            <div class="filters" id="filters">
-                <label><input type="checkbox" name="filter" value="Location"> Location</label>
-                <label><input type="checkbox" name="filter" value="Date"> Date</label>
-                <label><input type="checkbox" name="filter" value="Volunteers"> Volunteers</label>
-                <label><input type="checkbox" name="filter" value="Donations"> Donations</label>
-                <label><input type="checkbox" name="filter" value="Religious"> Religious</label>
-                <label><input type="checkbox" name="filter" value="Academic"> Academic</label>
-                <label><input type="checkbox" name="filter" value="Environmental"> Environmental</label>
-                <label><input type="checkbox" name="filter" value="Wellness"> Wellness</label>
-                <label><input type="checkbox" name="filter" value="Advocacy"> Advocacy</label>
-                <label><input type="checkbox" name="filter" value="Cultural"> Cultural</label>
-                <label><input type="checkbox" name="filter" value="Development"> Development</label>
-                <label><input type="checkbox" name="filter" value="Youth"> Youth</label>
-                <label><input type="checkbox" name="filter" value="Community"> Community</label>
-                <label><input type="checkbox" name="filter" value="Veterans"> Veterans</label>
-                <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
-
-            </div>
-
-        </div>
     </section>
 
     <!--Member -->
     <section>
         <div class="section-title"><h2>Members</h2></div>
         <br>
-        <button class="remove-member"> Remove Members</button>
-        <button class="add-member" href=""> Add Member</button>
-        <button class="alter-role"> Alter Member Role</button>
         <button class="edit-member" href=""> View & Edit Member</button>
     </section>
     <!--Event-->
@@ -94,8 +55,15 @@
         <div class="section-title"><h2>Event Request</h2></div>
         <br>
         <button class="add-event"> Add Event</button>
-        <button class="remove-event"> Remove Event</button>
         <button class="edit-event" href=""> Edit Event</button>
+    </section>
+
+     <!--Metrics -->
+     <section>
+        <div class="section-title"><h2>Metrics</h2></div>
+        <br>
+        <button class="edit-member" href=""> View Organization Calendar</button>
+        <button class="edit-member" href=""> View Event Completion Graph</button>
     </section>
 
     <footer>
@@ -112,6 +80,5 @@
           </div>
         </div>
       </footer>
-    <script src="AdminView.js"></script> <!-- Loads script -->
 </body>
 </html>
