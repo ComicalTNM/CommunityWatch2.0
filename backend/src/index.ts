@@ -10,6 +10,7 @@ import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import seedData from './seedData';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config({path: './info.env'});
 console.log('Using MONGODB_URI:', process.env.MONGODB_URI);
@@ -36,6 +37,11 @@ app.use('/api/organizations', organizationRoutes);
 app.use('/api/profiles/public', profileRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+
+//  <---  SERVE STATIC FILES FROM 'uploads'
+const uploadsDir = path.resolve(__dirname, 'uploads');  //  Get the absolute path
+console.log("Serving static files from:", uploadsDir);  //  DEBUG!
+app.use('/uploads', express.static(uploadsDir));
 
 console.log("Registered Routes in Express:");
 app._router.stack.forEach((middleware: any) => {

@@ -1,13 +1,25 @@
 import User from '../models/User';
 import {Request, Response, Router, NextFunction, RequestHandler} from 'express';
 import bcrypt from 'bcrypt';
-import multer from 'multer'; 
-
+import multer, {StorageEngine} from 'multer'; 
+import path from 'path';
 
 const router = Router();
 
+//Multer storage configuration
+const storage: StorageEngine = multer.diskStorage({
+    destination: (req, file, cb) => {
+    cb(null, 'uploads/');  //  Where to store the files
+    },
+    filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const fileExtension = path.extname(file.originalname);  //  Get the file extension
+    cb(null, file.fieldname + '-' + uniqueSuffix + fileExtension);  //  Name the file with extension
+    },
+});
+
 //Multer setup (if handling file uploads)
-const upload = multer({ dest: 'uploads/'});
+const upload = multer({ storage: storage});
 
 // Define a type for the request object that includes Multer's 'file'
 type MulterRequest = Request & {
@@ -35,6 +47,7 @@ router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
             id: user._id,
             username: user.username,
             email: user.email,
+            profilePicture: user.profilePicture,
             registeredEvents: user.registeredEvents, // Array of event IDs the user is registered for
             completedEvents: user.completedEvents, //Array of event ID the user has completed
             interests: user.interests, //Array of the user's interests (tags)
@@ -65,7 +78,8 @@ router.patch('/:userId', upload.single('profilePicture'), (async(req: MulterRequ
 
         if(req.file)
         {
-            updateFields.profilePicture = req.file.path;
+            //  Normalize the file path to use forward slashes
+            updateFields.profilePicture = req.file.path.replace(/\\/g, '/');
         }
 
         const updatedUser = await User.findByIdAndUpdate(

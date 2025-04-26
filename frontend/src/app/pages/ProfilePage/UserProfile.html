@@ -104,6 +104,13 @@
           document.getElementById("user-name").textContent = user.username;
           document.getElementById("user-email").textContent = user.email;
           document.getElementById("user-points").textContent = user.points || 0;
+
+          //Updating profile picture
+          const profilePictureElement = document.querySelector('.profile-picture img');
+          if (user.profilePicture) {
+              profilePictureElement.src =  user.profilePicture;  // Set the src to the path
+              profilePictureElement.alt = `Profile picture of ${user.username}`; // Good practice to set alt text
+          }
         }
         
         async function displayOrganizations(user){
