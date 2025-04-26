@@ -1,11 +1,21 @@
-import {Router} from 'express'
 import User from '../models/User';
-import {Request, Response} from 'express'
+import {Request, Response, Router, NextFunction, RequestHandler} from 'express';
+import bcrypt from 'bcrypt';
+import multer from 'multer'; 
+
 
 const router = Router();
 
+//Multer setup (if handling file uploads)
+const upload = multer({ dest: 'uploads/'});
+
+// Define a type for the request object that includes Multer's 'file'
+type MulterRequest = Request & {
+    file?: Express.Multer.File; // Definitely has 'file'
+};
+
 //Route to get the user details by user ID
-router.get('/:id', async( req: Request, res: Response) => {
+router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
     try
     {
         const userId = req.params.id; //Extract user ID from the route paramter
@@ -25,7 +35,6 @@ router.get('/:id', async( req: Request, res: Response) => {
             id: user._id,
             username: user.username,
             email: user.email,
-            password: user.password,
             registeredEvents: user.registeredEvents, // Array of event IDs the user is registered for
             completedEvents: user.completedEvents, //Array of event ID the user has completed
             interests: user.interests //Array of the user's interests (tags)
@@ -36,8 +45,46 @@ router.get('/:id', async( req: Request, res: Response) => {
     {
         console.error(error);
         res.status(500).json({message: 'Server error'});
-        return;
+        return next(error);
     }
 });
+
+//PATCH route to update user details
+router.patch('/:userId', upload.single('profilePicture'), (async(req: MulterRequest, res: Response, next: NextFunction) => {
+    try{
+        const userId = req.params.id;
+        const {username, email, password} = req.body;
+
+        const updateFields: any = {username, email};  
+        if(password)
+        {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateFields.password = hashedPassword;
+        }
+
+        if(req.file)
+        {
+            updateFields.profilePicture = req.file.path;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            updateFields,
+            {new: true, runValidators: true} // Returns the updated document
+        );
+
+        if(!updatedUser)
+        {
+            return res.status(404).json({message: 'User not found'});
+        }
+        res.json(updatedUser);
+    }
+    catch(error)
+    {
+        console.error(error);
+        res.status(500).json({message: 'Error updating user'});
+        return next(error);
+    }
+}) as RequestHandler);
 
 export default router;
