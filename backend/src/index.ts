@@ -41,7 +41,7 @@ app.use('/api/users', userRoutes);
 //  <---  SERVE STATIC FILES FROM 'uploads'
 const uploadsDir = path.resolve(__dirname, 'uploads');  //  Get the absolute path
 console.log("Serving static files from:", uploadsDir);  //  DEBUG!
-app.use('/uploads', express.static(uploadsDir));
+app.use('/uploads', express.static('uploads'));
 
 console.log("Registered Routes in Express:");
 app._router.stack.forEach((middleware: any) => {
