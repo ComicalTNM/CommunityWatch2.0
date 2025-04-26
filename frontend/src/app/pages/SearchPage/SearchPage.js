@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const filterToggle = document.getElementById("toggle-filters");
-    const filters = document.getElementById("filters");
+    const toggleBtn = document.getElementById('toggle-filters');
+    const filtersBox = document.getElementById('filters-box');
+    const clearBtn = document.getElementById('clear-filters');
     const searchBar = document.getElementById("search-bar");
     const carouselInner = document.getElementById("carousel-inner");
     const resultsContainer = document.querySelector(".results-container");
@@ -8,18 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const backendURL = "http://localhost:5000";
     
 
-     // Toggle filters display
-     filterToggle.addEventListener("click", function () {
-        filters.style.display = filters.style.display === "none" || filters.style.display === "" ? "flex" : "none";
-    });
+    toggleBtn.addEventListener('click', () => {
+        filtersBox.classList.toggle('hidden');
+      });
+    
+      clearBtn.addEventListener('click', () => {
+        document.querySelectorAll('.filters input[type="checkbox"]').forEach(cb => cb.checked = false);
+      });
 
-    const clearFiltersButton = document.getElementById("clear-filters");
-    clearFiltersButton.addEventListener("click", function () {
-        document.querySelectorAll(".filters input[type='checkbox']").forEach(checkbox => {
-            checkbox.checked = false;
-        });
-        updateResults();
-    });
+
+
 
     // Listen for search input
     searchBar.addEventListener("input", updateResults);
