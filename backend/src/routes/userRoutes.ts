@@ -37,7 +37,8 @@ router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
             email: user.email,
             registeredEvents: user.registeredEvents, // Array of event IDs the user is registered for
             completedEvents: user.completedEvents, //Array of event ID the user has completed
-            interests: user.interests //Array of the user's interests (tags)
+            interests: user.interests, //Array of the user's interests (tags)
+            points: user.points
         }
         res.status(200).json(userData);
     }
@@ -52,7 +53,7 @@ router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
 //PATCH route to update user details
 router.patch('/:userId', upload.single('profilePicture'), (async(req: MulterRequest, res: Response, next: NextFunction) => {
     try{
-        const userId = req.params.id;
+        const userId = req.params.userId;
         const {username, email, password} = req.body;
 
         const updateFields: any = {username, email};  
@@ -86,5 +87,43 @@ router.patch('/:userId', upload.single('profilePicture'), (async(req: MulterRequ
         return next(error);
     }
 }) as RequestHandler);
+
+//PATCH route for resetting points
+router.patch('/:userId/points', (async(req, res) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.userId,
+            {points: 0},
+            {new: true}
+        );
+        if(!updatedUser)
+        {
+            return res.status(404).json({message: 'User not found'});
+        }
+
+        res.json({message: 'Points reset successfully'});
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).json({message: 'Error resetting points'});
+    }
+}) as RequestHandler)
+
+//DELETE route for deleting a user
+router.delete('/:userId', (async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.userId);
+        if(!deletedUser){
+            return res.status(404).json({message: 'User not found'});
+        }
+
+        res.json({message: 'User deleted successfully'});
+    }
+    catch (error)
+    {
+        console.error(error);
+        res.status(500).json({message: 'Error deleting user'});
+    }
+}) as RequestHandler)
 
 export default router;

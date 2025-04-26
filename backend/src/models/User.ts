@@ -9,6 +9,7 @@ interface IUserModel extends IUser {
   registeredEvents: mongoose.Types.ObjectId[];
   completedEvents: mongoose.Types.ObjectId[];
   interests: String[];
+  points: Number;
 }
 
 const UserSchema: Schema = new Schema<IUserModel>({
@@ -23,7 +24,8 @@ const UserSchema: Schema = new Schema<IUserModel>({
   //Fields for event tracking and recommendations
   registeredEvents: [{type: Schema.Types.ObjectId, ref: 'Post'}], //Stores the event IDs for the events the user registered for
   completedEvents: [{type: Schema.Types.ObjectId, ref:'Post'}], //Stores event IDs of the events the user completed
-  interests: [{type: String}] //Stores the event catergories (tags) that the user is interested in 
+  interests: [{type: String}], //Stores the event catergories (tags) that the user is interested in 
+  points: [{type: Number}]
 }, { timestamps: true });
 
 //When the save function is called on a user object, the password is encrypted 
