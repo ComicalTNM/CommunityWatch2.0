@@ -78,8 +78,9 @@ router.patch('/:userId', upload.single('profilePicture'), (async(req: MulterRequ
 
         if(req.file)
         {
-            //  Normalize the file path to use forward slashes
-            updateFields.profilePicture = req.file.path.replace(/\\/g, '/');
+            //  Construct the full image URL
+            const imageUrl = `${req.protocol}://${req.get('host')}/${req.file.path.replace(/\\/g, '/')}`;  //  Important:  Replace backslashes for URLs
+            updateFields.profilePicture = imageUrl;
         }
 
         const updatedUser = await User.findByIdAndUpdate(
