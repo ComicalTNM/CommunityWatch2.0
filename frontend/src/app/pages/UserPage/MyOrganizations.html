@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User View</title>
+  <link rel="stylesheet" href="../GlobalStyling.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="topnav">
+    <img src="../../components/NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+    <a href="../../pages/HomePage/homepage.html">Home</a>
+    <div class="nav-group">
+      <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+      <div class="dropdown">
+        <button class="dropbtn">Organization</button>
+        <div class="dropdown-content">
+          <a href="#NewOrg">New Org</a>
+          <a href="../../pages/UserPage/MyOrganization.html">My Orgs</a>
+        </div>
+      </div>
+    </div>
+    <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>My Organization</h1>
+    <h3>Welcome, <span id="user-name">Come See Where You Are Making a Difference</span></h3>
+  </header>
+
+  <div id="organizations-container">
+  <!-- Organization Section 1-->
+    <section>
+      <div class="section-title">BackPack Beginnings</div>
+      <div class="category">Category: Women/Children, Youth, Wellness and Community</div>
+      <div class="section-content">
+        <div class="section-photo" style="background-image: url('UserView Imgs/BPB-Vertical-logo.png');"></div>
+        <div class="section-description">
+          <p>BackPack Beginnings’ mission is to connect children and their families to resources needed to thrive.
+              By ensuring food and basic necessities are given directly to children in need, we make a positive and
+              lasting impact on their health and well-being.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Organization Section 2-->
+    <section>
+      <div class="section-title">The Servant Center</div>
+      <div class="category">Category: Veterans</div>
+      <div class="section-content">
+        <div class="section-photo" style="background-image: url('UserView Imgs/The_Servant_Center_logo.png');"></div>
+        <div class="section-description">
+          <p>Our mission is to empower the homeless and disabled, particularly veterans, to become independent, 
+              contributing members of our community through housing, healthcare, and restorative services.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer>
+    <div class="container">
+      <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+      <p>&copy; 2025 Community Watch. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com" target="_blank" title="Instagram">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const backendURL = 'http://localhost:5000';
+    const userID = sessionStorage.getItem("userId");
+
+    async function fetchUserData(){
+      try{
+        const response = await fetch(`${backendURL}/api/users/${userID}`);
+        if(!response.ok)
+        {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const userData = await response.json();
+        return userData;
+      }
+      catch(error)
+      {
+        console.error("Error fetching user data:", error);
+        return null;
+      }
+    }
+
+    async function fetchOrganizationByEventIDs(eventIds)
+    {
+      try{
+        const response = await fetch(`${backendURL}/api/organizations/by-events-ids`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({eventIds: eventIds})
+        });
+        
+        if(!response.ok)
+        {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const organizations = response.json();
+        return organizations;
+      }
+      catch(error)
+      {
+        console.error('Error fetching organizations:', error);
+        return [];
+      }
+    }
+
+    function displayOrganizations(organizations, userData){
+      const container = document.getElementById('organizations-container');
+      conatiner.innerHTML = ''; //Clear any existing content
+
+      if(!organizations || organizations.length === 0)
+      {
+        container.innerHTML = '<p>No organizations found.</p>';
+        return;
+      }
+
+      organizations.forEach(org => {
+        const section = document.createElement('section');
+        section.innerHTML = `
+         <div class="section-title">${org.name}</div>
+      <div class="category">Category: ${org.causes}</div>
+      <div class="section-content">
+        <div class="section-photo" style="background-image: ${org.profileImage}"></div>
+        <div class="section-description">
+          <p>${org.longBio}</p>
+        </div>
+      </div>
+        `
+        container.appendChild(section);
+      })
+
+      //Updating the username
+      document.getElementById("user-name").textContent = userData.username;
+    }
+
+    async function initializeOrganizationPage()
+    {
+      const user = await fetchUserData();
+
+      if(user)
+      {
+        const eventIds = [...(user.registeredEvents || []), ...(user.completedEvents || [])];
+        if(eventIds.length > 0)
+        {
+          const organizations = await fetchOrganizationByEventIDs(eventIds);
+          displayOrganizations(organizations, user);
+        }
+        else
+        {
+          document.getElementById('organizations-container').innerHTML = '<p>You are not registered for or have not completed any events yet.</p>';
+        }
+      }
+      else {
+          alert('Could not load user data. Please try again.')
+      }
+    }
+
+    initializeOrganizationPage();
+  </script>
+
+</body>
+</html>

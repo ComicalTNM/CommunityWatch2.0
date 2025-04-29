@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 
 </head>
-  
+
 <body>
     <nav class="topnav">
         <img src="../../components/NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
@@ -21,39 +21,45 @@
             </div>
         </div>
         <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
-    </nav> 
+    </nav>
     
 
-        <input type="text" id="search-bar" placeholder="Search...">
-        <button id="search-button">Search</button>
+    <div class="search-container">
+        <h1 class="slogan">Find Your Next Opportunity</h1>
+      
+        <div class="search-bar-wrapper">
+          <input type="text" class="search-bar" placeholder="Search...">
+          <button id="search-button">Search</button>
+        </div>
+      <br>
+        <button id="toggle-filters" onclick="toggleFilters()">View Filters</button>
+      
+        <div id="filters-box" class="filters-box hidden">
+            <div class="filters-grid filters">
+            <label><input type="checkbox" name="filter" value="Location"> Location</label>
+            <label><input type="checkbox" name="filter" value="Date"> Date</label>
+            <label><input type="checkbox" name="filter" value="Volunteers"> Volunteers</label>
+            <label><input type="checkbox" name="filter" value="Donations"> Donations</label>
+            <label><input type="checkbox" name="filter" value="Religious"> Religious</label>
+            <label><input type="checkbox" name="filter" value="Academic"> Academic</label>
+            <label><input type="checkbox" name="filter" value="Environmental"> Environmental</label>
+            <label><input type="checkbox" name="filter" value="Wellness"> Wellness</label>
+            <label><input type="checkbox" name="filter" value="Advocacy"> Advocacy</label>
+            <label><input type="checkbox" name="filter" value="Cultural"> Cultural</label>
+            <label><input type="checkbox" name="filter" value="Development"> Development</label>
+            <label><input type="checkbox" name="filter" value="Youth"> Youth</label>
+            <label><input type="checkbox" name="filter" value="Community"> Community</label>
+            <label><input type="checkbox" name="filter" value="Veterans"> Veterans</label>
+            <label><input type="checkbox" name="filter" value="Women/Children"> Family</label>
+          </div>
+          <button id="clear-filters" onclick="clearFilters()">Clear All Filters</button>
+        </div>
+      </div>
+         
 
-    
-    <button id="toggle-filters">View Filters</button>
-    
-    <div class="filters" id="filters">
-    
-        <label><input type="checkbox" name="filter" value="Location"> Location</label>
-        <label><input type="checkbox" name="filter" value="Date"> Date</label>
-        <label><input type="checkbox" name="filter" value="Volunteers"> Volunteers</label>
-        <label><input type="checkbox" name="filter" value="Donations"> Donations</label>
-        <label><input type="checkbox" name="filter" value="Religious"> Religious</label>
-        <label><input type="checkbox" name="filter" value="Academic"> Academic</label>
-        <label><input type="checkbox" name="filter" value="Environmental"> Environmental</label>
-        <label><input type="checkbox" name="filter" value="Wellness"> Wellness</label>
-        <label><input type="checkbox" name="filter" value="Advocacy"> Advocacy</label>
-        <label><input type="checkbox" name="filter" value="Cultural"> Cultural</label>
-        <label><input type="checkbox" name="filter" value="Development"> Development</label>
-        <label><input type="checkbox" name="filter" value="Youth"> Youth</label>
-        <label><input type="checkbox" name="filter" value="Community"> Community</label>
-        <label><input type="checkbox" name="filter" value="Veterans"> Veterans</label>
-        <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
-        <button id="clear-filters">Clear Filters</button>
-    </div>
-    
-    
-    <div class="results-container" id="results-container">
-
-    </div>
+<div class="results-container" id="results-container"style="display: none;">
+    <!-- Results will appear here -->
+        </div>
 
 
     <footer>
@@ -71,7 +77,5 @@
         </div>
     </footer>
 
-        </div>
-    </div>
 </body>
 </html>

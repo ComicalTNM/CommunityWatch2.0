@@ -5,11 +5,67 @@
 <title>Organization Home Page</title>
 
 <link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="SearchPage.js"></script>
+
+<style>
+        .main-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    }
+
+    .main-nav a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: background 0.3s;
+    }
+
+    .main-nav a:hover {
+    background-color: #eef6ff;
+    border-radius: 5px;
+    }
+
+    .connect-with-us {
+    padding: 40px 20px;
+    background-color: var(--color-light);
+    text-align: center;
+    }
+
+    .connect-with-us h2 {
+    margin-bottom: 20px;
+    }
+
+    .social-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    }
+
+    .social-buttons a {
+    background-color: #0073e6;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+    }
+
+    .social-buttons a:hover {
+    background-color: #005bb5;
+    }
+
+
+</style>
 </head>
   
 <body>
     <nav class="topnav">
-        <img src="../../components/NavBar/imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <img src="../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
         <a href="../../pages/HomePage/homepage.html">Home</a>
         <a href="../../pages/SearchPage/SearchPage.html">Search</a>
         <div class="dropdown">
@@ -22,7 +78,64 @@
         <a href="../../pages/communitywatcheditprofile.html">Profile</a>
     </nav> 
     
-
+      <!-- Header -->
+      <header class="main-header">
+        <div class="logo">
+          <a href="https://backpackbeginnings.org/">
+            <img src="https://backpackbeginnings.org/wp-content/uploads/2015/04/bpb-logo4.png" alt="BackPack Beginnings Logo">
+          </a>
+        </div>
+        <nav class="main-nav">
+          <a href="#">Home</a>
+          <a href="https://backpackbeginnings.org/about-us/">About Us</a>
+          <a href="https://backpackbeginnings.org/programs/">Programs</a>
+          <a href="https://backpackbeginnings.org/ways-to-give/">Ways To Give</a>
+          <a href="https://backpackbeginnings.org/get-involved/">Get Involved</a>
+          <a href="https://backpackbeginnings.org/contact/">Contact</a>
+        </nav>
+      </header>
+    
+      <!-- Hero Section -->
+      <section class="hero">
+        <h2>Our Mission: Delivering Child-Centric Services to Feed, Comfort, and Clothe Children in Need.</h2>
+        <a href="https://backpackbeginnings.org/donate/" class="hero-button">Donate Now</a>
+      </section>
+    
+      <!-- About Section -->
+      <section class="about">
+        <h2>About BackPack Beginnings</h2>
+        <p>Founded in 2010, BackPack Beginnings is a volunteer-driven organization dedicated to delivering child-centric services to feed, comfort, and clothe children in need. We serve over 20,000 children annually in Guilford County, North Carolina, through our food pantries, comfort programs, clothing pantries, and personal care programs.</p>
+        <a href="https://backpackbeginnings.org/about/" class="learn-more-button">Learn More</a>
+      </section>
+    
+      <!-- Programs Section -->
+      <section class="programs">
+        <h2>Our Programs</h2>
+        <ul>
+          <li><a href="https://backpackbeginnings.org/food-programs/">Food Pantries</a></li>
+          <li><a href="https://backpackbeginnings.org/comfort-programs/">Comfort BackPacks</a></li>
+          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Clothing Pantries</a></li>
+          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Personal Care Closet</a></li>
+        </ul>
+      </section>
+    
+      <!-- Ways to Give Section -->
+      <section class="ways-to-give">
+        <h2>Ways To Give</h2>
+        <p>There are many ways to make a difference: financial donations, food drives, clothing donations, and volunteering opportunities. Every gift matters.</p>
+        <a href="https://backpackbeginnings.org/ways-to-give/" class="learn-more-button">Support Us</a>
+      </section>
+    
+      <!-- Connect with Us Section -->
+        <section class="connect-with-us">
+            <h2>Connect with Us</h2>
+            <div class="social-buttons">
+            <a href="https://www.facebook.com/BackPackBeginnings" target="_blank">Facebook</a>
+            <a href="https://twitter.com/BackPackBegins" target="_blank">X</a>
+            <a href="http://instagram.com/backpackbeginnings" target="_blank">Instagram</a>
+            <a href="https://www.linkedin.com/company/3346092" target="_blank">LinkedIn</a>
+            </div>
+        </section>
 
 <footer>
     <div class="container">
