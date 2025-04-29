@@ -20,7 +20,8 @@ const seedData = async () => {
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`,
         registeredEvents: [], 
         completedEvents: [], 
-        interests: []
+        interests: [],
+        points: 0
       },
       {
         username: 'janedoe',
@@ -30,7 +31,8 @@ const seedData = async () => {
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`,
         registeredEvents: [], 
         completedEvents: [], 
-        interests: []
+        interests: [],
+        points: 0
       },
       {
         username: 'bobsmith',
@@ -40,7 +42,8 @@ const seedData = async () => {
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("BS")}`,
         registeredEvents: [], 
         completedEvents: [], 
-        interests: []
+        interests: [],
+        points: 0
       },
       {
         username: 'alicedonor',
@@ -50,7 +53,8 @@ const seedData = async () => {
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("AD")}`,
         registeredEvents: [], 
         completedEvents: [], 
-        interests: ["Environment", "Food Drive", "Recreational"]
+        interests: ["Environment", "Food Drive", "Recreational"],
+        points: 300
       }
     ];
 
