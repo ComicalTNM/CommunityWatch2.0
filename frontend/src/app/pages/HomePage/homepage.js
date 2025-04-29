@@ -61,14 +61,20 @@
             const recommendedEvents = allEvents.filter(event => event.tags.some(tag => userData.interests.includes(tag)) && new Date(event.eventDate) > new Date());
 
             //Update the homepage with these events
-            updateEventSection('UpcomingEvents', upcomingEvents);
-            updateEventSection('Completed', completedEvents);
-            updateEventSection('Recommended', recommendedEvents);
+            updateEventSection('carousel0', completedEvents);
+            updateEventSection('carousel1', recommendedEvents);
+            updateEventSection('carousel2', upcomingEvents);
         }
 
         //Update event section with the filtered events
         function updateEventSection(sectionId, events){
-            const section = document.querySelector(`.${sectionId} .carousel-wrapper`);
+            const section = document.getElementById(sectionId);
+            if(!section)
+            {
+                console.error(`Element with ID ${sectionId} not found.`);
+                return;
+            }
+
             section.innerHTML = ''; //Clear existing events
 
             events.forEach(event => {
@@ -76,7 +82,15 @@
                 const iframe = document.createElement('iframe');
                 iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support?eventId=${event._id}`;
                 iframe.classList.add('results-iframe');
-                section.appendChild(iframe);
+                iframe.loading = 'lazy'; //Improves performance
+
+                //Wrap iframe in a slide div
+                const slideDiv = document.createElement('div');
+                slideDiv.classList.add('carousel-slide');
+                slideDiv.appendChild(iframe);
+
+                //Append the slide div
+                section.appendChild(slideDiv);
             });
             console.log(`Added ${events.length} events to section ${sectionId}`);
         }

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearBtn = document.getElementById('clear-filters');
     const searchBar = document.getElementById("search-bar");
     const carouselInner = document.getElementById("carousel-inner");
-    const resultsContainer = document.querySelector(".results-container");
+    const resultsContainer = document.querySelector("results-container");
     const filterLabels = document.querySelectorAll(".filters label");
     const backendURL = "http://localhost:5000";
     
