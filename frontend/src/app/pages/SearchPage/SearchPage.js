@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filtersBox = document.getElementById('filters-box');
     const clearBtn = document.getElementById('clear-filters');
     const searchButton = document.getElementById("search-button");
-    const searchBar = document.getElementById("search-bar");
+    const searchBar = document.querySelector(".search-bar");
     const carouselInner = document.getElementById("carousel-inner");
     const resultsContainer = document.getElementById("results-container");
     const filterLabels = document.querySelectorAll(".filters label");
