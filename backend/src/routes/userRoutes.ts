@@ -141,4 +141,37 @@ router.delete('/:userId', (async (req, res) => {
     }
 }) as RequestHandler)
 
+router.post('/:userId/registerEvent', (async(req: Request, res: Response) => {
+    try{
+        const userId = req.params.userId;
+        const {eventId} = req.body;
+
+        if(!eventId)
+        {
+            return res.status(400).json({message: "EventID is required."});
+        }
+
+        const user = await User.findById(userId);
+
+        if(!user)
+        {
+            return res.status(404).json({message: "User is not found"});
+        }
+
+        if(user.registeredEvents.includes(eventId))
+        {
+            return res.status(409).json({message: "User is already registered for this event"})
+        }
+
+        await User.updateOne({_id: userId}, {$push: {registeredEvents: eventId}});
+
+        res.json({message: "Event registered successfully."});
+    }
+    catch(error)
+    {
+        console.error(error);
+        res.status(500).json({message: "Error registering for event."});
+    }
+}) as RequestHandler)
+
 export default router;

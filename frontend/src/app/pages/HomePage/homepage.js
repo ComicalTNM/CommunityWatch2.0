@@ -78,9 +78,22 @@
             section.innerHTML = ''; //Clear existing events
 
             events.forEach(event => {
+                let eventType = '';
+                if(sectionId === 'carousel1')
+                {
+                    eventType = "recommended";
+                }
+                else if(sectionId === 'carousel2')
+                {
+                    eventType = "upcoming";
+                }
+                else if(sectionId === 'carousel0')
+                {
+                    eventType = "previous";
+                }
                 console.log(`${sectionId} event:`, event._id, typeof event._id);
                 const iframe = document.createElement('iframe');
-                iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support?eventId=${event._id}`;
+                iframe.src = `../../components/Responsive-Card-Support-Request/Responsive-Card-Support?eventId=${event._id}&eventType=${eventType}`;
                 iframe.classList.add('results-iframe');
                 iframe.loading = 'lazy'; //Improves performance
 

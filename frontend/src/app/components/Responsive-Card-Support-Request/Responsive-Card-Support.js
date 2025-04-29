@@ -93,4 +93,52 @@ function updateEventCard(event){
     document.querySelector(".goals").innerText = `Goals: ${ event.goals || "No Goals Provided"}`;
     document.querySelector(".location").innerText = `Location: ${event.location || "No Location Provided"}`;
 
+    const card = document.querySelector('.card');
+    card.dataset.eventType = event.eventType || "";
+
+    const supportButton = document.querySelector('.support-btn');
+    if(event.eventType === "recommended")
+    {
+        supportButton.style.display = "block !important";
+    }
+    else
+    {
+        supportButton.style.display = "none !important";
+    }
+
+    async function supportCause(eventId)
+    {
+        if(!userId)
+        {
+            console.error("User ID is not avaliable. Unable to support cause.");
+            alert("Please login to support this cause");
+            return;
+        }
+
+        try{
+            const response = fetch(`${BACKEND_URL}/api/users/${userId}/registerEvent`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({eventId: eventId})
+            });
+
+            if(response.ok)
+            {
+                alert("Successfully registered for the event!");
+            }
+            else{
+                const error = await response.json();
+                console.error("Failed to register for event:", error);
+                alert("Failed to register for event");
+            }
+        }
+        catch(error)
+        {
+            console.error("Error registering for event:", error);
+            alert("Error registering for event.");
+        }
+    }
+
 }
