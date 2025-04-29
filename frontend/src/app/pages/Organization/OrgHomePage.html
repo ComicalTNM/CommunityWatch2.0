@@ -28,6 +28,10 @@
     border-radius: 5px;
     }
 
+    section{
+        text-align: center;
+        width: 100%;
+    }
     .connect-with-us {
     padding: 40px 20px;
     background-color: var(--color-light);
@@ -46,18 +50,37 @@
     }
 
     .social-buttons a {
-    background-color: #0073e6;
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-BG);
     padding: 12px 20px;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    transition: background 0.3s;
     }
 
     .social-buttons a:hover {
-    background-color: #005bb5;
+        background-color: var(--color-muted);
     }
+
+    .hero-button {
+        display: block; /* change from inline-block to block */
+        background-color: var(--color-accent);
+        color: var(--color-BG);
+        padding: 10px 2px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 6px;
+        margin: 20px auto; /* centers the button horizontally */
+        transition: background-color 0.3s ease;
+        width: 15%;
+        text-align: center; /* optional for text inside the button */
+}
+
+.hero-button:hover {
+    background-color: var(--color-muted);
+}
+
 
 
 </style>
@@ -86,46 +109,56 @@
           </a>
         </div>
         <nav class="main-nav">
-          <a href="#">Home</a>
+          <a href="https://backpackbeginnings.org/">Home</a>
           <a href="https://backpackbeginnings.org/about-us/">About Us</a>
-          <a href="https://backpackbeginnings.org/programs/">Programs</a>
-          <a href="https://backpackbeginnings.org/ways-to-give/">Ways To Give</a>
-          <a href="https://backpackbeginnings.org/get-involved/">Get Involved</a>
+          <a href="https://backpackbeginnings.org/food-programs/">Programs</a>
+          <a href="https://backpackbeginnings.org/donate/other-ways-to-help/">Ways To Give</a>
+          <a href="https://backpackbeginnings.org/volunteer/">Volunteer</a>
           <a href="https://backpackbeginnings.org/contact/">Contact</a>
         </nav>
       </header>
     
       <!-- Hero Section -->
-      <section class="hero">
+      <section class="hero" >
         <h2>Our Mission: Delivering Child-Centric Services to Feed, Comfort, and Clothe Children in Need.</h2>
         <a href="https://backpackbeginnings.org/donate/" class="hero-button">Donate Now</a>
       </section>
     
       <!-- About Section -->
       <section class="about">
-        <h2>About BackPack Beginnings</h2>
-        <p>Founded in 2010, BackPack Beginnings is a volunteer-driven organization dedicated to delivering child-centric services to feed, comfort, and clothe children in need. We serve over 20,000 children annually in Guilford County, North Carolina, through our food pantries, comfort programs, clothing pantries, and personal care programs.</p>
-        <a href="https://backpackbeginnings.org/about/" class="learn-more-button">Learn More</a>
+        <h2 >About BackPack Beginnings</h2>
+        <p>Founded in 2010, BackPack Beginnings is a volunteer-driven organization dedicated to delivering child-centric services to feed, comfort,
+            and clothe children in need. We serve over 20,000 children annually in Guilford County, North Carolina, through our food pantries,
+            comfort programs, clothing pantries, and personal care programs.</p>
       </section>
     
       <!-- Programs Section -->
       <section class="programs">
         <h2>Our Programs</h2>
-        <ul>
-          <li><a href="https://backpackbeginnings.org/food-programs/">Food Pantries</a></li>
-          <li><a href="https://backpackbeginnings.org/comfort-programs/">Comfort BackPacks</a></li>
-          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Clothing Pantries</a></li>
-          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Personal Care Closet</a></li>
-        </ul>
+        <a href="https://backpackbeginnings.org/food-programs/">Food Pantries</a>
+        <a href="https://backpackbeginnings.org/comfort-programs/">Comfort BackPacks</a>
+        <a href="https://backpackbeginnings.org/clothing-pantries/">Clothing Pantries</a>
+        <a href="https://backpackbeginnings.org/clothing-pantries/">Personal Care Closet</a>
+        <a href="https://backpackbeginnings.org/family-market/">Family Market</a>
       </section>
     
       <!-- Ways to Give Section -->
       <section class="ways-to-give">
         <h2>Ways To Give</h2>
         <p>There are many ways to make a difference: financial donations, food drives, clothing donations, and volunteering opportunities. Every gift matters.</p>
-        <a href="https://backpackbeginnings.org/ways-to-give/" class="learn-more-button">Support Us</a>
       </section>
     
+      <!-- Upcoming Events -->
+      <section class="upcoming-events">
+        <h2>Upcoming Events</h2>
+        <p>Populate Events</p>
+      </section>
+
+    <!-- Past Events -->
+      <section class="past-events">
+        <h2>Past Events</h2>
+        <p>Populate Events</p>
+      </section>
       <!-- Connect with Us Section -->
         <section class="connect-with-us">
             <h2>Connect with Us</h2>
