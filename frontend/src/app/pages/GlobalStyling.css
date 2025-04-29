@@ -23,8 +23,8 @@
   }
   
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     background-color: var(--color-BG);
     font-family: var(--font-base);
     font-size: 24px;
@@ -134,8 +134,13 @@
   }
   
   .topnav .logo {
+<<<<<<< HEAD
+    height: 50px;
+    width:auto;
+=======
     height: 90px;
     width: 90px;
+>>>>>>> 6ffd44b75060e9854e80d54111b2f80b32817808
     margin-right: 15px;
   }
   
