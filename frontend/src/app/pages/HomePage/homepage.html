@@ -22,72 +22,62 @@
         <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
     </nav>  
 
-    <div class="HeroSection"> 
-            <img src="imgs/Senior Project Logo.png" alt="Our Logo">
-            <img src="Banner" alt="Banner">
-                <h1>Welcome to Community Watch </h1>
-                <h2>Our Mission</h2>
-                <p>Our mission is to create an inclusive and innovative environment where individuals can thrive, collaborate, and make a meaningful impact in the world.</p>
+    <div class="banner-container">
+        <img src="HomePage Imgs/Updated Senior Project Banner.png" class="banner-image">
+        <div class="banner-text"><h2>Welcome to Community Watch</h2></div>
+        <div class="banner-subtext"><h4>Our mission is to create an inclusive and innovative environment where individuals can thrive, collaborate, and make a meaningful impact in the world.</h4></div>
+      </div>
+      <br />
+      <h1 class="leaderboard-title">Weekly Leaderboard</h1>
+      <br/>
+    <div class="leaderboard-placer">
+        <div class="leaderboard-container">
+            <div class="leaderboard-header">Top Community Members</div>
+            <div class="leaderboard-toggle">
+              <span class="toggle-option" onclick="showLeaderboard('weekly')">Weekly</span>
+              <span>-</span>
+              <span class="toggle-option" onclick="showLeaderboard('monthly')">Monthly</span>
+              <span>-</span>
+              <span class="toggle-option" onclick="showLeaderboard('overall')">Overall</span>
+            </div>
+            <ul class="leaderboard-list" id="leaderboardList"></ul>
+          </div>
+    
     </div>
 
-    <iframe id="Leaderboard" src="../../components/Leaderboard/Leaderboard.html" class="results-iframe"  width="100%" height="100%" style="border:none;"></iframe>
-
-    <!-- Upcoming of Users -->
-    <div class="UpcomingEvents">
-        <h4>Upcoming Events</h4>
-        <button class="carousel-btn prev-btn" onclick="scrollLeft()">&#10094;</button>
-        <div class="carousel-wrapper" id="carousel-upcoming">
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
+      <h2>Previous</h2>
+      <div class="viewport">
+        <div class="carousel-wrapper">
+          <div class="slideshow-container" id="carousel0">
+              <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
             </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
+          <span class="prev" onclick="moveSlide(-1, 0)">&#10094;</span>
+          <span class="next" onclick="moveSlide(1, 0)">&#10095;</span>
         </div>
-        <button class="carousel-btn next-btn" onclick="scrollRight()">&#10095;</button>
-    </div>
-
-    <!-- Recommended -->
-
-    <div class="Recommended">
-        <h4>Recommended</h4>
-        <button class="carousel-btn prev-btn" onclick="scrollLeft()">&#10094;</button>
-
-        <div class="carousel-wrapper" id="carousel-recommended">
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
+      </div>
+      
+      <h2>Recommended</h2>
+      <div class="viewport">
+        <div class="carousel-wrapper">
+          <div class="slideshow-container" id="carousel1">
+              <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
             </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
+          <span class="prev" onclick="moveSlide(-1, 1)">&#10094;</span>
+          <span class="next" onclick="moveSlide(1, 1)">&#10095;</span>
         </div>
-        <button class="carousel-btn next-btn" onclick="scrollRight()">&#10095;</button>
-    </div>
-    <!-- Completed -->
-
-    <div class="Completed">
-        <h4>Completed</h4>
-        <button class="carousel-btn prev-btn" onclick="scrollLeft()">&#10094;</button>
-
-        <div class="carousel-wrapper" id="carousel-completed">
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
-            <div class="iframe-wrapper">
-                <iframe id="resultsFrame" src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe>
-            </div>
+      </div>
+      
+      <h2>Upcoming</h2>
+      <div class="viewport">
+        <div class="carousel-wrapper">
+          <div class="slideshow-container" id="carousel2">
+            <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+          </div>
+          <span class="prev" onclick="moveSlide(-1, 2)">&#10094;</span>
+          <span class="next" onclick="moveSlide(1, 2)">&#10095;</span>
         </div>
-        <button class="carousel-btn next-btn" onclick="scrollRight()">&#10095;</button>
-    </div>
+      </div> 
+
 </div>
 
 <footer>

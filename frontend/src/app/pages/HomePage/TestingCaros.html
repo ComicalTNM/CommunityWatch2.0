@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3-Slide Carousel with Custom Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-dark:   #342E26;
+      --color-light:  #B2AC88;
+      --color-BG:     #D8D5C2;
+      --color-accent: #5C5840;
+      --color-muted:  #686553;
+      --color-blue:   #434563;
+      --font-base:    'Jost', sans-serif;
+    }
+
+    .viewport {
+      width: 100%;
+      overflow: hidden;
+      margin: 40px 0;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .slideshow-container {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+      flex: 0 0 33.33%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .carousel-slide iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: var(--color-BG);
+      background-color: var(--color-accent);
+      padding: 10px;
+      border-radius: 50%;
+      user-select: none;
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .prev:hover, .next:hover {
+      background-color: var(--color-muted);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Previous</h2>
+<div class="viewport">
+  <div class="carousel-wrapper">
+    <div class="slideshow-container" id="carousel0">
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+      </div>
+    <span class="prev" onclick="moveSlide(-1, 0)">&#10094;</span>
+    <span class="next" onclick="moveSlide(1, 0)">&#10095;</span>
+  </div>
+</div>
+
+<h2>Recommended</h2>
+<div class="viewport">
+  <div class="carousel-wrapper">
+    <div class="slideshow-container" id="carousel1">
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+        <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+      </div>
+    <span class="prev" onclick="moveSlide(-1, 1)">&#10094;</span>
+    <span class="next" onclick="moveSlide(1, 1)">&#10095;</span>
+  </div>
+</div>
+
+<h2>Upcoming</h2>
+<div class="viewport">
+  <div class="carousel-wrapper">
+    <div class="slideshow-container" id="carousel2">
+      <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+      <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+      <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+      <div class="carousel-slide"><iframe src="../../components/Responsive-Card-Support-Request/Responsive-Card-Support.html" class="results-iframe"></iframe></div>
+    </div>
+    <span class="prev" onclick="moveSlide(-1, 2)">&#10094;</span>
+    <span class="next" onclick="moveSlide(1, 2)">&#10095;</span>
+  </div>
+</div>
+
+<script>
+  const positions = [0, 0, 0]; // For each carousel
+  const visibleCount = 3;
+
+  function moveSlide(step, carouselIndex) {
+    const container = document.getElementById(`carousel${carouselIndex}`);
+    const totalSlides = container.children.length;
+
+    positions[carouselIndex] += step;
+
+    if (positions[carouselIndex] < 0) positions[carouselIndex] = 0;
+    if (positions[carouselIndex] > totalSlides - visibleCount) {
+      positions[carouselIndex] = totalSlides - visibleCount;
+    }
+
+    const slideWidth = container.children[0].offsetWidth;
+    container.style.transform = `translateX(-${positions[carouselIndex] * slideWidth}px)`;
+  }
+</script>
+
+</body>
+</html>
