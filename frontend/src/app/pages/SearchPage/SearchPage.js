@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById('toggle-filters');
     const filtersBox = document.getElementById('filters-box');
     const clearBtn = document.getElementById('clear-filters');
+    const searchButton = document.getElementById("search-button");
     const searchBar = document.getElementById("search-bar");
     const carouselInner = document.getElementById("carousel-inner");
-    const resultsContainer = document.querySelector("results-container");
+    const resultsContainer = document.getElementById("results-container");
     const filterLabels = document.querySelectorAll(".filters label");
     const backendURL = "http://localhost:5000";
     
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Listen for search input
-    searchBar.addEventListener("input", updateResults);
+    searchButton.addEventListener("click", updateResults);
 
     // Listen for checkbox changes
     document.querySelectorAll(".filters input[type='checkbox']").forEach(checkbox => {
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayResults(filteredOrganizations) {
         resultsContainer.innerHTML = ""; // Clear previous results
+        resultsContainer.style.display = "block";
 
         if (filteredOrganizations.length === 0) {
             resultsContainer.innerHTML = "<p>No results found.</p>";
@@ -65,23 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initial load
     updateResults();
-
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        const iframe = document.getElementById("resultsFrame");
-
-        iframe.onload = function () {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            
-            // Find the existing CSS link tag (assuming it's in a folder like /css/styles.css)
-            const existingCSS = iframeDoc.querySelector("link[rel='stylesheet']");
-
-            if (existingCSS) {
-                // Override with the new Searchpage.css file
-                existingCSS.href = "css/Searchpage.css";
-            } 
-        };
-    });
 
     filterLabels.forEach(label => {
         label.addEventListener("click", function () {
