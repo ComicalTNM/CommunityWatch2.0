@@ -24,7 +24,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
       return;
     }
 
-    if (user.role !== 'admin' && user.role !== 'owner' || user.organizationId?.toString() !== organizationId) {
+    if (user.role !== 'admin' && user.role !== 'member' || user.organizationId?.toString() !== organizationId) {
       res.status(403).json({ message: 'Not authorized to create posts for this organization' });
       return;
     }

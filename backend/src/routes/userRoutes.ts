@@ -1,8 +1,11 @@
 import User from '../models/User';
+import Organization from '@/models/Organization';
 import {Request, Response, Router, NextFunction, RequestHandler} from 'express';
 import bcrypt from 'bcrypt';
 import multer, {StorageEngine} from 'multer'; 
 import path from 'path';
+import { authenticateToken } from '@/middleware/authMiddleware';
+import { appendFileSync } from 'fs';
 
 const router = Router();
 
@@ -25,6 +28,16 @@ const upload = multer({ storage: storage});
 type MulterRequest = Request & {
     file?: Express.Multer.File; // Definitely has 'file'
 };
+
+// Explicitly define the asyncHandler type to return Promise<void>
+type AsyncRequestHandler = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>; // Force return of Promise<void>
+  
+  const asyncHandler = (fn: AsyncRequestHandler): RequestHandler => (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
 //Route to get the user details by user ID
 router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
@@ -173,5 +186,29 @@ router.post('/:userId/registerEvent', (async(req: Request, res: Response) => {
         res.status(500).json({message: "Error registering for event."});
     }
 }) as RequestHandler)
+
+// Get organizations for a user
+router.get('/organizations', authenticateToken, asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        // Assuming your authentication middleware (authenticateToken) adds a 'user' property to the request
+        const userId = req.user.id;
+  
+        const user = await User.findById(userId).populate('organizationId');
+  
+        if (!user) {
+          res.status(404).json({ message: 'User not found' });
+          return next();
+        }
+  
+        // If organizationId is a single ObjectId, return it. If it's an array, return the array.
+        const organizations = user.organizationId;
+  
+        res.json(organizations);
+        return next();
+      } catch (error) {
+        console.error('Error fetching user organizations:', error);
+        return next(error);
+      }
+}))
 
 export default router;
