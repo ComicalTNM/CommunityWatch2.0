@@ -257,7 +257,7 @@
         const organizationSelect = document.getElementById('organization-select');
 
         try{
-            const response = await fetch('api/users/organizations');
+            const response = await fetch(`api/users/organizations`);
             if(!response.ok)
             {
                 throw new Error(`HTTP error! Status: ${response.status}`);

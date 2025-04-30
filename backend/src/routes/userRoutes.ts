@@ -188,7 +188,7 @@ router.post('/:userId/registerEvent', (async(req: Request, res: Response) => {
 }) as RequestHandler)
 
 // Get organizations for a user
-router.get('/organizations', authenticateToken, asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
+router.get('/organizations', asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
     try {
         // Assuming your authentication middleware (authenticateToken) adds a 'user' property to the request
         const userId = req.user.id;
