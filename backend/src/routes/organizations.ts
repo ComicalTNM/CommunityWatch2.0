@@ -33,10 +33,16 @@ type MulterRequest = Request & {
     file?: Express.Multer.File; // Definitely has 'file'
 };
 
+// Function to generate the file path (relative to the backend's uploads directory)
+function generateFilePath(filename: string): string {
+    const backendUrl = 'http://localhost:5000'; 
+    return `${backendUrl}/uploads/${filename}`;
+}
+
 // POST route to create a new organization
 router.post('/', upload.single('logo'), (async(req: Request, res: Response, next: NextFunction) => {
     const {name, description, causes, adminId} = req.body;
-    const profileImage = req.file ? `/uploads/${req.file.filename}` : undefined;
+    const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
     const parsedCauses = causes ? JSON.parse(causes) : [];
 
     if(!name || !description || !adminId)
@@ -55,6 +61,32 @@ router.post('/', upload.single('logo'), (async(req: Request, res: Response, next
 
     res.status(201).json(newOrganization);
 
+}) as RequestHandler);
+
+// PUT route to update an existing organization by ID
+router.put('/:id', upload.single('logo'), (async(req: Request, res: Response, next: NextFunction) => {
+    const organizationId = req.params.id;
+
+    if(!isValidObjectId(organizationId)) {
+        return res.status(400).json({ message: 'Invalid organization ID format' })
+    }
+
+    const { name, description, causes} = req.body;
+    const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
+    const parsedCauses = causes ? JSON.parse(causes) : [];
+
+    const updatedOrganization = await Organization.findByIdAndUpdate(
+        organizationId,
+        {name, description, profileImage, causes: parsedCauses},
+        {new: true, runValidators: true} // Options to return the updated doc and run validators
+    );
+
+    if(!updatedOrganization)
+    {
+        return res.status(404).json({ message: 'Organization not found' });
+    }
+
+    res.status(200).json(updatedOrganization);
 }) as RequestHandler);
 
 // Search organizations with filters

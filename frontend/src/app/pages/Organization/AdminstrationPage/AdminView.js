@@ -94,7 +94,7 @@ function updateSelected() {
 async function submitChanges() {
     // Get new values from the input fields
     const newTitle = document.getElementById("new-title").value;
-    const newPhoto = document.getElementById("org-logo").files[0];
+    const newPhoto = document.getElementById("org-logo");
     const newDescription = document.getElementById("change-description").value;
     const organizationId = document.getElementById("organization-id").value;
     const selectedCaterogies = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked')).map(checkBox => checkBox.value);
@@ -109,9 +109,9 @@ async function submitChanges() {
     const formData = new FormData();
     formData.append("name", newTitle);
     formData.append("description", newDescription);
-    if(newPhoto)
+    if(newPhoto.files && newPhoto.files.length > 0)
     {
-        formData.append("profileImage", newPhoto);
+        formData.append("logo", newPhoto.files[0]);
     }
     formData.append("causes", JSON.stringify(selectedCaterogies));
 
@@ -151,7 +151,7 @@ async function submitChanges() {
     }
 
     // Close the sidebar after submission
-    closeOrganizationSidebar();
+    //closeOrganizationSidebar();
 }
 
 // Call initializeAdminView when the page loads
