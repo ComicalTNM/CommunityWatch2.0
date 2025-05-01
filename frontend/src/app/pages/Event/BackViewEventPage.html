@@ -2,9 +2,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Points Breakdown Page</title>
+<title>Back View SR Page</title>
 
-<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="pointsbreakdown.js"></script>
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="SearchPage.js"></script>
 </head>
   
 <body>
@@ -21,77 +21,26 @@
         </div>
         <a href="../../pages/ProfilePage/UserProfile.html" class="nav-titles">Profile</a>
     </nav> 
-    
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Contribution Chart</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h2 {
-      color: #333;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f5f5f5;
-    }
-    tr:nth-child(even) {
-      background-color: #fafafa;
-    }
-  </style>
-</head>
-<body>
 
-  <h2>Name of Person: <span style="font-weight: normal;">Jane Doe</span></h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Organization Name</th>
-        <th>Contribution</th>
-        <th>Points Earned</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Red Cross</td>
-        <td>Donated $50</td>
-        <td>50</td>
-      </tr>
-      <tr>
-        <td>Habitat for Humanity</td>
-        <td>Volunteered 4 hrs</td>
-        <td>80</td>
-      </tr>
-      <tr>
-        <td>Local Animal Shelter</td>
-        <td>Paid $20 for Event</td>
-        <td>20</td>
-      </tr>
-    </tbody>
-  </table>
-
-</body>
-</html>
-
-
-<button id="savePdf">Save as PDF</button>
-
+    <div class="expanded-card">
+        <p class="delete-btn" onclick="collapseCard(this)">X</p>
+        <img src="photo.jpg" class="photo">
+        <h1 class="title-ex">Title</h1>
+        <h2 class="organization-ex">Organization</h2>
+        <h4 class="date-ex">Date</h4>
+      
+        <div class="progress-ex">
+          <div class="progress-bar" style="width: 50%;"></div>
+        </div>
+      
+        <p class="description-ex">This is a detailed description of the event.</p>
+        <p class="goals">Goals: Achieve XYZ milestones.</p>
+        <p class="location">Location: XYZ Venue</p>
+    <button onclick="location.href='VolunteerForSR.html'">Support the Cause</button>
+    </div>
     <br/>
     <br/>
+
 <footer>
     <div class="container">
         <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>

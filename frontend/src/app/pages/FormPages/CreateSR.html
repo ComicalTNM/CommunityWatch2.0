@@ -69,29 +69,26 @@
                 <label for="volunteers-goal">How Many Is the Goal?</label>
                 <input type="number" id="volunteers-goal" placeholder="Enter number of volunteers">
             </div>
-            <br><br>
         
             <!-- Checkbox for Resources -->
             <label><input type="checkbox" id="resources-checkbox" onclick="toggleVisibility('resources')">Resources</label>
             <div id="resources" style="display: none;">
                 <!-- Resource Goal -->
                 <label for="resources-goal">How Many Resources Are Needed?</label>
-                <br><br>
                 <!-- Button to add new resource -->
                 <button type="button" onclick="addResource()">Add New Resource</button>
                 
                 <!-- New resources will appear here -->
                 <div id="new-resources"></div>
             </div>
-            <br><br>
         
             <!-- Checkbox for Donations -->
             <label><input type="checkbox" id="donations-checkbox" onclick="toggleVisibility('donations')">Donations</label>
             <div id="donations" style="display: none;">
                 <!-- Donation Goal -->
                 <label for="donations-goal">Donation Goal</label>
-                <br><br>
                 <input type="number" id="donations-goal" placeholder="Enter donation goal amount">
+                
                 <br><br>
         
                 <!-- Stripe Link for Donations -->
@@ -120,6 +117,7 @@
         <button class="dropbtn">Publish Request</button>
 
     </div>
+
     <script>
  function toggleVisibility(id) {
         const checkbox = document.getElementById(id + '-checkbox');
