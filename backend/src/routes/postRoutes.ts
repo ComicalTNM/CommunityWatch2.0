@@ -7,8 +7,7 @@ import mongoose, { Types } from 'mongoose';
 
 const router = express.Router();
 
-router.get('/query', getPosts);
-router.post('/', createPost);
+router.post('/:userId', createPost);
 router.get('/:id', getPostById);
 router.get('/', getPosts);
 router.get('/organization/:organizationID', getPostsByOrganizationId);

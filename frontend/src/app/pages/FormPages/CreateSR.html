@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create SR</title>
 
-<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="formcard.js"></script>
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
   
 <body>
@@ -33,12 +33,12 @@
         <br><br>
         
         <br><br>
-        <label for="text-entry">Request Name</label>
-        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <label for="request-title">Request Name</label>
+        <input type="text" id="request-title" placeholder="Enter text here...">
         <br><br>
 
-        <label for="text-entry">Request Description</label>
-        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <label for="request-description">Request Description</label>
+        <input type="text" id="request-description" placeholder="Enter text here...">
         <br><br>
 
                     <!--I want these next to each other -->
@@ -124,7 +124,7 @@
         </div>
         <br><br>
 
-        <button class="dropbtn">Publish Request</button>
+        <button id="dropbtn">Publish Request</button>
 
     </div>
     <script>
@@ -182,12 +182,12 @@
         }
     }
 
-    document.querySelector('.dropbtn').addEventListener('click', function(event) {
+    document.getElementById('dropbtn').addEventListener('click', function(event) {
         event.preventDefault();
 
         //Get form values
-        const title = document.getElementById('text-entry').value;
-        const description = document.getElementById('text-entry').value;
+        const title = document.getElementById('request-title').value;
+        const description = document.getElementById('request-description').value;
         const eventDate = document.getElementById('start-date').value;
         const endDate = document.getElementById('end-date').value;
         const signupStartDate = document.getElementById('signup-start-date').value;
@@ -203,12 +203,15 @@
 
         //Resources
         let itemsNeeded = [];
-        const resourceEntries = document.querySelectorAll('#new-resources .resource-entry');
-        resourcesEntries.forEach(entry => {
-            const item = entry.querySelector('input[type="text"]').value;
-            const quantity = parseInt(entry.querySelector('input[type="number"]').value) || 0;
-            itemsNeeded.push({ item: item, quantity: quantity });
-        });
+        if(document.getElementById('resources-checkbox').checked)
+        {
+            const resourceEntries = document.querySelectorAll('#new-resources .resource-entry');
+            resourcesEntries.forEach(entry => {
+                const item = entry.querySelector('input[type="text"]').value;
+                const quantity = parseInt(entry.querySelector('input[type="number"]').value) || 0;
+                itemsNeeded.push({ item: item, quantity: quantity });
+            });
+        }
 
         //Donations
         let donationsGoal = 0;
@@ -256,22 +259,28 @@
     async function populateOrganizationDropdown()
     {
         const organizationSelect = document.getElementById('organization-select');
+        const userId = sessionStorage.getItem("userId")
 
         try{
-            const response = await fetch(`${backendUrl}/api/users/organizations`);
+            const response = await fetch(`${backendUrl}/api/users/organizations/${userId}`);
             if(!response.ok)
             {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const organization = await response.json();
 
-            //Create and append <option> elements
-            organization.forEach(org => {
+            //Checking if organization has the expected properties.
+            if(organization && organization._id && organization.name)
+            {
                 const option = document.createElement('option');
-                option.value = org._id; // Uses the organization's ID as the value
-                option.textContent = org.name; // Display the organization's name
+                option.value = organization._id;
+                option.textContent = organization.name;
                 organizationSelect.appendChild(option);
-            })
+            }
+            else{
+                console.error("Invalid organization data", organization)
+                alert('Could not load organizations. Please try again.');
+            }
         }
         catch(error)
         {
@@ -286,6 +295,8 @@
     function sendDataToServer(data){
         const organizationSelect = document.getElementById('organization-select');
         const selectedOrganizationId = organizationSelect.value;
+        const backendURL = 'http://localhost:5000';
+        const userId = sessionStorage.getItem("userId");
 
         if(!selectedOrganizationId)
         {
@@ -293,9 +304,9 @@
             return;
         }
 
-        data.organization = selectedOrganizationId; // Add the organization ID to the data
+        data.organizationId = selectedOrganizationId; // Add the organization ID to the data
         
-        fetch(`${backendURL}/api/posts`, {
+        fetch(`${backendURL}/api/posts/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

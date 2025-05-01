@@ -8,8 +8,8 @@ import { IOrganization, IPost } from '@shared/types';
 
 export const createPost = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, description, images, tags, organizationId, itemsNeeded, volunteersNeeded, eventDate } = req.body;
-    const userId = DEMO_USER_ID; // Using the demo user ID
+    const { title, description, images, tags, organizationId, itemsNeeded, volunteersNeeded, eventDate, endDate, signupStartDate, signupEndDate, urgency, donationsGoal, donationLink } = req.body;
+    const userId = req.params.userId; // Using the demo user ID
 
     // Check if the user is an admin or owner of the organization
     const user = await User.findById(userId);
@@ -34,11 +34,18 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
       description,
       images,
       tags,
-      organizationId,
+      organization: organizationId,
       itemsNeeded,
       volunteersNeeded,
-      eventDate
-    });
+      eventDate,
+      endDate,
+      signupStartDate,
+      signupEndDate,
+      urgency,
+      donationsGoal,
+      donationLink,
+      createdBy: userId // Associate the post with the user
+  });
 
     await newPost.save();
 
