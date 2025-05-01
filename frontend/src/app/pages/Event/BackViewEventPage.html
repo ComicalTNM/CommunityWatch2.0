@@ -21,25 +21,89 @@
         </div>
         <a href="../../pages/ProfilePage/UserProfile.html" class="nav-titles">Profile</a>
     </nav> 
-
-    <div class="expanded-card">
-        <p class="delete-btn" onclick="collapseCard(this)">X</p>
-        <img src="photo.jpg" class="photo">
-        <h1 class="title-ex">Title</h1>
-        <h2 class="organization-ex">Organization</h2>
-        <h4 class="date-ex">Date</h4>
-      
-        <div class="progress-ex">
-          <div class="progress-bar" style="width: 50%;"></div>
+    <div class="section">
+        <h1>Community Clean-Up Drive</h1>
+        <p><strong>Date:</strong> August 20, 2025</p>
+        <p>
+          Join us as we come together to clean up our local park and raise funds to provide new equipment for kids and families in our community.
+        </p>
+      </div>
+    
+      <div class="section">
+        <h2>Goals & Progress</h2>
+    
+        <div class="progress-container">
+          <div class="progress-label">Donation Goal: $1000</div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 60%;">$600</div>
+          </div>
         </div>
-      
-        <p class="description-ex">This is a detailed description of the event.</p>
-        <p class="goals">Goals: Achieve XYZ milestones.</p>
-        <p class="location">Location: XYZ Venue</p>
-    <button onclick="location.href='VolunteerForSR.html'">Support the Cause</button>
-    </div>
-    <br/>
-    <br/>
+    
+        <div class="progress-container">
+          <div class="progress-label">Volunteer Hours Goal: 200 hrs</div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 75%;">150 hrs</div>
+          </div>
+        </div>
+    
+        <div class="progress-container">
+          <div class="progress-label">Item Donations Goal: 50 items</div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 40%;">20 items</div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="section">
+        <h2>Supporters</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Support Type</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jane Doe</td>
+              <td>jane@example.com</td>
+              <td>Volunteer</td>
+              <td>Cleaning, Painting</td>
+            </tr>
+            <tr>
+              <td>John Smith</td>
+              <td>john@example.com</td>
+              <td>Financial</td>
+              <td>$200 - Playground Equipment</td>
+            </tr>
+            <tr>
+              <td>Sara Lee</td>
+              <td>sara@example.com</td>
+              <td>Item Donation</td>
+              <td>10 Trash Pickers</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="section">
+        <h2>Email All Supporters</h2>
+        <button onclick="toggleEmails()">Show/Hide Emails</button>
+        <div id="emails">
+          jane@example.com, john@example.com, sara@example.com
+        </div>
+      </div>
+
+
+      <script>
+        function toggleEmails() {
+          const emailDiv = document.getElementById('emails');
+          emailDiv.style.display = emailDiv.style.display === 'none' ? 'block' : 'none';
+        }
+      </script>
 
 <footer>
     <div class="container">
