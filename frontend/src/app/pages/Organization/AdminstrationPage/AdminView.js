@@ -1,38 +1,59 @@
+const backendUrl = 'http://localhost:5000';
 async function initializeAdminView()
 {
     try{
-        const response = await fetch('/api/user/admin');
+        const loggedInUserId = sessionStorage.getItem("userId");
+        if(!loggedInUserId)
+        {
+            console.error("User ID not found.");
+            return;
+        }
+
+        const response = await fetch(`${backendUrl}/api/users/admin/${loggedInUserId}`);
         const userData = await response.json();
+
+        const organizationInfoDisplay = document.getElementById("exisiting-organization-info");
+        const organizationForm = document.getElementById("edit-organization");
 
         if(userData.organizationId)
         {
+            //ensure organizationId is a string
+            const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+
             //Fetch organizations data since user has an organizationId
-            const orgResponse = await fetch(`/api/organizations/${userData.organizationId}`);
+            const orgResponse = await fetch(`${backendUrl}/api/organizations/${organizationIdString}`);
             const organizationData = await orgResponse.json();
 
-            //Populate the form fields
-            document.getElementById("new-title").value = organizationData.name || "";
-            document.getElementById("change-description").value = organizationData.description || "";
-
-            //Handle logo
-            document.getElementById("org-logo").value = organizationData.profileImage || "";
-
-            //Handle categories
-            if(organizationData.causes && Array.isArray(organizationData.causes))
-            {
-                organizationData.causes.forEach(cause => {
-                    const checkBox = document.querySelector(`#filters input[type="checkbox"][value="${cause}]"`);
-                    if(checkBox)
-                    {
-                        checkBox.checked = true;
-                    }
-                });
-                updateSelected(); //Update the display
-            }
+            //Display existing organization information
+            organizationInfoDisplay.innerHTML = `
+                <h3>Your Organization:</h3>
+                <p><strong>Title:</strong> ${organizationData.name || "N/A"}</p>
+                <p><strong>Description:</strong> ${organizationData.description || "N/A"}</p>
+                ${organizationData.profileImage ? `<p><strong>Logo:</strong></p><img src=${organizationData.profileImage} alt="Organization Logo" style="size: cover;"\>` : ''}
+                <p><strong>Categories:</strong> ${organizationData.causes ? organizationData.causes.join(", ") : "N/A"}</p>
+                <hr>
+            `;
+            organizationForm.style.display = "block"; //Show the form for potential updates (or cretaing a new organization)
+            document.getElementById("organization-id").value = organizationData._id || "";
 
             // Store the organization ID for updates later
             document.getElementById("organization-id").value = organizationData._id; 
         }
+        else {
+            organizationInfoDisplay.innerHTML = "<p>No organization associated with your account yet.</p><hr>";
+            organizationForm.style.display = "block"; //Show the form for creating a new organization
+            document.getElementById("organization-id").value = ""; //Ensure no ID is present for new creation
+        }
+
+        // Clear the form fields
+        document.getElementById("new-title").value = "";
+        document.getElementById("change-description").value = "";
+        const checkboxes = document.querySelectorAll('#filters input[type="checkbox"]');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        updateSelected(); // Clear the displayed selected categories
 
     }
     catch(error)
@@ -73,10 +94,17 @@ function updateSelected() {
 async function submitChanges() {
     // Get new values from the input fields
     const newTitle = document.getElementById("new-title").value;
-    const newPhoto = document.getElementById("org-photo").files[0];
+    const newPhoto = document.getElementById("org-logo").files[0];
     const newDescription = document.getElementById("change-description").value;
     const organizationId = document.getElementById("organization-id").value;
     const selectedCaterogies = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked')).map(checkBox => checkBox.value);
+    const loggedInUserId = sessionStorage.getItem("userId");
+
+    if(!loggedInUserId)
+    {
+        console.error("User ID not found during submission.");
+        return;
+    }
 
     const formData = new FormData();
     formData.append("name", newTitle);
@@ -87,14 +115,18 @@ async function submitChanges() {
     }
     formData.append("causes", JSON.stringify(selectedCaterogies));
 
-    let url = '/api/organizations';
+    let url = `${backendUrl}/api/organizations`;
     let method = 'POST';
 
     if(organizationId)
     {
-        url = `/api/organizations/${organizationId}`; // URL for updating
+        url = `${backendUrl}/api/organizations/${organizationId}`; // URL for updating
         method = 'PUT';
         formData.append("_id", organizationId); // Include the ID for the update
+    }
+    else{
+        // New organization: Include the admin's ID in the request
+        formData.append("adminId", loggedInUserId);
     }
 
     try{

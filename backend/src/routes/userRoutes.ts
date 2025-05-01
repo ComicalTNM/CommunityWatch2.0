@@ -211,4 +211,43 @@ router.get('/organizations', asyncHandler(async(req: Request, res: Response, nex
       }
 }))
 
+router.get('/admin/:userId', (async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const userId = req.params.userId;
+        if(!userId)
+        {
+            return res.status(401).json({message: 'Unauthorized: no user ID provided!'})
+        }
+
+        const user = await User.findById(userId).populate('organizationId');
+
+        if(!user)
+        {
+            return res.status(404).json({message: 'Admin user not found'});
+        }
+
+        // Role check
+        if(user.role !== 'admin')
+        {
+            return res.status(403).json({message: 'Forbidden: User is not an admin!'});
+        }
+
+        //Send back the user data, including organizationId
+        const adminData = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            organizationId: user.organizationId,
+            role: user.role
+        }
+
+        res.status(200).json(adminData);
+    }
+    catch(error)
+    {
+        console.error('Error fetching admin user data:', error);
+        return next(error);
+    }
+})as RequestHandler)
+
 export default router;

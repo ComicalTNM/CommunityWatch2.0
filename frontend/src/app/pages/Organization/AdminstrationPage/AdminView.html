@@ -32,29 +32,20 @@
 
     <!-- Organization Sections -->
     <section>
-        <div class="section-title"><h2>Organization Name</h2></div>
-        <div class="section-content">
-            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
-            <!--Organization Description div-->
-            <div class="section-description">
-                <label for="org-description"><strong>Description:</strong></label>
-                <p id="org-description">
-                    This is the description of our organization. It provides various services and products to its customers.
-                </p>
-            </div>
-        </div>
+        <div class="exisiting-organization-info" id="exisiting-organization-info"></div>
 
         <!--Add category dropdown checkbox div-->
         <br><br>
         <div id="edit-organization" style="display: view;">
+            <input type="hidden" id="organization-id" value="">
             <!-- How Many Is the Goal -->
             <label for="new-title">New Title</label>
             <input type="text" id="new-title" placeholder="Enter new title">
             <br><br>
-            <label for="description">Change Description</label>
+            <label for="change-description">Change Description</label>
             <input type="text" id="change-description" placeholder="Enter new description">
             <br><br>
-            <label for="logo">New Logo</label>
+            <label for="org-logo">New Logo</label>
             <input type="file" id="org-logo" placeholder="Upload new logo" accept="image/*">
             <br><br>
             <label id="checkbox-display"><strong>Category:</strong></label>
@@ -76,7 +67,7 @@
                 <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
 
             </div>
-
+            <button onclick="submitChanges()">Save Changes</button>
         </div>
     </section>
 
