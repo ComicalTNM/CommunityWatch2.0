@@ -23,6 +23,13 @@
     
             <label> Enter Password: </label> 
             <input type="password" id="password" name="password" required>
+
+            <label>What role related to a non-profit organization are you?</label>
+            <select id="role" name="role">
+                <option value="admin">Admin</option>
+                <option value="member">Member</option>
+                <option value="donor">Donor</option>
+            </select>
             
             <button type="submit"> Submit </button>
 
@@ -92,6 +99,7 @@
                     username: document.getElementById('fName').value + ' ' + document.getElementById('lName').value,
                     email: document.getElementById('email').value,
                     password: document.getElementById('password').value,
+                    role: document.getElemementById('role').value,
                     organization: document.getElementById('organization').value
                 };
 

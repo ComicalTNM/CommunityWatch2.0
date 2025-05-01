@@ -1,8 +1,11 @@
 import User from '../models/User';
+import Organization from '@/models/Organization';
 import {Request, Response, Router, NextFunction, RequestHandler} from 'express';
 import bcrypt from 'bcrypt';
 import multer, {StorageEngine} from 'multer'; 
 import path from 'path';
+import { authenticateToken } from '@/middleware/authMiddleware';
+import { appendFileSync } from 'fs';
 
 const router = Router();
 
@@ -25,6 +28,16 @@ const upload = multer({ storage: storage});
 type MulterRequest = Request & {
     file?: Express.Multer.File; // Definitely has 'file'
 };
+
+// Explicitly define the asyncHandler type to return Promise<void>
+type AsyncRequestHandler = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<void>; // Force return of Promise<void>
+  
+  const asyncHandler = (fn: AsyncRequestHandler): RequestHandler => (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
 
 //Route to get the user details by user ID
 router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
@@ -140,5 +153,101 @@ router.delete('/:userId', (async (req, res) => {
         res.status(500).json({message: 'Error deleting user'});
     }
 }) as RequestHandler)
+
+router.post('/:userId/registerEvent', (async(req: Request, res: Response) => {
+    try{
+        const userId = req.params.userId;
+        const {eventId} = req.body;
+
+        if(!eventId)
+        {
+            return res.status(400).json({message: "EventID is required."});
+        }
+
+        const user = await User.findById(userId);
+
+        if(!user)
+        {
+            return res.status(404).json({message: "User is not found"});
+        }
+
+        if(user.registeredEvents.includes(eventId))
+        {
+            return res.status(409).json({message: "User is already registered for this event"})
+        }
+
+        await User.updateOne({_id: userId}, {$push: {registeredEvents: eventId}});
+
+        res.json({message: "Event registered successfully."});
+    }
+    catch(error)
+    {
+        console.error(error);
+        res.status(500).json({message: "Error registering for event."});
+    }
+}) as RequestHandler)
+
+// Get organizations for a user
+router.get('/organizations/:userId', asyncHandler(async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        // Assuming your authentication middleware (authenticateToken) adds a 'user' property to the request
+        const userId = req.params.userId;
+  
+        const user = await User.findById(userId).populate('organizationId');
+  
+        if (!user) {
+          res.status(404).json({ message: 'User not found' });
+          return next();
+        }
+  
+        // If organizationId is a single ObjectId, return it. If it's an array, return the array.
+        const organizations = user.organizationId;
+  
+        res.json(organizations);
+        return next();
+      } catch (error) {
+        console.error('Error fetching user organizations:', error);
+        return next(error);
+      }
+}))
+
+router.get('/admin/:userId', (async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const userId = req.params.userId;
+        if(!userId)
+        {
+            return res.status(401).json({message: 'Unauthorized: no user ID provided!'})
+        }
+
+        const user = await User.findById(userId).populate('organizationId');
+
+        if(!user)
+        {
+            return res.status(404).json({message: 'Admin user not found'});
+        }
+
+        // Role check
+        if(user.role !== 'admin')
+        {
+            return res.status(403).json({message: 'Forbidden: User is not an admin!'});
+        }
+
+        //Send back the user data, including organizationId
+        const adminData = {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            organizationId: user.organizationId,
+            role: user.role
+        }
+
+        res.status(200).json(adminData);
+    }
+    catch(error)
+    {
+        console.error('Error fetching admin user data:', error);
+        return next(error);
+    }
+})as RequestHandler)
 
 export default router;

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create SR</title>
 
-<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="formcard.js"></script>
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
 </head>
   
 <body>
@@ -24,14 +24,21 @@
     
     <div class="form-container">
         <h1">Create your Request!</h1>
+
+        <br><br>
+        <label for="organization-select">Select Organization</label>
+        <select id="organization-select" name="organization">
+            <option value="">-- Select an organization --</option>
+        </select>
+        <br><br>
         
         <br><br>
-        <label for="text-entry">Request Name</label>
-        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <label for="request-title">Request Name</label>
+        <input type="text" id="request-title" placeholder="Enter text here...">
         <br><br>
 
-        <label for="text-entry">Request Description</label>
-        <input type="text" id="text-entry" placeholder="Enter text here...">
+        <label for="request-description">Request Description</label>
+        <input type="text" id="request-description" placeholder="Enter text here...">
         <br><br>
 
                     <!--I want these next to each other -->
@@ -92,9 +99,9 @@
                 <br><br>
         
                 <!-- Stripe Link for Donations -->
-                <label for="stripe-link">Stripe Donation Link</label>
+                <label for="donation-link">Donation Link</label>
                     <br><br>
-                <input type="url" id="stripe-link" placeholder="Enter Stripe donation link">
+                <input type="url" id="donation-link" placeholder="Enter donation link">
             </div>
         </div>
         <br><br>
@@ -114,12 +121,13 @@
         </div>
         <br><br>
 
-        <button class="dropbtn">Publish Request</button>
+        <button id="dropbtn">Publish Request</button>
 
     </div>
 
     <script>
- function toggleVisibility(id) {
+        const backendUrl = 'http://localhost:5000';
+    function toggleVisibility(id) {
         const checkbox = document.getElementById(id + '-checkbox');
         const section = document.getElementById(id);
         
@@ -170,6 +178,148 @@
         } else {
             section.style.display = 'none'; // Hide the section
         }
+    }
+
+    document.getElementById('dropbtn').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        //Get form values
+        const title = document.getElementById('request-title').value;
+        const description = document.getElementById('request-description').value;
+        const eventDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
+        const signupStartDate = document.getElementById('signup-start-date').value;
+        const signupEndDate = document.getElementById('signup-end-date').value;
+        const urgency = document.querySelector(`input[name="choice"]:checked`) ? document.querySelector(`input[name="choice"]:checked`).value : null; //Get selected radio button value
+
+        //Volunteers
+        let volunteersNeeded = 0;
+        if(document.getElementById('volunteers-checkbox').checked)
+        {
+            volunteersNeeded = parseInt(document.getElementById('volunteers-goal').value) || 0; //Ensures it's a number
+        }
+
+        //Resources
+        let itemsNeeded = [];
+        if(document.getElementById('resources-checkbox').checked)
+        {
+            const resourceEntries = document.querySelectorAll('#new-resources .resource-entry');
+            resourcesEntries.forEach(entry => {
+                const item = entry.querySelector('input[type="text"]').value;
+                const quantity = parseInt(entry.querySelector('input[type="number"]').value) || 0;
+                itemsNeeded.push({ item: item, quantity: quantity });
+            });
+        }
+
+        //Donations
+        let donationsGoal = 0;
+        let donationLink = "";
+        if(document.getElementById('donations-checkbox').checked)
+        {
+            donationsGoal = parseInt(document.getElementById('donations-goal').value) || 0;
+            donationLink = document.getElementById('donation-link').value;
+        }
+
+        //Tags (Filters)
+        let tags = [];
+        const filterCheckboxes = document.querySelectorAll('input[type="checkBox"]');
+        filterCheckboxes.forEach(checkbox => {
+            if(checkbox.checked && checkbox.value)
+            {
+                tags.push(checkbox.value);
+            }
+        });
+
+        //Contructing the data object
+        const newEvent = {
+            title: title,
+            description: description,
+            images: [],
+            tags: tags,
+            organization: "placeHolder", //IMPORTANT: We will need a way to find which organization this event is associated with. 
+            itemsNeeded: itemsNeeded,
+            volunteersNeeded: volunteersNeeded,
+            eventDate: eventDate,
+            endDate: endDate,
+            signupStartDate: signupStartDate,
+            signupEndDate: signupEndDate,
+            urgency: urgency,
+            donationsGoal: donationsGoal,
+            donationLink: donationLink,
+            completedUsers: [],
+            registeredUsers: []
+        };
+
+        //Send the data to the server
+        sendDataToServer(newEvent); 
+    });
+
+    async function populateOrganizationDropdown()
+    {
+        const organizationSelect = document.getElementById('organization-select');
+        const userId = sessionStorage.getItem("userId")
+
+        try{
+            const response = await fetch(`${backendUrl}/api/users/organizations/${userId}`);
+            if(!response.ok)
+            {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const organization = await response.json();
+
+            //Checking if organization has the expected properties.
+            if(organization && organization._id && organization.name)
+            {
+                const option = document.createElement('option');
+                option.value = organization._id;
+                option.textContent = organization.name;
+                organizationSelect.appendChild(option);
+            }
+            else{
+                console.error("Invalid organization data", organization)
+                alert('Could not load organizations. Please try again.');
+            }
+        }
+        catch(error)
+        {
+            console.error('Error fetching organizations:', error);
+            alert('Could not load organizations. Please try again.')
+        }
+    }
+
+    //Calling the function to populate the dropdown when the page loads
+    window.addEventListener('DOMContentLoaded', populateOrganizationDropdown);
+    
+    function sendDataToServer(data){
+        const organizationSelect = document.getElementById('organization-select');
+        const selectedOrganizationId = organizationSelect.value;
+        const backendURL = 'http://localhost:5000';
+        const userId = sessionStorage.getItem("userId");
+
+        if(!selectedOrganizationId)
+        {
+            alert('Please select an oragnization.');
+            return;
+        }
+
+        data.organizationId = selectedOrganizationId; // Add the organization ID to the data
+        
+        fetch(`${backendURL}/api/posts/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+            alert("Event created!");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error creating event.")
+        });
     }
     </script>
 

@@ -80,7 +80,26 @@
                 localStorage.setItem('token', result.token);
 
                 //Redirect to another page (dashboard, home, etc.)
-                window.location.href = "../../pages/HomePage/homepage.html";
+                const role = result.user.role;
+                let redirectURL = "../../pages/HomePage/homepage.html";
+
+                switch(role)
+                {
+                    case "admin":
+                        redirectURL = "../../pages/Organization/AdminstrationPage/AdminView.html";
+                        break;
+                    case "member":
+                        redirectURL = "../../pages/Organization/MemberPage/MemberView.html";
+                        break;
+                    case "donor":
+                        redirectURL = "../../pages/HomePage/homepage.html";
+                        break;
+                    default:
+                        redirectURL = "../../pages/HomePage/homepage.html"; //Fail safe
+                        break;
+                }
+                window.location.href = redirectURL;
+
             }
             else {
                 alert('Error: ' + result.message);

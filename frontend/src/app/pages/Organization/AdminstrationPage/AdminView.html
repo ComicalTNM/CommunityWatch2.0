@@ -12,15 +12,8 @@
         <!--Navigation Bar-->
     <nav class="topnav">
         <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
-        <a href="../../pages/HomePage/homepage.html">Home</a>
-        <a href="../../pages/SearchPage/SearchPage.html">Search</a>
-        <div class="dropdown">
-            <button class="dropbtn">Organization</button>
-            <div class="dropdown-content">
-                <a href="#NewOrg">New Org</a>
-                <a href="../../SideBar/UserView.html">My Orgs</a>
-            </div>
-        </div>
+        <a href="Main_Admin_Dashboard.html">Dashboard</a>
+        <a href="../OrgHomePage.html">Organization Home Page</a>
         <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
     </nav>
 
@@ -32,29 +25,20 @@
 
     <!-- Organization Sections -->
     <section>
-        <div class="section-title"><h2>Organization Name</h2></div>
-        <div class="section-content">
-            <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
-            <!--Organization Description div-->
-            <div class="section-description">
-                <label for="org-description"><strong>Description:</strong></label>
-                <p id="org-description">
-                    This is the description of our organization. It provides various services and products to its customers.
-                </p>
-            </div>
-        </div>
+        <div class="exisiting-organization-info" id="exisiting-organization-info"></div>
 
         <!--Add category dropdown checkbox div-->
         <br><br>
         <div id="edit-organization" style="display: view;">
+            <input type="hidden" id="organization-id" value="">
             <!-- How Many Is the Goal -->
             <label for="new-title">New Title</label>
             <input type="text" id="new-title" placeholder="Enter new title">
             <br><br>
-            <label for="description">Change Description</label>
+            <label for="change-description">Change Description</label>
             <input type="text" id="change-description" placeholder="Enter new description">
             <br><br>
-            <label for="logo">New Logo</label>
+            <label for="org-logo">New Logo</label>
             <input type="file" id="org-logo" placeholder="Upload new logo" accept="image/*">
             <br><br>
             <label id="checkbox-display"><strong>Category:</strong></label>
@@ -76,7 +60,7 @@
                 <label><input type="checkbox" name="filter" value="Women/Children"> Women/Children</label>
 
             </div>
-
+            <button onclick="submitChanges()">Save Changes</button>
         </div>
     </section>
 
@@ -87,13 +71,13 @@
         <button class="remove-member"> Remove Members</button>
         <button class="add-member" href=""> Add Member</button>
         <button class="alter-role"> Alter Member Role</button>
-        <button class="edit-member" href=""> View & Edit Member</button>
+        <button class="view-member" href=""> View Members</button>
     </section>
     <!--Event-->
     <section>
         <div class="section-title"><h2>Event Request</h2></div>
         <br>
-        <button class="add-event"> Add Event</button>
+        <a href="../../FormPages/CreateSR.html"><button class="add-event"> Add Event</button></a>
         <button class="remove-event"> Remove Event</button>
         <button class="edit-event" href=""> Edit Event</button>
     </section>

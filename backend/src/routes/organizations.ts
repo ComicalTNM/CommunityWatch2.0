@@ -1,6 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction, RequestHandler } from "express";
 import Organization from "../models/Organization"; // Import your Mongoose model
 import Post from "../models/Post";
+import { isValidObjectId } from 'mongoose';
+import multer, {StorageEngine} from 'multer';
+import path from 'path';
 
 const router = express.Router();
 
@@ -9,6 +12,82 @@ interface SearchQuery {
     query?: string;
     filters?: string;
 }
+
+//Multer storage configuration
+const storage: StorageEngine = multer.diskStorage({
+    destination: (req, file, cb) => {
+    cb(null, 'uploads/');  //  Where to store the files
+    },
+    filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const fileExtension = path.extname(file.originalname);  //  Get the file extension
+    cb(null, file.fieldname + '-' + uniqueSuffix + fileExtension);  //  Name the file with extension
+    },
+});
+
+//Multer setup (if handling file uploads)
+const upload = multer({ storage: storage});
+
+// Define a type for the request object that includes Multer's 'file'
+type MulterRequest = Request & {
+    file?: Express.Multer.File; // Definitely has 'file'
+};
+
+// Function to generate the file path (relative to the backend's uploads directory)
+function generateFilePath(filename: string): string {
+    const backendUrl = 'http://localhost:5000'; 
+    return `${backendUrl}/uploads/${filename}`;
+}
+
+// POST route to create a new organization
+router.post('/', upload.single('logo'), (async(req: Request, res: Response, next: NextFunction) => {
+    const {name, description, causes, adminId} = req.body;
+    const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
+    const parsedCauses = causes ? JSON.parse(causes) : [];
+
+    if(!name || !description || !adminId)
+    {
+        return res.status(400).json({message: 'Please provide name, description, and adminId'});
+    }
+
+    const newOrganization = await Organization.create({
+        name,
+        description,
+        profileImage,
+        causes: parsedCauses,
+        adminIds: [adminId], // Add the admin's ID to the adminIds array
+        memberIds: [] // Intialize memberIds as empty
+    });
+
+    res.status(201).json(newOrganization);
+
+}) as RequestHandler);
+
+// PUT route to update an existing organization by ID
+router.put('/:id', upload.single('logo'), (async(req: Request, res: Response, next: NextFunction) => {
+    const organizationId = req.params.id;
+
+    if(!isValidObjectId(organizationId)) {
+        return res.status(400).json({ message: 'Invalid organization ID format' })
+    }
+
+    const { name, description, causes} = req.body;
+    const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
+    const parsedCauses = causes ? JSON.parse(causes) : [];
+
+    const updatedOrganization = await Organization.findByIdAndUpdate(
+        organizationId,
+        {name, description, profileImage, causes: parsedCauses},
+        {new: true, runValidators: true} // Options to return the updated doc and run validators
+    );
+
+    if(!updatedOrganization)
+    {
+        return res.status(404).json({ message: 'Organization not found' });
+    }
+
+    res.status(200).json(updatedOrganization);
+}) as RequestHandler);
 
 // Search organizations with filters
 router.get("/search", async (req: Request<{}, {}, {}, SearchQuery>, res: Response) => {
@@ -63,6 +142,24 @@ router.post("/by-event-ids", async (req, res) =>{
     }
 });
 
+//GET route to fetch an organization by its ID
+router.get('/:id', (async(req: Request, res: Response, next: NextFunction) => {
+    const organizationId = req.params.id;
+
+    if(!isValidObjectId(organizationId))
+    {
+        return res.status(400).json({ message: 'Invalid organization ID format' });
+    }
+
+    const organization = await Organization.findById(organizationId);
+
+    if(!organization)
+    {
+        return res.status(404).json({message: 'Organization not found'});
+    }
+
+    res.status(200).json(organization);
+}) as RequestHandler)
 
 router.stack.forEach((layer: any) => {
     if(layer.route)

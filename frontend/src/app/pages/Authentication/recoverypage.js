@@ -1,4 +1,4 @@
-<script>
+
 document.querySelector('form').addEventListener('submit', async function(event) {
     event.preventDefault(); //Prevent the form from reloading the page
 
@@ -44,4 +44,3 @@ document.querySelector('form').addEventListener('submit', async function(event) 
     }
 
 });
-</script>
