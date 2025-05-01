@@ -128,7 +128,8 @@
 
     </div>
     <script>
- function toggleVisibility(id) {
+        const backendUrl = 'http://localhost:5000';
+    function toggleVisibility(id) {
         const checkbox = document.getElementById(id + '-checkbox');
         const section = document.getElementById(id);
         
@@ -257,7 +258,7 @@
         const organizationSelect = document.getElementById('organization-select');
 
         try{
-            const response = await fetch(`api/users/organizations`);
+            const response = await fetch(`${backendUrl}/api/users/organizations`);
             if(!response.ok)
             {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -294,7 +295,7 @@
 
         data.organization = selectedOrganizationId; // Add the organization ID to the data
         
-        fetch('/api/posts', {
+        fetch(`${backendURL}/api/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
