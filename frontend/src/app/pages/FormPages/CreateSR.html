@@ -68,7 +68,7 @@
         <br><br>
 
         <label>What's Being Requested</label>
-        <div class="checklist">
+        <div class="checklist" id="requests">
             <!-- Checkbox for Volunteers -->
             <label><input type="checkbox" id="volunteers-checkbox" onclick="toggleVisibility('volunteers')">Volunteers</label>
             <div id="volunteers" style="display: none;">
@@ -107,17 +107,17 @@
         <br><br>
 
         <label>Request Filters</label>
-        <div class="checklist">
-            <label><input type="checkbox" value="item1">Academic</label>
-            <label><input type="checkbox" value="item2">Enviromental</label>
-            <label><input type="checkbox" value="item1">Wellness</label>
-            <label><input type="checkbox" value="item2">Advocacy</label>
-            <label><input type="checkbox" value="item1">Cultural</label>
-            <label><input type="checkbox" value="item2">Developmental</label>
-            <label><input type="checkbox" value="item1">Youth</label>
-            <label><input type="checkbox" value="item2">Community</label>
-            <label><input type="checkbox" value="item1">Veterns</label>
-            <label><input type="checkbox" value="item2">Women/Children</label>
+        <div class="checklist" id="filters">
+            <label><input type="checkbox" value="Academic">Academic</label>
+            <label><input type="checkbox" value="Enviromental">Enviromental</label>
+            <label><input type="checkbox" value="Wellness">Wellness</label>
+            <label><input type="checkbox" value="Advocacy">Advocacy</label>
+            <label><input type="checkbox" value="Cultural">Cultural</label>
+            <label><input type="checkbox" value="Developmental">Developmental</label>
+            <label><input type="checkbox" value="Youth">Youth</label>
+            <label><input type="checkbox" value="Community">Community</label>
+            <label><input type="checkbox" value="Veterns">Veterns</label>
+            <label><input type="checkbox" value="Women/Children">Women/Children</label>
         </div>
         <br><br>
 
@@ -222,7 +222,8 @@
 
         //Tags (Filters)
         let tags = [];
-        const filterCheckboxes = document.querySelectorAll('input[type="checkBox"]');
+        const filtersDiv = document.getElementById('filters');
+        const filterCheckboxes = filtersDiv.querySelectorAll('input[type="checkbox"]');
         filterCheckboxes.forEach(checkbox => {
             if(checkbox.checked && checkbox.value)
             {
