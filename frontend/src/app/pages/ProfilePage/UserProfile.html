@@ -60,6 +60,10 @@
                                 <a href="./EditProfile.html"><button>Edit Profile</button></a>
                               </div>
 
+                              <div class="Logout">
+                                <button id="logoutBtn" class="logout-button">Logout</button>
+                              </div>
+
 
 
 
@@ -229,6 +233,21 @@
           link.textContent = text;
           return link;
         }
+
+        document.addEventListener('DOMContentLoaded', function(){
+          const logoutButton = document.getElementById('logoutBtn');
+
+          if(logoutButton)
+          {
+            logoutButton.addEventListener('click', function() {
+              //Clear session storage
+              sessionStorage.clear();
+
+              //Redirect to login page
+              window.location.href = '../Authentication/Login.html';
+            })
+          }
+        })
       </script>
       
         <footer>
