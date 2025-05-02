@@ -67,6 +67,7 @@
 
                 document.getElementById("username").value = userData.username;
                 document.getElementById("email").value = userData.email;
+                changeNavBar(userData.role);
                 //Password is not prefilled for security reasons
             }
             catch(error){
@@ -167,6 +168,56 @@
                 }
             }
         })
+
+        function changeNavBar(userRole)
+        {
+          const nav = document.querySelector('.topnav');
+          nav.innerHTML = '';
+
+          //Create the base nav
+          let logo = document.createElement('img');
+          logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+          logo.alt = "Community Watch Logo";
+          logo.classList.add('logo');
+          nav.appendChild(logo);
+
+          if(userRole === "admin")
+          {
+            let dashboardLink = createNavLink("../Organization/AdminstrationPage/Main_Admin_Dashboard.html", "Dashboard");
+            let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            nav.appendChild(dashboardLink);
+            nav.appendChild(organizationHomeLink);
+            nav.appendChild(profileLink);
+          }
+          else if(userRole === "member")
+          {
+            let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+            let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            nav.appendChild(homeLink);
+            nav.appendChild(organizationHomeLink);
+            nav.appendChild(profileLink);
+          }
+          else{
+            let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+            let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            nav.appendChild(homeLink);
+            nav.appendChild(searchLink);
+            nav.appendChild(organizationLink);
+            nav.appendChild(profileLink);
+          }
+        }
+
+        function createNavLink(href, text)
+        {
+          let link = document.createElement('a');
+          link.href = href;
+          link.textContent = text;
+          return link;
+        }
 
     </script>
         <footer>
