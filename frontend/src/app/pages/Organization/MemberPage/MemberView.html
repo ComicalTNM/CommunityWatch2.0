@@ -23,7 +23,7 @@
     </header>
 
     <!-- Organization Sections -->
-    <section>
+    <section id="organizationDetails">
         <div class="section-title"><h2>Organization Name</h2></div>
         <div class="section-content">
             <div class="section-photo" style="background-image: url('https://via.placeholder.com/150'); background-size: cover;"></div>
@@ -47,17 +47,79 @@
     <section>
         <div class="section-title"><h2>Event Request</h2></div>
         <br>
-        <button class="add-event"> Add Event</button>
+        <a href="../../FormPages/CreateSR.html"><button class="add-event"> Add Event</button></a>
         <button class="edit-event" href=""> Edit Event</button>
     </section>
 
      <!--Metrics -->
-     <section>
-        <div class="section-title"><h2>Metrics</h2></div>
+     <!--<section>
+        <div class="section-title"><h2>Metrics</h2></div>  
         <br>
         <button class="edit-member" href=""> View Organization Calendar</button>
         <button class="edit-member" href=""> View Event Completion Graph</button>
-    </section>
+    </section>-->
+
+    <script>
+        const backendURL = 'http://localhost:5000';
+
+        async function initializeMemberView()
+        {
+            try{
+                const loggedInUserId = sessionStorage.getItem("userId");
+                if(!loggedInUserId)
+                {
+                    console.error("User ID not found.");
+                    return;
+                }
+
+                //Fetch the user data to get the organization id
+                const userResponse = await fetch(`${backendURL}/api/users/${loggedInUserId}`);
+                const userData = await userResponse.json();
+
+                const organizationDetailsDiv = document.getElementById("organizationDetails");
+
+                if(userData.organizationId)
+                {
+                    //Ensure organizationId is a string
+                    const organizationIdString =
+                    typeof userData.organizationId === 'object' && userData.organizationId !== null
+                        ? userData.organizationId._id
+                        : userData.organizationId;
+
+                    //Fetch organization data
+                    const orgResponse = await fetch(`${backendURL}/api/organizations/${organizationIdString}`);
+                    const organizationData = await orgResponse.json();
+
+                    //Display Organization information
+                    organizationDetailsDiv.innerHTML = `
+                        <div class="section-title"><h2>${organizationData.name || "N/A"}</h2></div>
+                        <div class="section-content">
+                        <div class="section-photo" style="background-image: url(${organizationData.profileImage ? organizationData.profileImage : ''}); background-size: cover;"></div>
+                        <!--Organization Description div-->
+                        <div class="section-description">
+                            <label for="org-description"><strong>Description:</strong></label>
+                            <p id="org-description">
+                                ${organizationData.description}
+                            </p>
+                        </div>
+                    `;
+                }
+                else{
+                    organizationDetailsDiv.innerHTML = "<p>You are currently not a member of any organization.</p>"
+                }
+
+            }
+            catch(error)
+            {
+                console.error("Error intializing Member View:", error);
+                alert("Error loading organization information.");
+            }
+        }
+
+        window.onload = function() {
+            initializeMemberView();
+        }
+    </script>
 
     <footer>
         <div class="container">
