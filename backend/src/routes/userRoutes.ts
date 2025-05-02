@@ -58,6 +58,7 @@ router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
         //Create an object with relevant user data
         const userData = {
             id: user._id,
+            role: user.role,
             username: user.username,
             email: user.email,
             profilePicture: user.profilePicture,
