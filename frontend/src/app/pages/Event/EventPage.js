@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const eventId = urlParams.get('eventId');
     console.log("eventId from URL:", eventId);
+    const volunteerButton = document.getElementById('volunteerButton');
     if(eventId)
     {
         fetchEventDetails(eventId);
+        volunteerButton.href += eventId;
     }
     else{
         console.error("Event ID not found in the URL.");
@@ -39,24 +41,25 @@ function displayEventDetails(event)
     document.querySelector(".organization-ex").innerText = event.organization?.name || "No Organization Provided";
     document.querySelector(".description-ex").innerText = event.description || "No Description Provided";
     document.querySelector(".date-ex").innerText = event.eventDate ? new Date(event.eventDate).toLocaleDateString() : "No Date Provided";
-    if(event.volunteersNeeded && event.itemsNeeded.length > 0)
+
+    let goalsText = "Goals: ";
+
+    if(event.volunteersNeeded)
     {
-        document.querySelector(".goals").innerText = `Goals: 
-        \nVolunteers Needed: ${event.volunteersNeeded}
-        \nItems Needed: ${event.itemsNeeded.split(',')}`;
+        goalsText += `\nVolunteers Needed: ${event.volunteersNeeded}`;
     }
-    else if((!event.volunteersNeeded || event.volunteersNeeded == 0) && event.itemsNeeded.length > 0)
+    if(event.itemsNeeded && event.itemsNeeded.length > 0)
     {
-        document.querySelector(".goals").innerText = `Goals:
-        \nItems Needed: ${event.itemsNeeded.split(',')}`;
+        goalsText += "\nItems Needed:";
+        event.itemsNeeded.forEach(item => {
+            goalsText += `\n- ${item.item}: ${item.quantity}`;
+        });
     }
-    else if(event.volunteersNeeded && event.itemsNeeded.length == 0)
+    if(goalsText === "Goals: ")
     {
-        document.querySelector(".goals").innerText = `Goals:
-        \nVolunteers Needed: ${event.volunteersNeeded}`;
+        goalsText += "No goals provided";
     }
-    else{
-        document.querySelector('.goals').innerText = 'No goals provided'
-    }
+    
+    document.querySelector(".goals").innerText = goalsText;
     document.querySelector(".location").innerText = `Location: ${event.location || "No Location Provided"}`;
 }

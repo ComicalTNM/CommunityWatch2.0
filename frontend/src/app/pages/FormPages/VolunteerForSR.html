@@ -8,17 +8,11 @@
 
 <body>
     <nav class="topnav">
-        <img src="imgs/Senior Project Logo.png" alt="CommunityWatch Logo" class="logo">
+        <img src="../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
         <a href="../../pages/HomePage/homepage.html">Home</a>
         <a href="../../pages/SearchPage/SearchPage.html">Search</a>
-        <div class="dropdown">
-            <button class="dropbtn">Organization</button>
-            <div class="dropdown-content">
-                <a href="#NewOrg">New Org</a>
-                <a href="../../SideBar/UserView.html">My Orgs</a>
-            </div>
-        </div>
-        <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+        <a href="../../pages/UserPage/MyOrganizations.html">My Organizations</a>
+        <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
     </nav> 
     
     <div class="form-container">
@@ -35,7 +29,7 @@
 
         <label>Providing</label>
         <div class="checklist">
-            <label><input type="checkbox" id="volunteering-checkbox" value="item1" onchange="toggleVisibility('volunteers')">Volunteering</label>
+            <label><input type="checkbox" id="volunteers-checkbox" value="item1" onchange="toggleVisibility('volunteers')">Volunteering</label>
             <div id="volunteers" style="display: none;">
                 <label for="signup-end-date">Which Dates</label>
                 <input type="date" id="Volunteer-Date">
@@ -61,19 +55,13 @@
 
             <label><input type="checkbox" id="donations-checkbox" value="item3" onchange="toggleVisibility('donations')">Donations</label>
             <div id="donations" style="display: none;">
-                <label for="donations-goal">Enter Email for Stripe Link</label>
+                <label for="donations-goal">Please click on this link to donate!</label>
                 <br><br>
-                <input type="text" id="email" placeholder="Enter Email for Stripe Code">
+                <a>Organization's Donation Link</a>
                 <br><br>
             </div>
         </div>
         <br><br>
-
-        <label>Join the Mailing List? Be alerted to future events</label>
-        <div class="multiple-choice">
-            <label><input type="radio" name="choice" value="option2">Yes</label>
-            <label><input type="radio" name="choice" value="option2">No</label>
-        </div>
 
         <button class="dropbtn">Volunteer!</button>
     </div>
