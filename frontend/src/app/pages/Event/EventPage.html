@@ -4,57 +4,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SR View Page</title>
 
-<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   ><script defer src="SearchPage.js"></script>
+<link rel="stylesheet" href="../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css">
 </head>
   
-<body>
-    <nav class="topnav">
-        <img src="../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
-        <a href="../../pages/HomePage/homepage.html" class="nav-titles">Home</a>
-        <a href="../../pages/SearchPage/SearchPage.html" class="nav-titles">Search</a>
-        <div class="dropdown">
-            <button class="dropbtn">Organization</button>
-            <div class="dropdown-content">
-                <a href="#NewOrg">New Org</a>
-                <a href="../../pages/UserPage/UserView.html">My Orgs</a>
+    <body>
+        <nav class="topnav">
+            <img src="../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
+            <a href="../../pages/HomePage/homepage.html">Home</a>
+            <a href="../../pages/SearchPage/SearchPage.html">Search</a>
+            <a href="../../pages/UserPage/MyOrganizations.html">My Organizations</a>
+            <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
+        </nav> 
+
+        <div class="expanded-card">
+            <h1 class="title-ex">Title</h1>
+            <h2 class="organization-ex">Organization</h2>
+            <h4 class="date-ex">Date</h4>
+        
+            <div class="progress-ex">
+            <div class="progress-bar" style="width: 50%;"></div>
+            </div>
+        
+            <p class="description-ex">This is a detailed description of the event.</p>
+            <p class="goals">Goals: Achieve XYZ milestones.</p>
+            <p class="location">Location: XYZ Venue</p>
+        <button onclick="location.href='../FormPages/VolunteerForSR.html'">Support the Cause</button>
+        </div>
+        <br/>
+        <br/>
+
+        
+
+    <footer>
+        <div class="container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
             </div>
         </div>
-        <a href="../../pages/ProfilePage/UserProfile.html" class="nav-titles">Profile</a>
-    </nav> 
-
-    <div class="expanded-card">
-        <p class="delete-btn" onclick="collapseCard(this)">X</p>
-        <img src="photo.jpg" class="photo">
-        <h1 class="title-ex">Title</h1>
-        <h2 class="organization-ex">Organization</h2>
-        <h4 class="date-ex">Date</h4>
-      
-        <div class="progress-ex">
-          <div class="progress-bar" style="width: 50%;"></div>
-        </div>
-      
-        <p class="description-ex">This is a detailed description of the event.</p>
-        <p class="goals">Goals: Achieve XYZ milestones.</p>
-        <p class="location">Location: XYZ Venue</p>
-    <button onclick="location.href='VolunteerForSR.html'">Support the Cause</button>
-    </div>
-    <br/>
-    <br/>
-
-<footer>
-    <div class="container">
-        <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
-        <p>&copy; 2025 Community Watch. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://www.facebook.com" target="_blank" title="Facebook">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
-            </a>
-            <a href="https://www.instagram.com" target="_blank" title="Instagram">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-            </a>
-        </div>
-    </div>
-</footer>
-
+    </footer>
+    <script src="../../pages/Event/EventPage.js"></script>
     </body>
 </html>
