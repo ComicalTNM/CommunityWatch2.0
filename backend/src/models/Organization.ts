@@ -13,6 +13,7 @@ const OrganizationSchema: Schema = new Schema({
   adminIds: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   memberIds: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   website: { type: String },
+  donationWebsite: { type: String },
   contactEmail: { type: String, required: true },
   contactPhone: { type: String },
   socialMedia: {

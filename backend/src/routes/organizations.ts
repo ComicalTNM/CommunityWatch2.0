@@ -71,13 +71,13 @@ router.put('/:id', upload.single('logo'), (async(req: Request, res: Response, ne
         return res.status(400).json({ message: 'Invalid organization ID format' })
     }
 
-    const { name, description, causes} = req.body;
+    const { name, description, website, donationWebsite, causes} = req.body;
     const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
     const parsedCauses = causes ? JSON.parse(causes) : [];
 
     const updatedOrganization = await Organization.findByIdAndUpdate(
         organizationId,
-        {name, description, profileImage, causes: parsedCauses},
+        {name, description, website, donationWebsite, profileImage, causes: parsedCauses},
         {new: true, runValidators: true} // Options to return the updated doc and run validators
     );
 

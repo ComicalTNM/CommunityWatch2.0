@@ -96,6 +96,8 @@ async function submitChanges() {
     const newTitle = document.getElementById("new-title").value;
     const newPhoto = document.getElementById("org-logo");
     const newDescription = document.getElementById("change-description").value;
+    const newWebsite = document.getElementById("website").value;
+    const newDonationWebsite = document.getElementById("donation-website").value;
     const organizationId = document.getElementById("organization-id").value;
     const selectedCaterogies = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked')).map(checkBox => checkBox.value);
     const loggedInUserId = sessionStorage.getItem("userId");
@@ -109,6 +111,8 @@ async function submitChanges() {
     const formData = new FormData();
     formData.append("name", newTitle);
     formData.append("description", newDescription);
+    formData.append("website", newWebsite);
+    formData.append("donationWebsite", newDonationWebsite);
     if(newPhoto.files && newPhoto.files.length > 0)
     {
         formData.append("logo", newPhoto.files[0]);

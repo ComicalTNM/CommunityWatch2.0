@@ -16,7 +16,7 @@ const seedData = async () => {
         username: 'johndoe',
         email: 'john@example.com',
         password: await bcrypt.hash('password123', 10),
-        role: 'owner',
+        role: 'admin',
         profilePicture: `https://placehold.co/200x200?text=${encodeURIComponent("JD")}`,
         registeredEvents: [], 
         completedEvents: [], 

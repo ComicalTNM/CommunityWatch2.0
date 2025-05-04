@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="${org.bannerImage}" alt="${org.name}" class="org-banner">
                 <h3>${org.name}</h3>
                 <p>${org.description}</p>
-                <a href="${org.website}" target="_blank">Visit Website</a>
+                <a href="../Organization/OrgHomePage?orgId=${org._id}">Visit Homepage</a>
             `;
             resultsContainer.appendChild(orgCard);
         });
