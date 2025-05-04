@@ -116,31 +116,38 @@ router.get("/search", async (req: Request<{}, {}, {}, SearchQuery>, res: Respons
     }
 });
 
-router.post("/by-event-ids", async (req, res) =>{
+router.post("/by-event-ids", (async (req, res) =>{
     try{
-        const {eventIds} = req.body;
+        const eventIds: string[] = req.body;
+
+        if(!Array.isArray(eventIds) || eventIds.length === 0)
+        {
+            return res.status(400).json({ message: "An array of event IDS is required!" });
+        }
 
         //Find events based on the provided event IDs
         const events = await Post.find({ _id: { $in: eventIds } }).populate('organization');
 
         //Extract organization IDs from the events
-        const organizationIds = events.map(event => event.organization).filter(Boolean); // Filter out any null organization Ids
+        const organizationIds: string[] = events.map(event => event.organization ? event.organization._id.toString() : null).filter((id): id is string => id !== null); // Filter out any null organization Ids
+
+        if(organizationIds.length === 0)
+        {
+            return res.json([]);
+        }
 
         // Find the organizations based on the extracted organization IDs
         const organizations = await Organization.find({ _id: { $in: organizationIds } });
 
-        //Extract organization names from the organizations
-        const organizationNames = organizations.map(org => org.name);
-
-        //Send back unique organization names
-        res.json([...new Set(organizationNames)]);
+        //Send back the organization 
+        res.json(organizations);
     }
     catch(error)
     {
         console.error("Error fetching organizations:", error);
         res.status(500).json({ message: "Failed to fetch organizations" });
     }
-});
+}) as RequestHandler);
 
 //GET route to fetch an organization by its ID
 router.get('/:id', (async(req: Request, res: Response, next: NextFunction) => {

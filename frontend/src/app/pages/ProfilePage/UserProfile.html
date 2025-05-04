@@ -121,14 +121,13 @@
           if(eventIds.length === 0) return; //No events to fetch
 
           try{
-            const response = await fetch(`${backendUrl}/api/organizations/by-events-ids`, {
-              method: POST,
+            const response = await fetch(`${backendUrl}/api/organizations/by-event-ids`, {
+              method: 'POST',
               headers: {
-                'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
               },
-              body: JSON.stringify({eventIds: eventIds})
+              body: JSON.stringify(eventIds),
             });
-
             if(!response.ok)
             {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -136,10 +135,10 @@
 
             const organizations = await response.json();
 
-            organizations.forEach(orgName => {
+            organizations.forEach(org => {
               const row = document.createElement("tr");
               const orgCell = document.createElement("td");
-              orgCell.textContent = orgName;
+              orgCell.textContent = org.name;
               const roleCell = document.createElement("td");
               roleCell.textContent = user.role;
               row.appendChild(orgCell);

@@ -19,7 +19,7 @@
 
   <!-- Header -->
   <header>
-    <h1>My Organization</h1>
+    <h1>My Organizations</h1>
     <h3>Welcome, <span id="user-name">Come See Where You Are Making a Difference</span></h3>
   </header>
 
@@ -91,33 +91,32 @@
 
     async function fetchOrganizationByEventIDs(eventIds)
     {
-      try{
-        const response = await fetch(`${backendURL}/api/organizations/by-events-ids`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({eventIds: eventIds})
+      const backendUrl = 'http://localhost:5000'
+      try {
+        const response = await fetch(`${backendUrl}/api/organizations/by-event-ids`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(eventIds),
         });
-        
-        if(!response.ok)
-        {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const organizations = response.json();
+        const organizations = await response.json();
         return organizations;
-      }
-      catch(error)
-      {
-        console.error('Error fetching organizations:', error);
-        return [];
+      } 
+      catch (error) {
+          console.error('Error fetching organizations by event IDs:', error);
+          return []; // Or handle error appropriately
       }
     }
 
     function displayOrganizations(organizations, userData){
       const container = document.getElementById('organizations-container');
-      conatiner.innerHTML = ''; //Clear any existing content
+      container.innerHTML = ''; //Clear any existing content
 
       if(!organizations || organizations.length === 0)
       {
