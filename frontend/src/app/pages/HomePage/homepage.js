@@ -53,10 +53,19 @@
 
             console.log("Current User's Data:\n", userData);
             console.log("All Posts/Events in the database\n", allEvents);
-            //Filter events based on user data
-            const upcomingEvents = allEvents.filter(event => userData.registeredEvents.includes(event._id.toString()) && new Date(event.eventDate) > new Date());
 
-            const completedEvents = allEvents.filter(event => userData.completedEvents.includes(event._id.toString()) && new Date(event.eventDate) < new Date());
+            if (userData && userData.registeredEvents) {
+                console.log("User's Registered Event IDs (Original):", userData.registeredEvents);
+                const registeredEventIdsAsString = userData.registeredEvents.map(event => event._id.toString());
+                console.log("User's Registered Event IDs (as Strings):", registeredEventIdsAsString);
+            } else {
+                console.warn("User data or registeredEvents is missing!");
+            }
+
+            //Filter events based on user data
+            const upcomingEvents = allEvents.filter(event => userData.registeredEvents?.map(event => event._id.toString()).includes(event._id.toString()) && new Date(event.eventDate) > new Date());
+
+            const completedEvents = allEvents.filter(event => userData.completedEvents?.map(event => event._id.toString()).includes(event._id.toString()) && new Date(event.eventDate) < new Date());
 
             const recommendedEvents = allEvents.filter(event => event.tags.some(tag => userData.interests.includes(tag)) && new Date(event.eventDate) > new Date());
 
