@@ -67,6 +67,114 @@
     </div>
 
     <script>
+        //Function to get the eventId from the URL
+        function getEventIdFromUrl()
+        {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('eventId');
+        }
+
+        //Function to fetch event details from server
+        async function fetchEventDetails(eventId) {
+            const backendURL = 'http://localhost:5000';
+            try{
+                const response = await fetch(`${backendURL}/api/posts/${eventId}`);
+                if(!response.ok)
+                {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const eventData = await response.json();
+                return eventData;
+            }
+            catch(error){
+                console.error("Error fetching event details:", error);
+                alert("Failed to fetch event details.");
+            }
+        }
+
+        //Function to fetch organization details from the server with the eventData
+        async function fetchOrganizationDetails(eventData)
+        {
+            const backendURL = 'http://localhost:5000';
+            try {
+                if(eventData.organization)
+                {
+                    //ensure organizationId is a string
+                    const organizationIdString = 
+                        typeof eventData.organization === 'object' && eventData.organization !== null
+                            ? eventData.organization._id
+                            : eventData.organization;
+
+                    //Fetch organizations data since user has an organizationId
+                    const orgResponse = await fetch(`${backendURL}/api/organizations/${organizationIdString}`);
+                    const organizationData = await orgResponse.json();
+                    return organizationData;
+                }
+                else {
+                    throw new Error('Could not find organization id!')
+                }
+            }
+            catch(error) {
+                console.error("Error fetching organization details:", error);
+                alert("Could not find organization information!");
+            }
+        }
+
+        //Function to populate the resources section
+        function populateResources(itemsNeeded)
+        {
+            const resourcesDiv = document.getElementById('resources');
+            if(itemsNeeded && itemsNeeded.length > 0){
+                let resourcesHTML = '<p>Mark how much of each resource you\'ll bring</p><br><br>';
+                itemsNeeded.forEach((item, index) => {
+                    resourcesHTML += `
+                    <label for="resource${index + 1}-goal">How Many "${item.item}"</label>
+                    <input type="number" id="resource${index + 1}-goal" placeholder="Donating...">
+                    <br><br>
+                    `;
+                });
+                resourcesDiv.innerHTML = resourcesHTML;
+            }
+            else {
+                resourcesDiv.innerHTML = '<p>No resources needed for this event.</p>';
+            }
+        }
+
+        //Function to populate the donations section
+        function populateDonations(organization){
+            const donationsDiv = document.getElementById('donations');
+            if(organization && organization.website) {
+                donationsDiv.innerHTML = `
+                    <label for="donations-goal">Please click on this link to donate!</label>
+                    <br><br>
+                    <a href="${organization.website}" target="_blank">Organization's Donation Link</a>
+                    <br><br>
+                `;
+            }
+            else {
+                donationsDiv.innerHTML = `<label for="donations-goal">No donation link available.</label>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async() => {
+            const eventId = getEventIdFromUrl();
+
+            if(eventId) {
+                const eventData = await fetchEventDetails(eventId);
+                const organizationData = await fetchOrganizationDetails(eventData);
+                if(eventData)
+                {
+                    populateResources(eventData.itemsNeeded);
+                    populateDonations(organizationData);
+                }
+            }
+            else {
+                console.log("No event ID found in the URL.");
+                alert("No event ID provided. Please return to the event page.");
+            }
+           
+        })
+        
         function toggleVisibility(id) {
             const section = document.getElementById(id);
             const checkbox = document.getElementById(id + '-checkbox');
