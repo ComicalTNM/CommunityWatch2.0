@@ -63,7 +63,7 @@
         </div>
         <br><br>
 
-        <button class="dropbtn">Volunteer!</button>
+        <button class="dropbtn" id="dropbtn">Volunteer!</button>
     </div>
 
     <script>
@@ -173,6 +173,15 @@
                 alert("No event ID provided. Please return to the event page.");
             }
            
+            const volunteerButton = document.getElementById("dropbtn");
+            if(volunteerButton)
+            {
+                volunteerButton.addEventListener('click', handleVolunteerSubmit);
+                console.log("Event listener added to Volunteer button");
+            }
+            else{
+                console.error("Volunteer button not found!");
+            }
         })
         
         function toggleVisibility(id) {
@@ -183,6 +192,84 @@
                 section.style.display = 'block'; // Show the section
             } else {
                 section.style.display = 'none'; // Hide the section
+            }
+        }
+
+        async function handleVolunteerSubmit() {
+            const eventId = getEventIdFromUrl();
+            const volunteerDateInput = document.getElementById('Volunteer-Date');
+            const volunteerDate = volunteerDateInput ? volunteerDateInput.value : null;
+            const resourcesDiv = document.getElementById('resources');
+            const promisedItems = [];
+            const userId = sessionStorage.getItem('userId');
+
+            if(resourcesDiv && resourcesDiv.style.display === 'block') {
+                resourcesDiv.querySelectorAll('input[type="number"]').forEach((input, index) => {
+                    const label = resourcesDiv.querySelector(`label[for="resource${index + 1}-goal"]`);
+                    if(label && input.value && parseInt(input.value) > 0) {
+                        let itemName = label.textContent;
+
+                        // 1. Trim whitespace
+                        itemName = itemName.trim();
+
+                        // 2. Remove "How Many " (if it exists)
+                        itemName = itemName.replace('How Many ', '');
+
+                        // 3. Remove any double quotes
+                        itemName = itemName.replace(/"/g, '');
+
+                        // 4. (Optional) Remove other potential unwanted characters
+                        itemName = itemName.replace(/[^a-zA-Z0-9\s]/g, ''); // Removes any non-alphanumeric, non-space characters
+
+                        promisedItems.push({ item: itemName, quantity: input.value });
+                    }
+                });
+            }
+
+            if(!eventId) {
+                alert('Event ID not found.');
+                return;
+            }
+            if(!userId) {
+                alert('User ID not available. Please log in.');
+                return;
+            }
+            if(!volunteerDate) {
+                alert('Please select a date to volunteer.');
+                return;
+            }
+
+            const registrationData = {
+                userId: userId,
+                volunteerDate: volunteerDate,
+                promisedItems: promisedItems
+            };
+
+            const backendURL = 'http://localhost:5000';
+
+            try{
+                const response = await fetch(`${backendURL}/api/posts/registerVolunteer/${eventId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registrationData)
+                });
+
+                if(response.ok)
+                {
+                    const result = await response.json();
+                    alert(result.message || 'Successfully registered for the event!');
+                    window.location.href = "../HomePage/homepage.html";
+                }
+                else {
+                    const error = await response.json();
+                    alert(error.message || 'Failed to register for the event.');
+                }
+            }
+            catch(error) {
+                console.error('Error registering for event:', error);
+                alert('An error occured while registering.');
             }
         }
     </script>

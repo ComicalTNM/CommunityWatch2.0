@@ -37,6 +37,11 @@ export type OrganizationPreview = {
   profileImage: string;
 }
 
+export interface IPromisedItem {
+  user: Types.ObjectId;  // Link to the User model
+  item: string;          // Name of the item promised (e.g., "Gloves")
+  quantity: number;      // Quantity promised
+}
 
 export interface IPost extends Document {
   _id: string,
@@ -53,6 +58,8 @@ export interface IPost extends Document {
   theme?: IPostTheme;
   registeredUsers: Types.ObjectId[];
   completedUsers: Types.ObjectId[];
+  itemsPromised: IPromisedItem[];
+  volunteersAttending: number;
 }
 
 export interface IPostTheme {

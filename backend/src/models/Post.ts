@@ -13,7 +13,13 @@ const PostSchema: Schema = new Schema({
   eventDate: { type: Date },
   //Fields for tracking registrations and completions
   registeredUsers: [{type: Schema.Types.ObjectId, ref: 'User', default: []}],  //Users who registered for this event
-  completedUsers: [{type: Schema.Types.ObjectId, ref: 'User', default: []}]  //Users who completed this event
+  completedUsers: [{type: Schema.Types.ObjectId, ref: 'User', default: []}],  //Users who completed this event
+  itemsPromised: [{
+      user: { type: Schema.Types.ObjectId, ref: 'User' },
+      item: String,
+      quantity: Number
+  }],
+  volunteersAttending: { type: Number, default: 0 }
 }, { timestamps: true });
 
 export default mongoose.model<IPost & Document>('Post', PostSchema);
