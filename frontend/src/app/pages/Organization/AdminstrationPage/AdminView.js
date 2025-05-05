@@ -58,6 +58,27 @@ async function initializeAdminView()
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateSelected(); // Clear the displayed selected categories
 
+        const removeMembersBtn = document.getElementById('removeMembersBtn');
+        removeMembersBtn.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+            const manageMembersUrl = `DeleteMembers?orgId=${organizationIdString}`;
+            window.location.href = manageMembersUrl;
+        });
+
+        const addMemberButton = document.getElementById('addMemberButton');
+            addMemberButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `AddMembers?orgId=${organizationIdString}`;
+        });
+
     }
     catch(error)
     {
