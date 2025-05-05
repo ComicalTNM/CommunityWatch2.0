@@ -41,9 +41,6 @@ async function initializeAdminView()
 
             // Store the organization ID for updates later
             document.getElementById("organization-id").value = organizationData._id; 
-
-            const myOrgLink = document.getElementById('myOrgLink');
-            myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
         }
         else {
             organizationInfoDisplay.innerHTML = "<p>No organization associated with your account yet.</p><hr>";
@@ -57,6 +54,20 @@ async function initializeAdminView()
         const checkboxes = document.querySelectorAll('#filters input[type="checkbox"]');
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateSelected(); // Clear the displayed selected categories
+
+        const orgHomePageButton = document.getElementById('Org-Home-Page');
+
+        orgHomePageButton.addEventListener('click', () => {
+            const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+            if (organizationIdString) {
+                window.location.href = `../OrgHomePage?orgId=${organizationIdString}`;
+            } else {
+                alert("Organization ID is not available.");
+            }
+        });
 
         const removeMembersBtn = document.getElementById('removeMembersBtn');
         removeMembersBtn.addEventListener('click', () => {

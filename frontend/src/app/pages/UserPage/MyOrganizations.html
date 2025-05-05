@@ -89,6 +89,19 @@
       }
     }
 
+    async function fetchOrganizationDetails(organizationId) {
+        try {
+            const response = await fetch(`${backendURL}/api/organizations/${organizationId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error("Error fetching organization details:", error);
+            return null;
+        }
+    }
+
     async function fetchOrganizationByEventIDs(eventIds)
     {
       const backendUrl = 'http://localhost:5000'
@@ -112,6 +125,22 @@
           console.error('Error fetching organizations by event IDs:', error);
           return []; // Or handle error appropriately
       }
+    }
+
+    // Helper function to display a single organization
+    function displayOrganization(org, container) {
+        const section = document.createElement('section');
+        section.innerHTML = `
+            <div class="section-title">${org.name || "Organization Name Not Found"}</div>
+            <div class="category">Category: ${org.causes || "Category Not Found"}</div>
+            <div class="section-content">
+                <div class="section-photo" style="background-image: ${org.profileImage ? org.profileImage : 'none'}"></div>
+                <div class="section-description">
+                    <p>${org.longBio || "Description Not Found"}</p>
+                </div>
+            </div>
+        `;
+        container.appendChild(section);
     }
 
     function displayOrganizations(organizations, userData){
@@ -143,19 +172,93 @@
       document.getElementById("user-name").textContent = userData.username;
     }
 
+    function changeNavBar(userRole)
+    {
+            const nav = document.querySelector('.topnav');
+            nav.innerHTML = '';
+
+            //Create the base nav
+            let logo = document.createElement('img');
+            logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+            logo.alt = "Community Watch Logo";
+            logo.classList.add('logo');
+            nav.appendChild(logo);
+
+            if(userRole === "admin")
+            {
+                let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
+                let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                nav.appendChild(dashboardLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+                nav.appendChild(volunteerLink);
+                nav.appendChild(searchLink);
+            }
+            else if(userRole === "member")
+            {
+                let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+                let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                nav.appendChild(homeLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+                nav.appendChild(volunteerLink);
+                nav.appendChild(searchLink);
+            }
+            else{
+                let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                nav.appendChild(homeLink);
+                nav.appendChild(searchLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+            }
+    }
+    function createNavLink(href, text)
+    {
+            let link = document.createElement('a');
+            link.href = href;
+            link.textContent = text;
+            return link;
+    }
+
     async function initializeOrganizationPage()
     {
       const user = await fetchUserData();
+      changeNavBar(user.role);
+
+      const organizationsContainer = document.getElementById('organizations-container');
+      organizationsContainer.innerHTML = ''; 
 
       if(user)
       {
+        if(user.organizationId)
+        {
+            try {
+              const organization = await fetchOrganizationDetails(user.organizationId);
+              if(organization) {
+                displayOrganization(organization, organizationsContainer);
+              }
+            }
+            catch (error) {
+                console.error("Error fetching or displaying organizations:", error);
+                alert("Could not load your organization");
+            }
+        }
         const eventIds = [...(user.registeredEvents || []), ...(user.completedEvents || [])];
         if(eventIds.length > 0)
         {
           const organizations = await fetchOrganizationByEventIDs(eventIds);
           displayOrganizations(organizations, user);
         }
-        else
+        else if(!user.organizationId)
         {
           document.getElementById('organizations-container').innerHTML = '<p>You are not registered for or have not completed any events yet.</p>';
         }

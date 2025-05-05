@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultsContainer = document.getElementById("results-container");
     const filterLabels = document.querySelectorAll(".filters label");
     const backendURL = "http://localhost:5000";
+    const userId = sessionStorage.getItem("userId");
     
 
     toggleBtn.addEventListener('click', () => {
@@ -19,7 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
 
-
+    async function fetchUserData()
+    {
+        try{
+            const response = await fetch(`${backendURL}/api/users/${userId}`);
+            if(!response.ok)
+            {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const userData = await response.json();
+            return userData;
+        }
+        catch(error)
+        {
+            console.error("Error fetching user data:", error);
+            return null;
+        }
+    }
 
     // Listen for search input
     searchButton.addEventListener("click", updateResults);
@@ -30,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     async function updateResults() {
+        const userData = await fetchUserData();
+        changeNavBar(userData.role);
         const searchText = searchBar.value.trim();
         const selectedFilters = Array.from(document.querySelectorAll(".filters input[type='checkbox']:checked"))
                                     .map(checkbox => checkbox.value);
@@ -74,3 +93,66 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function changeNavBar(userRole)
+{
+        const nav = document.querySelector('.topnav');
+        nav.innerHTML = '';
+
+        //Create the base nav
+        let logo = document.createElement('img');
+        logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+        logo.alt = "Community Watch Logo";
+        logo.classList.add('logo');
+        nav.appendChild(logo);
+
+        if(userRole === "admin")
+        {
+            let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
+            let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+            nav.appendChild(dashboardLink);
+            nav.appendChild(organizationLink);
+            nav.appendChild(profileLink);
+            nav.appendChild(volunteerLink);
+            nav.appendChild(searchLink);
+        }
+        else if(userRole === "member")
+        {
+            let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+            let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+            nav.appendChild(homeLink);
+            nav.appendChild(organizationLink);
+            nav.appendChild(profileLink);
+            nav.appendChild(volunteerLink);
+            nav.appendChild(searchLink);
+        }
+        else{
+            let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+            let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+            let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+            nav.appendChild(homeLink);
+            nav.appendChild(searchLink);
+            nav.appendChild(organizationLink);
+            nav.appendChild(profileLink);
+        }
+}
+function createNavLink(href, text)
+{
+        let link = document.createElement('a');
+        link.href = href;
+        link.textContent = text;
+        return link;
+}
+
+
+
+
+
+

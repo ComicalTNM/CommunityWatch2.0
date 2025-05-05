@@ -68,14 +68,6 @@
                 document.getElementById("username").value = userData.username;
                 document.getElementById("email").value = userData.email;
                 changeNavBar(userData.role);
-                const organizationIdString = 
-                typeof userData.organizationId === 'object' && userData.organizationId !== null
-                    ? userData.organizationId._id
-                    : userData.organizationId;
-                if(userData.role === "admin" || userData.role === "member") {
-                    const myOrgLink = document.getElementById('myOrgLink');
-                    myOrgLink.href = `../Organization/OrgHomePage?orgId=${organizationIdString}`;
-                }
             }
             catch(error){
                 console.error("Error fetching user data:", error);
@@ -191,22 +183,28 @@
           if(userRole === "admin")
           {
             let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
-            let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+            let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
             let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
-            organizationHomeLink.id = "myOrgLink";
+            let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
             nav.appendChild(dashboardLink);
-            nav.appendChild(organizationHomeLink);
+            nav.appendChild(organizationLink);
             nav.appendChild(profileLink);
+            nav.appendChild(volunteerLink);
+            nav.appendChild(searchLink);
           }
           else if(userRole === "member")
           {
             let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
-            let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+            let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
             let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
-            organizationHomeLink.id = "myOrgLink";
+            let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+            let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
             nav.appendChild(homeLink);
-            nav.appendChild(organizationHomeLink);
+            nav.appendChild(organizationLink);
             nav.appendChild(profileLink);
+            nav.appendChild(volunteerLink);
+            nav.appendChild(searchLink);
           }
           else{
             let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");

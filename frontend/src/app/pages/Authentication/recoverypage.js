@@ -31,7 +31,7 @@ document.querySelector('form').addEventListener('submit', async function(event) 
         const result = await response.json();
         if(response.ok){
             alert("Password successfully reset!");
-            window.location.href = "../../pages/Authentication/communitywatchlogin.html"; //Redirect to login page
+            window.location.href = "../../pages/Authentication/Login.html"; //Redirect to login page
         }
         else{
             alert(result.message);

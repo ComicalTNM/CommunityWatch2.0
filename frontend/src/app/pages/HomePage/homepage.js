@@ -54,6 +54,8 @@
             console.log("Current User's Data:\n", userData);
             console.log("All Posts/Events in the database\n", allEvents);
 
+            changeNavBar(userData.role);
+
             if (userData && userData.registeredEvents) {
                 console.log("User's Registered Event IDs (Original):", userData.registeredEvents);
                 const registeredEventIdsAsString = userData.registeredEvents.map(event => event._id.toString());
@@ -159,4 +161,61 @@
                 leaderboardList.appendChild(listItem);
             });
           }
+
+          function changeNavBar(userRole)
+          {
+            const nav = document.querySelector('.topnav');
+            nav.innerHTML = '';
+
+            //Create the base nav
+            let logo = document.createElement('img');
+            logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+            logo.alt = "Community Watch Logo";
+            logo.classList.add('logo');
+            nav.appendChild(logo);
+
+            if(userRole === "admin")
+            {
+                let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
+                let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                nav.appendChild(dashboardLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+                nav.appendChild(volunteerLink);
+                nav.appendChild(searchLink);
+            }
+            else if(userRole === "member")
+            {
+                let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+                let organizationLink = createNavLink("../UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                let volunteerLink = createNavLink("../HomePage/homepage.html", "Volunteer");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                nav.appendChild(homeLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+                nav.appendChild(volunteerLink);
+                nav.appendChild(searchLink);
+            }
+            else{
+                let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+                let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+                let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+                let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+                nav.appendChild(homeLink);
+                nav.appendChild(searchLink);
+                nav.appendChild(organizationLink);
+                nav.appendChild(profileLink);
+            }
+         }
+         function createNavLink(href, text)
+         {
+            let link = document.createElement('a');
+            link.href = href;
+            link.textContent = text;
+            return link;
+         }
           
