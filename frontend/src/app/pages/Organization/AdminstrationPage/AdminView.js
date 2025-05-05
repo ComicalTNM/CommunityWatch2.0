@@ -41,6 +41,9 @@ async function initializeAdminView()
 
             // Store the organization ID for updates later
             document.getElementById("organization-id").value = organizationData._id; 
+
+            const myOrgLink = document.getElementById('myOrgLink');
+            myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
         }
         else {
             organizationInfoDisplay.innerHTML = "<p>No organization associated with your account yet.</p><hr>";

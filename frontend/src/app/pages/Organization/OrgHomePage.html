@@ -106,7 +106,7 @@
       <section class="ways-to-give">
         <h2>Ways To Give</h2>
         <p>There are many ways to make a difference: financial donations, food drives, clothing donations, and volunteering opportunities. Every gift matters.</p>
-        <a href="#" class="learn-more-button">Support Us</a>
+        <a id="supportButton" href="#" class="learn-more-button">Support Us</a>
       </section>
 
 <footer>
@@ -129,14 +129,28 @@
     // Get the orgId from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const orgId = urlParams.get('orgId');
+    const userID = sessionStorage.getItem('userId');
 
     if(!orgId) {
       console.error("Error: No orgId provided in the URL");
       return;
     }
 
-    // Fetch the organization data
+    //Fetch the user information
     const backendURL = 'http://localhost:5000';
+    fetch(`${backendURL}/api/users/${userID}`)
+      .then(response => {
+        if(!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .then(userData => {
+        changeNavBar(userData.role);
+      })
+   
+
+    // Fetch the organization data
     Promise.all([
       fetch(`${backendURL}/api/organizations/${orgId}`)
         .then(response => {
@@ -161,6 +175,7 @@
         document.getElementById('org-donate-link').href = orgData.donationWebsite;
         document.getElementById('org-bio').textContent = orgData.longBio;
         document.getElementById('org-website').href = orgData.website;
+        document.getElementById('supportButton').href = orgData.website;
 
         // Filter events for the current organization
         const orgEvents = allEvents.filter(event => event.organization && event.organization._id.toString() === orgId);
@@ -183,6 +198,56 @@
         alert("Error fetching data!");
       })
   })
+
+  function changeNavBar(userRole)
+  {
+    const nav = document.querySelector('.topnav');
+    nav.innerHTML = '';
+
+    //Create the base nav
+    let logo = document.createElement('img');
+    logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+    logo.alt = "Community Watch Logo";
+    logo.classList.add('logo');
+    nav.appendChild(logo);
+
+    if(userRole === "admin")
+    {
+      let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
+      let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      nav.appendChild(dashboardLink);
+      nav.appendChild(organizationHomeLink);
+      nav.appendChild(profileLink);
+    }
+    else if(userRole === "member")
+    {
+      let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+      let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      nav.appendChild(homeLink);
+      nav.appendChild(organizationHomeLink);
+      nav.appendChild(profileLink);
+    }
+    else{
+      let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+      let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+      let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      nav.appendChild(homeLink);
+      nav.appendChild(searchLink);
+      nav.appendChild(organizationLink);
+      nav.appendChild(profileLink);
+    }
+  }
+
+  function createNavLink(href, text)
+  {
+    let link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    return link;
+  }
 </script>
 
     </body>

@@ -13,7 +13,7 @@
     <nav class="topnav">
         <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
         <a href="MemberView.html">Home</a>
-        <a href="../OrgHomePage.html">Organization Home Page</a>
+        <a id="myOrgLink" href="../OrgHomePage.html">Organization Home Page</a>
         <a href="../../../pages/ProfilePage/UserProfile.html">Profile</a>
     </nav>
 
@@ -103,6 +103,9 @@
                             </p>
                         </div>
                     `;
+
+                    const myOrgLink = document.getElementById('myOrgLink');
+                    myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
                 }
                 else{
                     organizationDetailsDiv.innerHTML = "<p>You are currently not a member of any organization.</p>"
