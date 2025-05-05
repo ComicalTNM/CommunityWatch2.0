@@ -40,6 +40,18 @@ type AsyncRequestHandler = (
   const asyncHandler = (fn: AsyncRequestHandler): RequestHandler => (req, res, next) =>
     Promise.resolve(fn(req, res, next)).catch(next);
 
+// GET route to get all users with the role of donor.
+router.get('/role/:role', (async (req: Request, res: Response) => {
+    try {
+        const users = await User.find({ role: req.params.role });
+        res.json(users);
+    } 
+    catch (error) {
+        console.error('Error fetching donor users:', error);
+        res.status(500).json({ message: 'Server error fetching donor users' });
+    }
+}) as RequestHandler);
+
 //Route to get the user details by user ID
 router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
     try
@@ -307,18 +319,6 @@ router.put('/:userId/role', (async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
-    }
-}) as RequestHandler);
-
-// GET route to get all users with the role of donor.
-router.get('/users/donor', (async (req: Request, res: Response) => {
-    try {
-        const donorUsers = User.find({ role: 'donor' }).select('_id username email').lean();
-        res.json(donorUsers);
-    } 
-    catch (error) {
-        console.error('Error fetching donor users:', error);
-        res.status(500).json({ message: 'Server error fetching donor users' });
     }
 }) as RequestHandler);
 

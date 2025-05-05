@@ -51,7 +51,7 @@
         }
         
 
-        fetch(`${backendURL}/api/users/donor`) // Fetch donor users
+        fetch(`${backendURL}/api/users/role/donor`) // Fetch donor users
         .then(response => response.json())
         .then(donorUsers => {
             donorUsers.forEach(user => {
