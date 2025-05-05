@@ -16,7 +16,7 @@ const UserSchema: Schema = new Schema<IUserModel>({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['donor', 'member', 'admin', 'owner'], default: 'donor' },
+  role: { type: String, enum: ['donor', 'member', 'admin'], default: 'donor' },
   organizationId: { type: Schema.Types.ObjectId, ref: 'Organization' },
   donorProfileId: { type: Schema.Types.ObjectId, ref: 'DonorProfile' },
   profilePicture: { type: String, required: false },
