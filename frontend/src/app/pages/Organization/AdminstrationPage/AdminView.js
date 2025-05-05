@@ -41,6 +41,9 @@ async function initializeAdminView()
 
             // Store the organization ID for updates later
             document.getElementById("organization-id").value = organizationData._id; 
+
+            const myOrgLink = document.getElementById('myOrgLink');
+            myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
         }
         else {
             organizationInfoDisplay.innerHTML = "<p>No organization associated with your account yet.</p><hr>";
@@ -54,6 +57,27 @@ async function initializeAdminView()
         const checkboxes = document.querySelectorAll('#filters input[type="checkbox"]');
         checkboxes.forEach(checkbox => checkbox.checked = false);
         updateSelected(); // Clear the displayed selected categories
+
+        const removeMembersBtn = document.getElementById('removeMembersBtn');
+        removeMembersBtn.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+            const manageMembersUrl = `DeleteMembers?orgId=${organizationIdString}`;
+            window.location.href = manageMembersUrl;
+        });
+
+        const addMemberButton = document.getElementById('addMemberButton');
+            addMemberButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `AddMembers?orgId=${organizationIdString}`;
+        });
 
     }
     catch(error)
@@ -96,6 +120,8 @@ async function submitChanges() {
     const newTitle = document.getElementById("new-title").value;
     const newPhoto = document.getElementById("org-logo");
     const newDescription = document.getElementById("change-description").value;
+    const newWebsite = document.getElementById("website").value;
+    const newDonationWebsite = document.getElementById("donation-website").value;
     const organizationId = document.getElementById("organization-id").value;
     const selectedCaterogies = Array.from(document.querySelectorAll('#filters input[type="checkbox"]:checked')).map(checkBox => checkBox.value);
     const loggedInUserId = sessionStorage.getItem("userId");
@@ -109,6 +135,8 @@ async function submitChanges() {
     const formData = new FormData();
     formData.append("name", newTitle);
     formData.append("description", newDescription);
+    formData.append("website", newWebsite);
+    formData.append("donationWebsite", newDonationWebsite);
     if(newPhoto.files && newPhoto.files.length > 0)
     {
         formData.append("logo", newPhoto.files[0]);

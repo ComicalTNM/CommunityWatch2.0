@@ -71,13 +71,13 @@ router.put('/:id', upload.single('logo'), (async(req: Request, res: Response, ne
         return res.status(400).json({ message: 'Invalid organization ID format' })
     }
 
-    const { name, description, causes} = req.body;
+    const { name, description, website, donationWebsite, causes} = req.body;
     const profileImage = req.file ? generateFilePath(req.file.filename) : undefined;
     const parsedCauses = causes ? JSON.parse(causes) : [];
 
     const updatedOrganization = await Organization.findByIdAndUpdate(
         organizationId,
-        {name, description, profileImage, causes: parsedCauses},
+        {name, description, website, donationWebsite, profileImage, causes: parsedCauses},
         {new: true, runValidators: true} // Options to return the updated doc and run validators
     );
 
@@ -174,6 +174,38 @@ router.stack.forEach((layer: any) => {
         console.log(`Organization Route: ${Object.keys(layer.route.methods).join(',').toUpperCase()} - ${layer.route.path}`);
     }
 })
+
+// GET route to get all the members associated with an organization.
+router.get('/:organizationId/members', (async (req, res) => {
+    try {
+        const organizationId = req.params.organizationId;
+
+
+        // Find the organization and populate the memberIds field
+        const organization = await Organization.findById(organizationId).populate({
+            path: 'memberIds',
+            select: '_id username email role' // Select the fields you want to return
+        });
+
+
+        if (!organization) {
+            return res.status(404).json({ message: 'Organization not found' });
+        }
+
+
+        // Filter the members array to only include those with the role of "member"
+        // Type assertion to tell TypeScript that memberIds is an array of Users
+        const members = (organization.memberIds as any[]).filter(
+            (member: any) => member.role === 'member'
+        );
+
+
+        res.json(members);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+}) as RequestHandler);
 
 export default router;
 console.log("Organization Routes File Loaded");

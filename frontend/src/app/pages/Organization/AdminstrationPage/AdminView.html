@@ -12,15 +12,14 @@
         <!--Navigation Bar-->
     <nav class="topnav">
         <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
-        <a href="Main_Admin_Dashboard.html">Dashboard</a>
-        <a href="../OrgHomePage.html">Organization Home Page</a>
+        <a href="AdminView.html">Home</a>
+        <a id="myOrgLink" href="#">Organization Home Page</a>
         <a href="../../ProfilePage/UserProfile.html">Profile</a>
     </nav>
 
     <!-- Header Section -->
     <header>
         <h1 id="Organization-title">Organization Title</h1>
-            <button onclick= "location.href='Main_Admin_Dashboard.html'" class="goback-btn">View Dashboard</button>
     </header>
 
     <!-- Organization Sections -->
@@ -37,6 +36,12 @@
             <br><br>
             <label for="change-description">Change Description</label>
             <input type="text" id="change-description" placeholder="Enter new description">
+            <br><br>
+            <label for="website">Website</label>
+            <input type="text" id="website" placeholder="Enter new website link.">
+            <br><br>
+            <label for="donation-website">Donation Website</label>
+            <input type="text" id="donation-website" placeholder="Enter new donation website link.">
             <br><br>
             <label for="org-logo">New Logo</label>
             <input type="file" id="org-logo" placeholder="Upload new logo" accept="image/*">
@@ -68,8 +73,8 @@
     <section>
         <div class="section-title"><h2>Members</h2></div>
         <br>
-        <button class="remove-member"> Remove Members</button>
-        <button class="add-member" href=""> Add Member</button>
+        <button id="removeMembersBtn" class="remove-member"> Remove Members</button>
+        <button id="addMemberButton" class="add-member" href=""> Add Member</button>
         <button class="alter-role"> Alter Member Role</button>
         <button class="view-member" href=""> View Members</button>
     </section>

@@ -1,11 +1,12 @@
 import User from '../models/User';
-import Organization from '@/models/Organization';
+import Organization from '../models/Organization';
 import {Request, Response, Router, NextFunction, RequestHandler} from 'express';
 import bcrypt from 'bcrypt';
 import multer, {StorageEngine} from 'multer'; 
 import path from 'path';
 import { authenticateToken } from '@/middleware/authMiddleware';
 import { appendFileSync } from 'fs';
+import { isValidObjectId } from 'mongoose';
 
 const router = Router();
 
@@ -251,5 +252,74 @@ router.get('/admin/:userId', (async (req: Request, res: Response, next: NextFunc
         return next(error);
     }
 })as RequestHandler)
+
+// PUT route to change a member's role.
+router.put('/:userId/role', (async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const newRole = req.body.role;  // Assuming the request body contains { role: 'donor' }
+        const organizationId = req.body.organizationId; // Expecting organizationId if adding member
+
+
+        // Find the user by ID and update their role
+        const user = await User.findByIdAndUpdate(userId, { role: newRole }, { new: true });
+
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        if (newRole === 'member' && organizationId) {
+            if (!isValidObjectId(organizationId)) {
+                return res.status(400).json({ message: 'Invalid organization ID format' });
+            }
+            // Add the user to the organization's memberIds array
+            const organization = await Organization.findByIdAndUpdate(
+            organizationId,
+            { $push: { memberIds: userId } },
+            { new: true }
+            );
+           
+          
+            if (!organization) {
+                console.log('Organization not found');
+                return res.status(404).json({ message: 'Organization not found' });
+            }
+            console.log(`User ${userId} added to organization ${organization._id}`);
+        } 
+        else if (newRole === 'donor') {
+            // If the role is changed to 'donor', remove the user from the organization's memberIds
+            const organization = await Organization.findOneAndUpdate(
+            { memberIds: userId },
+            { $pull: { memberIds: userId } },
+            { new: true }
+            );
+        
+        
+            if (organization) {
+            console.log(`User ${userId} removed from organization ${organization._id}`);
+            } else {
+            console.log(`User ${userId} was not found in any organization's memberIds`);
+            }
+        }
+
+        res.json({ message: 'Role updated successfully', user: user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+}) as RequestHandler);
+
+// GET route to get all users with the role of donor.
+router.get('/users/donor', async (req: Request, res: Response) => {
+    try {
+        const donorUsers = await User.find({ role: 'donor' }).select('_id username email').lean();
+        res.json(donorUsers);
+    } 
+    catch (error) {
+        console.error('Error fetching donor users:', error);
+        res.status(500).json({ message: 'Server error fetching donor users' });
+    }
+});
 
 export default router;

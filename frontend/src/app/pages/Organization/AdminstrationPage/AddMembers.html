@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Add Members</title>
+ <link rel="stylesheet" href="../../GlobalStyling.css" href="https://indestructibletype.com/fonts/Jost.css"   >
+</head>
+<body>
+ <!--Navigation Bar-->
+ <nav class="topnav">
+    <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
+    <a href="AdminView.html">Home</a>
+    <a id="myOrgLink" href="#">Organization Home Page</a>
+    <a href="../../ProfilePage/UserProfile.html">Profile</a>
+</nav>
+
+ <h1>Add Members to Organization</h1>
+
+
+ <div id="donor-users-list">
+ </div>
+
+ <footer>
+    <div class="container">
+      <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+      <p>&copy; 2025 Community Watch. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com" target="_blank" title="Facebook">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com" target="_blank" title="Instagram">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+ <script>
+     document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orgId = urlParams.get('orgId');
+        const donorUsersList = document.getElementById('donor-users-list');
+        const backendURL = 'http://localhost:5000';
+        
+
+        if (!orgId) {
+            console.error('Organization ID not provided in URL.');
+            donorUsersList.innerHTML = '<p>Error: Organization ID is missing.</p>';
+            return;
+        }
+        
+
+        fetch(`${backendURL}/api/users/donor`) // Fetch donor users
+        .then(response => response.json())
+        .then(donorUsers => {
+            donorUsers.forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.innerHTML = `
+                <p>${user.username} (${user.email})</p>
+                <button class="add-member-btn" data-userid="${user._id}">Add Member</button>
+                `;
+                donorUsersList.appendChild(userDiv);
+            });
+        
+
+            // Add event listeners to "Add Member" buttons
+            const addMemberButtons = document.querySelectorAll('.add-member-btn');
+            addMemberButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const userId = button.dataset.userid;
+                    fetch(`${backendURL}/api/users/${userId}/role`, { // Update user's role
+                        method: 'PUT',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ role: 'member', organizationId: orgId }) // Include orgId
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                        button.disabled = true; // Disable the button after adding
+                        button.textContent = 'Added'; // Change button text
+                        // Optionally, you could remove the user from the list or reload the list
+                        } else {
+                        console.error('Failed to add member.');
+                        }
+                    });
+                });
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching donor users:', error);
+            donorUsersList.innerHTML = '<p>Error fetching donor users.</p>';
+        })
+ });
+ </script>
+</body>
+</html>

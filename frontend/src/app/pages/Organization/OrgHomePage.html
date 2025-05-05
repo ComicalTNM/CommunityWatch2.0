@@ -69,47 +69,36 @@
         <a href="../../pages/HomePage/homepage.html">Home</a>
         <a href="../../pages/SearchPage/SearchPage.html">Search</a>
         <a href="../../pages/UserPage/MyOrganizations.html">My Organizations</a>
-        <a href="../../pages/communitywatcheditprofile.html">Profile</a>
+        <a href="../../pages/ProfilePage/UserProfile.html">Profile</a>
     </nav> 
     
       <!-- Header -->
       <header class="main-header">
         <div class="logo">
-          <a href="https://backpackbeginnings.org/">
-            <img src="https://backpackbeginnings.org/wp-content/uploads/2015/04/bpb-logo4.png" alt="BackPack Beginnings Logo">
+          <a id="org-logo-link" href="#">
+            <img id="org-logo" src="" alt="Organization Logo">
           </a>
         </div>
-        <nav class="main-nav">
-          <a href="#">Home</a>
-          <a href="https://backpackbeginnings.org/about-us/">About Us</a>
-          <a href="https://backpackbeginnings.org/programs/">Programs</a>
-          <a href="https://backpackbeginnings.org/ways-to-give/">Ways To Give</a>
-          <a href="https://backpackbeginnings.org/get-involved/">Get Involved</a>
-          <a href="https://backpackbeginnings.org/contact/">Contact</a>
-        </nav>
       </header>
+      <br><br><br><br><br><br><br><br><br><br>
     
       <!-- Hero Section -->
       <section class="hero">
-        <h2>Our Mission: Delivering Child-Centric Services to Feed, Comfort, and Clothe Children in Need.</h2>
-        <a href="https://backpackbeginnings.org/donate/" class="hero-button">Donate Now</a>
+        <h2 id="org-description"></h2>
+        <a id="org-donate-link" href="#" class="hero-button">Donate Now</a>
       </section>
     
       <!-- About Section -->
       <section class="about">
-        <h2>About BackPack Beginnings</h2>
-        <p>Founded in 2010, BackPack Beginnings is a volunteer-driven organization dedicated to delivering child-centric services to feed, comfort, and clothe children in need. We serve over 20,000 children annually in Guilford County, North Carolina, through our food pantries, comfort programs, clothing pantries, and personal care programs.</p>
-        <a href="https://backpackbeginnings.org/about/" class="learn-more-button">Learn More</a>
+        <h2>About</h2>
+        <p id="org-bio"></p>
+        <a id="org-website" href="#" class="learn-more-button">Learn More</a>
       </section>
     
-      <!-- Programs Section -->
-      <section class="programs">
-        <h2>Our Programs</h2>
-        <ul>
-          <li><a href="https://backpackbeginnings.org/food-programs/">Food Pantries</a></li>
-          <li><a href="https://backpackbeginnings.org/comfort-programs/">Comfort BackPacks</a></li>
-          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Clothing Pantries</a></li>
-          <li><a href="https://backpackbeginnings.org/clothing-pantries/">Personal Care Closet</a></li>
+      <!-- Events Section -->
+      <section class="events">
+        <h2>Our Events</h2>
+        <ul id="org-events-list">
         </ul>
       </section>
     
@@ -117,19 +106,8 @@
       <section class="ways-to-give">
         <h2>Ways To Give</h2>
         <p>There are many ways to make a difference: financial donations, food drives, clothing donations, and volunteering opportunities. Every gift matters.</p>
-        <a href="https://backpackbeginnings.org/ways-to-give/" class="learn-more-button">Support Us</a>
+        <a id="supportButton" href="#" class="learn-more-button">Support Us</a>
       </section>
-    
-      <!-- Connect with Us Section -->
-        <section class="connect-with-us">
-            <h2>Connect with Us</h2>
-            <div class="social-buttons">
-            <a href="https://www.facebook.com/BackPackBeginnings" target="_blank">Facebook</a>
-            <a href="https://twitter.com/BackPackBegins" target="_blank">X</a>
-            <a href="http://instagram.com/backpackbeginnings" target="_blank">Instagram</a>
-            <a href="https://www.linkedin.com/company/3346092" target="_blank">LinkedIn</a>
-            </div>
-        </section>
 
 <footer>
     <div class="container">
@@ -145,6 +123,142 @@
         </div>
     </div>
 </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get the orgId from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const orgId = urlParams.get('orgId');
+    const userID = sessionStorage.getItem('userId');
+
+    if(!orgId) {
+      console.error("Error: No orgId provided in the URL");
+      return;
+    }
+
+    //Fetch the user information
+    const backendURL = 'http://localhost:5000';
+    fetch(`${backendURL}/api/users/${userID}`)
+      .then(response => {
+        if(!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .then(userData => {
+        changeNavBar(userData.role);
+        const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+            if(userData.role === "admin" || userData.role === "member") {
+              const myOrgLink = document.getElementById('myOrgLink');
+              myOrgLink.href = `../Organization/OrgHomePage?orgId=${organizationIdString}`;
+            }
+      })
+   
+
+    // Fetch the organization data
+    Promise.all([
+      fetch(`${backendURL}/api/organizations/${orgId}`)
+        .then(response => {
+          if(!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        }),
+        fetch(`${backendURL}/api/posts`)
+          .then(response => {
+            if(!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+    ])
+      .then(([orgData, allEvents]) => {
+        // Populate the page with the organization data
+        document.getElementById('org-logo-link').href = orgData.website;
+        document.getElementById('org-logo').src = orgData.bannerImage;
+        document.getElementById('org-description').textContent = orgData.description;
+        document.getElementById('org-donate-link').href = orgData.donationWebsite;
+        document.getElementById('org-bio').textContent = orgData.longBio;
+        document.getElementById('org-website').href = orgData.website;
+        document.getElementById('supportButton').href = orgData.website;
+
+        // Filter events for the current organization
+        const orgEvents = allEvents.filter(event => event.organization && event.organization._id.toString() === orgId);
+
+        // Populate the events list
+        const eventsList = document.getElementById('org-events-list');
+        eventsList.innerHTML = ""; // Clear any default content
+        orgEvents.forEach(event => {
+            const listItem = document.createElement('li');
+            const eventLink = document.createElement('a');
+            eventLink.href = `../Event/EventPage?eventId=${event._id.toString()}`;
+            eventLink.textContent = event.title;
+            listItem.appendChild(eventLink);
+            eventsList.appendChild(listItem);
+        });
+
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        alert("Error fetching data!");
+      })
+  })
+
+  function changeNavBar(userRole)
+  {
+    const nav = document.querySelector('.topnav');
+    nav.innerHTML = '';
+
+    //Create the base nav
+    let logo = document.createElement('img');
+    logo.src = "../../components/NavBar/imgs/New_CommunityWatch_Logo.png";
+    logo.alt = "Community Watch Logo";
+    logo.classList.add('logo');
+    nav.appendChild(logo);
+
+    if(userRole === "admin")
+    {
+      let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
+      let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      organizationHomeLink.id = "myOrgLink";
+      nav.appendChild(dashboardLink);
+      nav.appendChild(organizationHomeLink);
+      nav.appendChild(profileLink);
+    }
+    else if(userRole === "member")
+    {
+      let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
+      let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      organizationHomeLink.id = "myOrgLink";
+      nav.appendChild(homeLink);
+      nav.appendChild(organizationHomeLink);
+      nav.appendChild(profileLink);
+    }
+    else{
+      let homeLink = createNavLink("../../pages/HomePage/homepage.html", "Home");
+      let searchLink = createNavLink("../../pages/SearchPage/SearchPage.html", "Search");
+      let organizationLink = createNavLink("../../pages/UserPage/MyOrganizations.html", "My Organizations");
+      let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      nav.appendChild(homeLink);
+      nav.appendChild(searchLink);
+      nav.appendChild(organizationLink);
+      nav.appendChild(profileLink);
+    }
+  }
+
+  function createNavLink(href, text)
+  {
+    let link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    return link;
+  }
+</script>
 
     </body>
 </html>
