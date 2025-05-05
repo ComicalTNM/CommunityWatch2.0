@@ -147,6 +147,14 @@
       })
       .then(userData => {
         changeNavBar(userData.role);
+        const organizationIdString = 
+                typeof userData.organizationId === 'object' && userData.organizationId !== null
+                    ? userData.organizationId._id
+                    : userData.organizationId;
+            if(userData.role === "admin" || userData.role === "member") {
+              const myOrgLink = document.getElementById('myOrgLink');
+              myOrgLink.href = `../Organization/OrgHomePage?orgId=${organizationIdString}`;
+            }
       })
    
 
@@ -216,6 +224,7 @@
       let dashboardLink = createNavLink("../Organization/AdminstrationPage/AdminView.html", "Home");
       let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
       let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      organizationHomeLink.id = "myOrgLink";
       nav.appendChild(dashboardLink);
       nav.appendChild(organizationHomeLink);
       nav.appendChild(profileLink);
@@ -225,6 +234,7 @@
       let homeLink = createNavLink("../Organization/MemberPage/MemberView.html", "Home");
       let organizationHomeLink = createNavLink("../Organization/OrgHomePage.html", "Organization Home Page");
       let profileLink = createNavLink("../../pages/ProfilePage/UserProfile.html", "Profile");
+      organizationHomeLink.id = "myOrgLink";
       nav.appendChild(homeLink);
       nav.appendChild(organizationHomeLink);
       nav.appendChild(profileLink);
