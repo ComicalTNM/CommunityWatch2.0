@@ -90,6 +90,16 @@ async function initializeAdminView()
             window.location.href = `AddMembers?orgId=${organizationIdString}`;
         });
 
+        const changeRoleButton = document.getElementById('alterRoleButton');
+            changeRoleButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `ManageMembers?orgId=${organizationIdString}`;
+        });
+
     }
     catch(error)
     {

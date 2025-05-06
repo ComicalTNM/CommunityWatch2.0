@@ -288,7 +288,10 @@ router.put('/:userId/role', (async (req, res) => {
             // Add the user to the organization's memberIds array
             const organization = await Organization.findByIdAndUpdate(
             organizationId,
-            { $push: { memberIds: userId } },
+            {
+                $pull: { adminIds: userId },
+                $addToSet: { memberIds: userId } 
+            },
             { new: true }
             );
            
@@ -297,8 +300,25 @@ router.put('/:userId/role', (async (req, res) => {
                 console.log('Organization not found');
                 return res.status(404).json({ message: 'Organization not found' });
             }
+            user.organizationId = organizationId;
+            await user.save();
             console.log(`User ${userId} added to organization ${organization._id}`);
-        } 
+        } else if (newRole === 'admin') {
+            if (!isValidObjectId(organizationId)) {
+                return res.status(400).json({ message: 'Invalid organization ID format' });
+            }
+            // Remove from memberIds and add to adminIds
+            await Organization.findByIdAndUpdate(
+                organizationId,
+                {
+                    $pull: { memberIds: userId },
+                    $addToSet: { adminIds: userId }
+                }
+            );
+            user.organizationId = organizationId;
+            await user.save();
+            console.log(`User ${userId} added to adminIds of organization ${organizationId}`);
+        }
         else if (newRole === 'donor') {
             // If the role is changed to 'donor', remove the user from the organization's memberIds
             const organization = await Organization.findOneAndUpdate(
@@ -306,8 +326,10 @@ router.put('/:userId/role', (async (req, res) => {
             { $pull: { memberIds: userId } },
             { new: true }
             );
-        
-        
+            
+            user.organizationId = undefined; // Or null, depending on your schema
+            await user.save(); // Save the changes to the user document
+            
             if (organization) {
             console.log(`User ${userId} removed from organization ${organization._id}`);
             } else {
