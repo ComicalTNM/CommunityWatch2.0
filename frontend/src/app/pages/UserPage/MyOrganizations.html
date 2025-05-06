@@ -140,7 +140,7 @@
             <div class="section-title">${org.name || "Organization Name Not Found"}</div>
             <div class="category">Category: ${org.causes || "Category Not Found"}</div>
             <div class="section-content">
-                <div class="section-photo" style="background-image: ${org.profileImage ? org.profileImage : 'none'}"></div>
+                <div class="section-photo" style="background-image: url(${org.profileImage ? org.profileImage : 'none'})"></div>
                 <div class="section-description">
                     <p>${org.longBio || "Description Not Found"}</p>
                 </div>

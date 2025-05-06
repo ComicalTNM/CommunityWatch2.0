@@ -19,7 +19,8 @@
 
     <!-- Header Section -->
     <header>
-        <h1 id="Organization-title">Organization Title</h1>
+        <h1 id="Organization-title">Member View</h1>
+        <button id="Org-Home-Page">Organization Home Page</button>
     </header>
 
     <!-- Organization Sections -->
@@ -76,6 +77,20 @@
                 const userResponse = await fetch(`${backendURL}/api/users/${loggedInUserId}`);
                 const userData = await userResponse.json();
 
+                const orgHomePageButton = document.getElementById('Org-Home-Page');
+
+                orgHomePageButton.addEventListener('click', () => {
+                    const organizationIdString = 
+                        typeof userData.organizationId === 'object' && userData.organizationId !== null
+                            ? userData.organizationId._id
+                            : userData.organizationId;
+                    if (organizationIdString) {
+                        window.location.href = `../OrgHomePage?orgId=${organizationIdString}`;
+                    } else {
+                        alert("Organization ID is not available.");
+                    }
+                });
+
                 const organizationDetailsDiv = document.getElementById("organizationDetails");
 
                 if(userData.organizationId)
@@ -103,9 +118,6 @@
                             </p>
                         </div>
                     `;
-
-                    const myOrgLink = document.getElementById('myOrgLink');
-                    myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
                 }
                 else{
                     organizationDetailsDiv.innerHTML = "<p>You are currently not a member of any organization.</p>"
