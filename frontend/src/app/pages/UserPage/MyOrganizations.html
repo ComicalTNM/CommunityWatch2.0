@@ -106,6 +106,10 @@
     {
       const backendUrl = 'http://localhost:5000'
       try {
+        if (!eventIds || eventIds.length === 0) {
+            console.log("fetchOrganizationsByEventIDs: No eventIds provided."); // Debug
+            return []; // Handle empty case
+        }
         const response = await fetch(`${backendUrl}/api/organizations/by-event-ids`, {
             method: 'POST',
             headers: {
@@ -119,6 +123,7 @@
         }
 
         const organizations = await response.json();
+        console.log("fetchOrganizationsByEventIDs:", organizations); // Debug
         return organizations;
       } 
       catch (error) {
@@ -129,6 +134,7 @@
 
     // Helper function to display a single organization
     function displayOrganization(org, container) {
+        console.log(`displayOrganization: org.id=${org._id}, title=${org.name}`); // Debug
         const section = document.createElement('section');
         section.innerHTML = `
             <div class="section-title">${org.name || "Organization Name Not Found"}</div>
@@ -143,33 +149,29 @@
         container.appendChild(section);
     }
 
-    function displayOrganizations(organizations, userData){
-      const container = document.getElementById('organizations-container');
-      container.innerHTML = ''; //Clear any existing content
+    function displayOrganizations(organizations, container, title, displayedOrganizationIds) {
+        if (!organizations || organizations.length === 0) {
+            return;
+        }
 
-      if(!organizations || organizations.length === 0)
-      {
-        container.innerHTML = '<p>No organizations found.</p>';
-        return;
-      }
+        const header = document.createElement('h2');
+        header.textContent = title;
+        container.appendChild(header);
 
-      organizations.forEach(org => {
-        const section = document.createElement('section');
-        section.innerHTML = `
-         <div class="section-title">${org.name}</div>
-      <div class="category">Category: ${org.causes}</div>
-      <div class="section-content">
-        <div class="section-photo" style="background-image: ${org.profileImage}"></div>
-        <div class="section-description">
-          <p>${org.longBio}</p>
-        </div>
-      </div>
-        `
-        container.appendChild(section);
-      })
+        console.log("displayOrganizations: displayedOrganizationIds before:", Array.from(displayedOrganizationIds)); 
 
-      //Updating the username
-      document.getElementById("user-name").textContent = userData.username;
+        if (displayedOrganizationIds instanceof Set) { // *** CRUCIAL CHECK ***
+        organizations.forEach(org => {
+            if (!displayedOrganizationIds.has(org._id)) { // Use org._id consistently
+                displayOrganization(org, container, org.name);
+                displayedOrganizationIds.add(org._id);
+            }
+        });
+        } else {
+            console.error("displayOrganizations: displayedOrganizationIds is not a Set!", displayedOrganizationIds);
+        }
+
+        console.log("displayOrganizations: displayedOrganizationIds after:", Array.from(displayedOrganizationIds));
     }
 
     function changeNavBar(userRole)
@@ -231,40 +233,50 @@
 
     async function initializeOrganizationPage()
     {
-      const user = await fetchUserData();
-      changeNavBar(user.role);
+        const user = await fetchUserData();
+        changeNavBar(user.role);
 
-      const organizationsContainer = document.getElementById('organizations-container');
-      organizationsContainer.innerHTML = ''; 
+        const organizationsContainer = document.getElementById('organizations-container');
+        organizationsContainer.innerHTML = '';
 
-      if(user)
-      {
-        if(user.organizationId)
-        {
-            try {
-              const organization = await fetchOrganizationDetails(user.organizationId);
-              if(organization) {
-                displayOrganization(organization, organizationsContainer);
+        const displayedOrganizationIds = new Set();
+
+        if (user) {
+          document.getElementById("user-name").textContent = user.username;
+
+          // Display user's organization (if admin/member)
+          if (user.organizationId) {
+              try {
+                  const organization = await fetchOrganizationDetails(user.organizationId);
+                  if (organization) {
+                      displayOrganization(organization, organizationsContainer);
+                      displayedOrganizationIds.add(organization.id);
+                  }
+              } catch (error) {
+                  console.error("Error fetching or displaying user's organization:", error);
+                  alert("Could not load your organization.");
               }
-            }
-            catch (error) {
-                console.error("Error fetching or displaying organizations:", error);
-                alert("Could not load your organization");
-            }
-        }
-        const eventIds = [...(user.registeredEvents || []), ...(user.completedEvents || [])];
-        if(eventIds.length > 0)
-        {
-          const organizations = await fetchOrganizationByEventIDs(eventIds);
-          displayOrganizations(organizations, user);
-        }
-        else if(!user.organizationId)
-        {
-          document.getElementById('organizations-container').innerHTML = '<p>You are not registered for or have not completed any events yet.</p>';
-        }
-      }
+          }
+
+          // Display organizations from registered/completed events
+          const eventIds = [...(user.registeredEvents || []), ...(user.completedEvents || [])];
+          console.log("initializeOrganizationPage: eventIds =", eventIds);
+          if (eventIds.length > 0) {
+              try {
+                  const organizations = await fetchOrganizationByEventIDs(eventIds);
+                  console.log("initializeOrganizationPage: organizations from events =", organizations); // Debug
+                  displayOrganizations(organizations, organizationsContainer, "Organizations from Events", displayedOrganizationIds);
+              } catch (error) {
+                  console.error("Error fetching or displaying organizations from events:", error);
+                  alert("Could not load organizations from events.");
+              }
+          } else if (!user.organizationId && (!eventIds || eventIds.length === 0)) {
+              organizationsContainer.innerHTML = '<p>You are not currently associated with any organizations, nor have you participated in any events.</p>';
+          }
+
+      } 
       else {
-          alert('Could not load user data. Please try again.')
+          alert('Could not load user data. Please try again.');
       }
     }
 
