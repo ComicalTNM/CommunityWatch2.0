@@ -553,135 +553,141 @@ width:100px;
        /* Leaderboard */
        .leaderboard-title {
         text-align: center;
-       }
-       .leaderboard-placer {
+        color: var(--color-dark); /* Use global color */
+        margin-bottom: 1.5rem;   /* Add spacing below the title */
+    }
+    
+    .leaderboard-placer {
         align-items: center;
         justify-content: center;
         display: flex;
-        padding: 10px 5px;
-       }
-      .leaderboard-container {
+        padding: 0.625rem 0.3125rem; /* Reduced padding */
+    }
+    
+    .leaderboard-container {
         width: 500px;
-        max-height: 200px;
-        background: #B2AC88;
+        max-height: 400px;  /* Increased max-height for more entries */
+        background: var(--color-light); /* Use global color */
         border: 1px solid #ccc;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        margin-bottom: 0;
-        padding-bottom: 0;
+        margin-bottom: 2rem; /* Increased margin */
         box-sizing: border-box;
-        
-      }
-      
-      .leaderboard-header {
-        background: #4A3D2E;
+    }
+    
+    .leaderboard-header {
+        background: var(--color-accent); /* Use global color */
         color: white;
         text-align: center;
-        padding: 10px;
+        padding: 1rem; /* Increased padding */
         font-size: 1.2rem;
         font-weight: bold;
-      }
-      
-      .leaderboard-toggle {
+        letter-spacing: 1px; /* Add letter spacing */
+    }
+    
+    .leaderboard-toggle {
         display: flex;
         color: white;
         justify-content: center;
         align-items: center;
-        padding: 10px 0;
-        background: #4A3D2E;
+        padding: 0.625rem 0; /* Adjusted padding */
+        background: var(--color-accent); /* Use global color */
         gap: 10px;
-      
-      }
-      
-      .toggle-option {
+    }
+    
+    .toggle-option {
         color: white;
         cursor: pointer;
         font-size: 0.9rem;
         font-weight: bold;
-        
-      }
-      
-      .toggle-option:hover {
+        transition: color 0.2s; /* Smooth transition */
+    }
+    
+    .toggle-option:hover {
         text-decoration: underline;
-      }
-      
-      .leaderboard-list {
+        color: #ddd; /* Lighter hover color */
+    }
+    
+    .leaderboard-list {
         list-style: none;
         margin: 0;
         padding: 0;
         overflow-y: auto;
-        max-height: 200px;
+        max-height: 300px; /* Increased max-height for list */
         flex-grow: 1;
-          top: 10px;  
-      }
-      
-      .leaderboard-list::-webkit-scrollbar {
-        width: 3px;
-          top: 10px; 
-      }
-      
-      .leaderboard-list::-webkit-scrollbar-thumb {
-        background: #342E26;
+    }
+    
+    .leaderboard-list::-webkit-scrollbar {
+        width: 5px; /* Slightly wider scrollbar */
+    }
+    
+    .leaderboard-list::-webkit-scrollbar-thumb {
+        background: var(--color-dark); /* Use global color */
         border-radius: 25px;
-      }
-      
-      .leaderboard-item {
-      color: black;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px 10px 15px;
-      border: 3.5px solid #4A3D2E;
-      position: relative;
-      overflow: hidden; 
-      background: linear-gradient(
-        to right, 
-        #5C5840 20%,  /* Left */
-        transparent 20%, 
-        transparent 98%, /* Middle */
-        #5C5840 98% /* Right*/
-      );
-      }
-      
-      .leaderboard-item:last-child {
-        border-bottom: 10px solid #4A3D2E;
-      }
-      
-      .leaderboard-rank {
+    }
+    
+    .leaderboard-item {
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2.5rem 1rem 1rem; /* Adjusted padding */
+        border-top: 2px solid var(--color-accent); /* Top border instead of all around */
+        position: relative;
+        overflow: hidden;
+        background: transparent; /* Remove gradient - replaced by border */
+        transition: background-color 0.2s; /* Smooth transition */
+    }
+    
+    .leaderboard-item:hover {
+        background-color: rgba(92, 88, 64, 0.05); /* Subtle hover effect */
+    }
+    
+    .leaderboard-item:last-child {
+        border-bottom: 2px solid var(--color-accent); /* Bottom border */
+    }
+    
+    .leaderboard-rank {
         font-weight: bold;
-        color: white;
-        z-index:500px;
-       -webkit-text-stroke-width: 1.5px;
-       -webkit-text-stroke-color:#B2AC88;
-       font-family: Bungee, regular-serif;
-       font-size:25px;
-       letter-spacing: 2px;
-      }
-      
-      .leaderboard-image {
+        color: var(--color-muted); /* Use global color */
+        z-index: 500;
+        -webkit-text-stroke-width: 0.8px; /* Reduced stroke width */
+        -webkit-text-stroke-color: var(--color-light); /* Use global color */
+        font-family: Bungee, regular-serif;
+        font-size: 1.2rem; /* Adjusted font size */
+        letter-spacing: 1px; /* Adjusted letter spacing */
+        width: 2.5rem;     /* Fixed width for alignment */
+        text-align: left;
+    }
+    
+    .leaderboard-image {
         width: 40px;
         height: 40px;
-        border: 4px solid #5C5840;
+        border: 2px solid var(--color-accent); /* Adjusted border */
         border-radius: 50%;
         object-fit: cover;
-        margin-left: -7%;
-        margin-right: -10%;
-      }
-      .leaderboard-name{
-       font-weight: bold;
-       color: #333;
-       z-index:500px;
-        font-size:18px;
-      }
-      .leaderboard-score {
+        margin-left: 0.5rem; /* Adjusted margin */
+        margin-right: 0.5rem; /* Adjusted margin */
+    }
+    
+    .leaderboard-name {
         font-weight: bold;
-        color: #333;
-        z-index:500px;
-         font-size:25px;
-      }
+        color: var(--color-dark); /* Use global color */
+        font-size: 1rem;   /* Adjusted font size */
+        flex-grow: 1;      /* Allow name to take up space */
+    }
+    
+    .leaderboard-score {
+        font-weight: bold;
+        color: var(--color-dark); /* Use global color */
+        z-index: 500;
+        font-size: 1.2rem; /* Adjusted font size */
+        width: 4rem;       /* Fixed width for alignment */
+        text-align: right;
+    }
 /*Banner Styling*/
     .banner-image {
         width: 100vw;         /* Full screen width */

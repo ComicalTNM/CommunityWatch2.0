@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Organization Events</title>
+    <link rel="stylesheet" href="../../GlobalStyling.css">
+    <style>
+        .event-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .remove-button {
+            cursor: pointer;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="topnav">
+        <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
+        <a href="../../Organization/AdminstrationPage/AdminView.html">Home</a>
+        <a href="../../UserPage/MyOrganizations.html">My Organizations</a>
+        <a href="../../ProfilePage/UserProfile.html">Profile</a>
+        <a href="../../HomePage/homepage.html">Volunteer</a>
+        <a href="../../SearchPage/SearchPage.html">Search</a>
+    </nav>
+
+    <h1>Manage Organization Events</h1>
+
+    <ul id="event-list" class="event-list">
+        </ul>
+
+    <footer>
+        <div class="container">
+            <p><strong>Support Team:</strong> support@example.com | +1-800-123-4567</p>
+            <p>&copy; 2025 Community Watch. All rights reserved.</p>
+            <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" title="Instagram">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+            </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const orgId = urlParams.get('orgId');
+        const backendURL = 'http://localhost:5000';
+
+        async function fetchEvents() {
+            try {
+                const response = await fetch(`${backendURL}/api/posts/organization/${orgId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+                const events = await response.json();
+                displayEvents(events);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+                document.getElementById('event-list').innerHTML = '<li>Error loading events.</li>';
+            }
+        }
+
+        function displayEvents(events) {
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = ''; //  Clear existing list
+
+            events.forEach(event => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('event-item');
+                listItem.innerHTML = `
+                    <span>${event.title} - ${Date(event.date).toString()}</span>
+<button class\="remove\-button" data\-event\-id\="</span>{event._id}">Remove</button>
+                `;
+                eventList.appendChild(listItem);
+
+                //  Event listener for the remove button
+                listItem.querySelector('.remove-button').addEventListener('click', () => {
+                    const eventId = event._id;
+                    removeEvent(eventId, listItem);
+                });
+            });
+        }
+
+        async function removeEvent(eventId, listItem) {
+            if (confirm('Are you sure you want to remove this event?')) {
+                try {
+                    const response = await fetch(`${backendURL}/api/posts/${eventId}`, {
+                        method: 'DELETE'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to remove event');
+                    }
+                    listItem.remove(); //  Remove the item from the list
+                    alert('Event removed successfully');
+                } catch (error) {
+                    console.error('Error removing event:', error);
+                    alert('Error removing event');
+                }
+            }
+        }
+
+        fetchEvents(); //  Load events when the page loads
+    </script>
+</body>
+
+</html>

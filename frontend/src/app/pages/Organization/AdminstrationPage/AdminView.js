@@ -90,6 +90,36 @@ async function initializeAdminView()
             window.location.href = `AddMembers?orgId=${organizationIdString}`;
         });
 
+        const changeRoleButton = document.getElementById('alterRoleButton');
+            changeRoleButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `ManageMembers?orgId=${organizationIdString}`;
+        });
+
+        const viewMembersButton = document.getElementById('viewMembersButton');
+            viewMembersButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `ViewMembers?orgId=${organizationIdString}`;
+        });
+
+        const removeEventButton = document.getElementById('removeEventButton');
+            removeEventButton.addEventListener('click', () => {
+            //ensure organizationId is a string
+            const organizationIdString = 
+            typeof userData.organizationId === 'object' && userData.organizationId !== null
+                ? userData.organizationId._id
+                : userData.organizationId;
+            window.location.href = `DeleteEvents?orgId=${organizationIdString}`;
+        });
+
     }
     catch(error)
     {

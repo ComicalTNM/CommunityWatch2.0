@@ -10,16 +10,17 @@
         <!--Navigation Bar Admin/Member-->
         <nav class="topnav">
             <img src="../../../components/NavBar/imgs/New_CommunityWatch_Logo.png" alt="CommunityWatch Logo" class="logo">
-            <a href="../../../app/pages/Organization/AdminstrationPage/AdminView.html">Home</a>
-            <a href="../../../app/pages/UserPage/MyOrganizations.html">My Organizations</a>
-            <a href="../../../app/pages/ProfilePage/UserProfile.html">Profile</a>
-            <a href="../../../app/pages/HomePage/homepage.html">Volunteer</a>
-            <a href="../../../app/pages/SearchPage/SearchPage.html">Search</a>
+            <a href="MemberView.html">Home</a>
+            <a href="../../UserPage/MyOrganizations.html">My Organizations</a>
+            <a href="../../ProfilePage/UserProfile.html">Profile</a>
+            <a href="../../HomePage/homepage.html">Volunteer</a>
+            <a href="../../SearchPage/SearchPage.html">Search</a>
 </nav>
 
     <!-- Header Section -->
     <header>
-        <h1 id="Organization-title">Organization Title</h1>
+        <h1 id="Organization-title">Member View</h1>
+        <button id="Org-Home-Page">Organization Home Page</button>
     </header>
 
     <!-- Organization Sections -->
@@ -41,14 +42,14 @@
     <section>
         <div class="section-title"><h2>Members</h2></div>
         <br>
-        <button class="edit-member" href=""> View & Edit Member</button>
+        <button class="edit-member" href=""> View Members</button>
     </section>
     <!--Event-->
     <section>
         <div class="section-title"><h2>Event Request</h2></div>
         <br>
         <a href="../../FormPages/CreateSR.html"><button class="add-event"> Add Event</button></a>
-        <button class="edit-event" href=""> Edit Event</button>
+        <!--<button class="edit-event" href=""> Edit Event</button>-->
     </section>
 
      <!--Metrics -->
@@ -75,6 +76,20 @@
                 //Fetch the user data to get the organization id
                 const userResponse = await fetch(`${backendURL}/api/users/${loggedInUserId}`);
                 const userData = await userResponse.json();
+
+                const orgHomePageButton = document.getElementById('Org-Home-Page');
+
+                orgHomePageButton.addEventListener('click', () => {
+                    const organizationIdString = 
+                        typeof userData.organizationId === 'object' && userData.organizationId !== null
+                            ? userData.organizationId._id
+                            : userData.organizationId;
+                    if (organizationIdString) {
+                        window.location.href = `../OrgHomePage?orgId=${organizationIdString}`;
+                    } else {
+                        alert("Organization ID is not available.");
+                    }
+                });
 
                 const organizationDetailsDiv = document.getElementById("organizationDetails");
 
@@ -103,9 +118,6 @@
                             </p>
                         </div>
                     `;
-
-                    const myOrgLink = document.getElementById('myOrgLink');
-                    myOrgLink.href = `../OrgHomePage?orgId=${organizationIdString}`;
                 }
                 else{
                     organizationDetailsDiv.innerHTML = "<p>You are currently not a member of any organization.</p>"
