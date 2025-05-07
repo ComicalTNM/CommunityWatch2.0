@@ -52,6 +52,16 @@ router.get('/role/:role', (async (req: Request, res: Response) => {
     }
 }) as RequestHandler);
 
+router.get('/leaderboard', async (req: Request, res: Response) => {
+    try {
+        const users = await User.find().sort({ points: -1 }).select('username points profilePicture'); // Sort by points descending
+        res.json(users);
+    } catch (error) {
+        console.error('Error fetching leaderboard data:', error);
+        res.status(500).json({ message: 'Error fetching leaderboard data' });
+    }
+});
+
 //Route to get the user details by user ID
 router.get('/:id', async( req: Request, res: Response, next: NextFunction) => {
     try
@@ -343,5 +353,7 @@ router.put('/:userId/role', (async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 }) as RequestHandler);
+
+
 
 export default router;

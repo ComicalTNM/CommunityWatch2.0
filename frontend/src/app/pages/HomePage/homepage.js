@@ -3,6 +3,7 @@
         const totalIframes = 5;
         const visibleIframes = 3;
         const carousel = document.getElementById('carousel');
+        const leaderboard = document.getElementById('leaderboardList');
 
         const positions = [0, 0, 0]; // For each carousel
         const visibleCount = 3;
@@ -218,4 +219,37 @@
             link.textContent = text;
             return link;
          }
+         
+
+        async function fetchLeaderboard() {
+            try {
+                const response = await fetch('http://localhost:5000/api/users/leaderboard'); // Fetch from your API
+                if (!response.ok) {
+                    throw new Error('Failed to fetch leaderboard data');
+                }
+                const users = await response.json();
+                displayLeaderboard(users);
+            } catch (error) {
+                console.error('Error fetching leaderboard:', error);
+                leaderboard.innerHTML = '<li>Error loading leaderboard.</li>';
+            }
+        }
+
+        function displayLeaderboard(users) {
+            leaderboard.innerHTML = ''; // Clear existing list
+
+            users.forEach((user, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'leaderboard-item';
+                listItem.innerHTML = `
+                    <span class="leaderboard-rank">#<span class="math-inline">${index + 1}</span>
+                    <span class="leaderboard-name">${user.username}</span>
+                    <span class="leaderboard-score">${user.points}</span><img src="${user.profilePicture}" alt="${user.username}" class="leaderboard-image">
+                    `;
+                leaderboard.appendChild(listItem);
+            });
+        }
+
+        fetchLeaderboard();
+
           
