@@ -129,5 +129,27 @@ router.post('/registerVolunteer/:eventId', (async (req, res) => {
     }
 }) as RequestHandler)
 
+//  DELETE /api/events/:eventId
+router.delete('/:eventId', (async (req: Request, res: Response) => {
+    try {
+        const { eventId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(eventId)) {
+            return res.status(400).json({ message: 'Invalid event ID' });
+        }
+
+        const deletedEvent = await Post.findByIdAndDelete(eventId);
+
+        if (!deletedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        res.json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        res.status(500).json({ message: 'Error deleting event' });
+    }
+}) as RequestHandler);
+
 export default router;
 console.log("Post Routes File Loaded");

@@ -1,8 +1,10 @@
 // backend/src/controllers/postController.ts
-import { Request, Response } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import Post from '../models/Post';
 import Organization from '../models/Organization';
 import User from '../models/User';
+import mongoose from 'mongoose';
+import { isValidObjectId } from 'mongoose';
 import { DEMO_USER_ID } from '../constants';
 import { IOrganization, IPost } from '@shared/types';
 
@@ -110,24 +112,23 @@ export const getPostById = async (req: Request, res: Response): Promise<void> =>
 };
 
 
-export const getPostsByOrganizationId = async (req: Request, res: Response): Promise<void> => {
+export const getPostsByOrganizationId = (async (req: Request, res: Response) => {
   try {
-    const { organizationId } = req.params;
-    const { limit = 10, isActive } = req.query;
+    const { organizationID } = req.params;
 
-    let query = Post.find({ organizationId });
+    console.log('orgId from request:', organizationID, typeof organizationID);
 
-    const posts = await query
-      .sort({ createdAt: -1 })
-      .limit(Number(limit))
-      .populate({
-        path: 'organization',
-        select: '_id name profileImage description'
-      });
+    if (!isValidObjectId(organizationID)) {
+      return res.status(400).json({ message: 'Invalid organization ID' });
+    }
 
-    res.json(posts);
-  } catch (error) {
-    console.error('Error fetching posts by organization ID:', error);
-    res.status(500).json({ message: 'Error fetching posts', error: error instanceof Error ? error.message : 'Unknown error' });
-  }
-};
+    const events = await Post.find({ organization: organizationID});
+
+    console.log('Found events:', events);
+
+    res.json(events);
+} catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ message: 'Error fetching events' });
+}
+}) as RequestHandler;
